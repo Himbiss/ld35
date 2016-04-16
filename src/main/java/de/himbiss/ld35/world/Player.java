@@ -48,6 +48,5 @@ public class Player extends Entity {
 
     @Override
     public void collideWith(Hitbox object, float deltaX, float deltaY) {
-        System.out.println("Player collided with: " + object);
     }
 }

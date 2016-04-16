@@ -21,8 +21,13 @@ public class Crate extends Entity {
 
     @Override
     public void collideWith(Hitbox object, float deltaX, float deltaY) {
-        coordX += deltaX;
-        coordY += deltaY;
+        this.deltaX += deltaX;
+        this.deltaY += deltaY;
+    }
+
+    @Override
+    public void applyGravity(float gravity) {
+        super.applyGravity(gravity/2);
     }
 
     @Override

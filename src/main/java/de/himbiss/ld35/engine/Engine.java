@@ -94,26 +94,26 @@ public class Engine {
         debugFont.drawString(10f, 30f, "dX,dY: " + world.getPlayer().getDeltaX() + "," + world.getPlayer().getDeltaY(), Color.white);
         debugFont.drawString(10f, 50f, "posX,posY: " + world.getPlayer().getCoordX() + "," + world.getPlayer().getCoordY(), Color.white);
 
-//        for (Entity entity : world.getEntities()) {
-//            Renderable hitbox = new Renderable() {
-//                @Override
-//                public int getWidth() {
-//                    return (int) entity.getHitboxWidth();
-//                }
-//
-//                @Override
-//                public int getHeight() {
-//                    return (int) entity.getHitboxHeight();
-//                }
-//
-//                @Override
-//                public String getTextureKey() {
-//                    return "hitbox";
-//                }
-//            };
+        for (Entity entity : world.getEntities()) {
+            Renderable hitbox = new Renderable() {
+                @Override
+                public int getWidth() {
+                    return (int) entity.getHitboxWidth();
+                }
 
-//            renderObject(hitbox, entity.getHitBoxCoordX(), entity.getHitBoxCoordY());
-//        }
+                @Override
+                public int getHeight() {
+                    return (int) entity.getHitboxHeight();
+                }
+
+                @Override
+                public String getTextureKey() {
+                    return "hitbox";
+                }
+            };
+
+            renderObject(hitbox, entity.getHitBoxCoordX(), entity.getHitBoxCoordY());
+        }
     }
 
     private void calculatePhysics() {
@@ -128,8 +128,8 @@ public class Engine {
         }
 
         for (Entity entity : entities) {
-            entity.setCoordX(entity.getCoordX() + entity.getDeltaX());
-            entity.setCoordY(entity.getCoordY() + entity.getDeltaY());
+            entity.setCoordX((entity.getCoordX() - offsetX) + entity.getDeltaX());
+            entity.setCoordY((entity.getCoordY() - offsetY) + entity.getDeltaY());
 
             entity.applyGravity(1f);
         }
@@ -188,26 +188,22 @@ public class Engine {
         if (coordX < distanceLeft) {
             float dX = distanceLeft - coordX;
             offsetX += dX;
-            player.setCoordX(distanceLeft - offsetX);
-            player.setDeltas(0f, 0f);
+            player.setCoordX((distanceLeft - offsetX) + 1);
         }
         if (coordX > distanceRight) {
             float dX = coordX - distanceRight;
             offsetX -= dX;
-            player.setCoordX(distanceRight - offsetX);
-            player.setDeltas(0f, 0f);
+            player.setCoordX((distanceRight - offsetX) - 1);
         }
         if (coordY < distanceUp) {
             float dY = distanceUp - coordY;
             offsetY += dY;
-            player.setCoordY(distanceUp - offsetY);
-            player.setDeltas(0f, 0f);
+            player.setCoordY((distanceUp - offsetY) + 1);
         }
         if (coordY > distanceDown) {
             float dY = coordY - distanceDown;
             offsetY -= dY;
-            player.setCoordY(distanceDown - offsetY);
-            player.setDeltas(0f, 0f);
+            player.setCoordY((distanceDown - offsetY) - 1);
         }
     }
 
