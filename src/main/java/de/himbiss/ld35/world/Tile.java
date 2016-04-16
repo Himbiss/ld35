@@ -8,6 +8,14 @@ import org.newdawn.slick.opengl.Texture;
  */
 public abstract class Tile implements Renderable {
     public static int TILE_SIZE = 5;
+
+    public static Tile TILE_VOID = new Tile() {
+        @Override
+        public String getTextureKey() {
+            return "void";
+        }
+    };
+
     protected String textureKey;
 
     public Tile() {
