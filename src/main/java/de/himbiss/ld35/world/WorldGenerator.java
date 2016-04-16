@@ -12,6 +12,8 @@ import java.util.List;
 import java.util.Random;
 
 import static java.lang.Math.abs;
+import static java.lang.Math.max;
+import static java.lang.Math.min;
 
 public class WorldGenerator {
 
@@ -27,10 +29,10 @@ public class WorldGenerator {
             RoomStrukt r = new RoomStrukt();
             z = rnd.nextInt();
             z = abs(z);
-            r.width = (z%scale)+1;
+            r.width = (z%scale)+3;
             z = rnd.nextInt();
             z = abs(z);
-            r.height = (z%scale)+1;
+            r.height = (z%scale)+3;
             z = rnd.nextInt();
             z = abs(z);
             r.posx = (z%spread-spread/2-1);
@@ -40,6 +42,7 @@ public class WorldGenerator {
             roomStruktList.add(r);
         }
 
+        List<RoomStrukt> deleteList = new ArrayList<RoomStrukt>();
 
         int sx = 0;
         int sy = 0;
@@ -53,7 +56,8 @@ public class WorldGenerator {
         sx /= count;
         sy /= count;
 
-        List<RoomStrukt> deleteList = new ArrayList<RoomStrukt>();
+        sx *=1.25;
+        sy *=1.25;
 
         for (RoomStrukt r:roomStruktList){
             if(r.width < sx || r.height < sy){
@@ -64,6 +68,7 @@ public class WorldGenerator {
         for(RoomStrukt r: deleteList){
             roomStruktList.remove(r);
         }
+
 
         while(hasCollision(roomStruktList));
         System.out.println("done shifting");
@@ -85,9 +90,13 @@ public class WorldGenerator {
             r.posy += abs(miny) +1;
         }
 
+
         for(RoomStrukt r: roomStruktList){
             System.out.println(toText(r));
         }
+
+
+
         World w = new World(world_x,world_y);
         for(RoomStrukt r: roomStruktList){
             for(int rx = 0;rx<r.width;rx++){
@@ -100,6 +109,24 @@ public class WorldGenerator {
                 }
             }
         }
+
+        List<Graph_Edge> graph_edgeList = MinSpannTree.span(roomStruktList);
+
+        for(Graph_Edge e:graph_edgeList){
+            RoomStrukt r1 = roomStruktList.get(e.p1);
+            RoomStrukt r2 = roomStruktList.get(e.p2);
+            int minX = min(r1.midX(),r2.midX());
+            int maxX = max(r1.midX(),r2.midX());
+            int minY = min(r1.midY(),r2.midY());
+            int maxY = max(r1.midY(),r2.midY());
+            for(int xx = minX; xx <= maxX; xx++){
+                w.setTile(xx,minY,new Tile_Corridor());
+            }
+            for(int yy = minY; yy <= maxY; yy++){
+                w.setTile(maxX,yy,new Tile_Corridor());
+            }
+        }
+
 
         return w;
     }
@@ -175,6 +202,7 @@ public class WorldGenerator {
         if(e1.p2 == e2.p1 && e1.p1 == e2.p2) return true;
         return false;
     }
+
 
 
 }
