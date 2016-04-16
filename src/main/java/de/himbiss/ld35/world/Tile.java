@@ -7,7 +7,7 @@ import org.newdawn.slick.opengl.Texture;
  * Created by Oneidavar on 16/04/2016.
  */
 public abstract class Tile implements Renderable {
-    public static int TILE_SIZE = 10;
+    public static int TILE_SIZE = 5;
 
     public static Tile TILE_VOID = new Tile() {
         @Override

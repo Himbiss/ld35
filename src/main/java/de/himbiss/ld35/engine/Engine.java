@@ -32,8 +32,8 @@ public class Engine {
     private TrueTypeFont debugFont;
 
     private Engine() {
-        this.displayMode = new DisplayMode(800, 600);
-    }
+        this.displayMode = new DisplayMode(1024, 768);
+    }//DisplayMode(800, 600);}
 
     public static Engine getInstance() {
         if (instance == null) {
