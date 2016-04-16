@@ -14,7 +14,8 @@ import org.newdawn.slick.opengl.Texture;
  */
 public class Engine {
 
-    private final int SCROLLING_DISTANCE = 150;
+    private final float SCROLLING_DISTANCE_VERTICAL = 100f;
+    private final float SCROLLING_DISTANCE_HORIZONTAL = 150f;
     private static Engine instance;
 
     private World world;
@@ -77,6 +78,7 @@ public class Engine {
             renderWorld();
             scrollWorld();
 
+            Display.sync(60);
             Display.update();
 
             world.updateWorld();
@@ -89,6 +91,34 @@ public class Engine {
     private void scrollWorld() {
         Entity player = world.getPlayer();
 
+        float distanceLeft = SCROLLING_DISTANCE_HORIZONTAL;
+        float distanceRight = (displayMode.getWidth() - SCROLLING_DISTANCE_HORIZONTAL) - player.getWidth();
+        float distanceUp = SCROLLING_DISTANCE_VERTICAL;
+        float distanceDown = (displayMode.getHeight() - SCROLLING_DISTANCE_VERTICAL) - player.getHeight();
+
+        float coordX = player.getCoordX();
+        float coordY = player.getCoordY();
+
+        if (coordX < distanceLeft) {
+            float dX = distanceLeft - coordX;
+            offsetX += dX;
+            player.setCoordX(distanceLeft);
+        }
+        if (coordX > distanceRight) {
+            float dX = coordX - distanceRight;
+            offsetX -= dX;
+            player.setCoordX(distanceRight);
+        }
+        if (coordY < distanceUp) {
+            float dY = distanceUp - coordY;
+            offsetY += dY;
+            player.setCoordY(distanceUp);
+        }
+        if (coordY > distanceDown) {
+            float dY = coordY - distanceDown;
+            offsetY -= dY;
+            player.setCoordY(distanceDown);
+        }
     }
 
     public DisplayMode getDisplayMode() {
@@ -99,7 +129,9 @@ public class Engine {
         for (int i = 0; i < world.getSizeX(); i++) {
             for (int j = 0; j < world.getSizeY(); j++) {
                 Tile tile = world.getWorldArray()[i][j];
-                renderObject(tile, i * tile.getWidth(), j * tile.getHeight());
+                float posX = offsetX + (i * tile.getWidth());
+                float posY = offsetY + (j * tile.getHeight());
+                renderObject(tile, posX, posY);
             }
         }
         for (Entity entity : world.getEntities()) {

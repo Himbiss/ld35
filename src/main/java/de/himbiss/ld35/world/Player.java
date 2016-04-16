@@ -15,7 +15,7 @@ public class Player extends Entity {
     public Player() {
         width = 50;
         height = 100;
-        speed = 0.2f;
+        speed = 3f;
         coordX =  (Engine.getInstance().getDisplayMode().getWidth() / 2) - (width / 2);
         coordY =  (Engine.getInstance().getDisplayMode().getHeight() / 2) - (height / 2);
     }

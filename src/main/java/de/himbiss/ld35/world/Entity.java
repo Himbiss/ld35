@@ -34,4 +34,12 @@ public abstract class Entity implements Renderable, Updatable {
     public String getTextureKey() {
         return "dummy";
     }
+
+    public void setCoordX(float coordX) {
+        this.coordX = coordX;
+    }
+
+    public void setCoordY(float coordY) {
+        this.coordY = coordY;
+    }
 }
