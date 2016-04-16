@@ -82,7 +82,7 @@ public class Delauney_Graph {
         for(Graph_Edge ed:list) {
             if (!same(e, ed)) {
                 if(e.p2 == ed.p1 || e.p2 == ed.p2){
-                    if(dist_square(e,roomlist) >= dist_square(ed,roomlist)) {
+                    if(dist_square(e,roomlist) > dist_square(ed,roomlist)) {
                         k2 = true;
                         break;
                     }

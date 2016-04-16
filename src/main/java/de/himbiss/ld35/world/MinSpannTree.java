@@ -1,7 +1,11 @@
 package de.himbiss.ld35.world;
 
+import java.awt.geom.Line2D;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+
+import static java.lang.Math.abs;
 
 /**
  * Created by Oneidavar on 16/04/2016.
@@ -24,6 +28,7 @@ public class MinSpannTree {
 
         for(int v = 0; v<roomlist.size(); v++)
             if(!marked[v]) prim(roomlist, v);
+        
 
         return mst;
         //return delauney;
@@ -72,5 +77,9 @@ public class MinSpannTree {
         }
         return list;
     }
-
+    public static boolean scheiden(Graph_Edge e1, Graph_Edge e2, List<RoomStrukt> list){
+        Line2D line1 = new Line2D.Float(list.get(e1.p1).midX(),list.get(e1.p1).midY(),list.get(e1.p2).midX(),list.get(e1.p2).midY());
+        Line2D line2 = new Line2D.Float(list.get(e2.p1).midX(),list.get(e2.p1).midY(),list.get(e2.p2).midX(),list.get(e2.p2).midY());
+        return line1.intersectsLine(line2);
+    }
 }
