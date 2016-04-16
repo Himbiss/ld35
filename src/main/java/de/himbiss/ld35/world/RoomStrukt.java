@@ -8,4 +8,12 @@ public class RoomStrukt{
     public int height;
     public int posx;
     public int posy;
+
+    public int midX(){
+        return (2*posx+width)/2;
+    }
+
+    public int midY(){
+        return (2*posy+height)/2;
+    }
 }
