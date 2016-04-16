@@ -12,15 +12,12 @@ public class World {
     private final int sizeY;
     private final Tile[][] worldArray;
     private final Set<Entity> entities;
-    private final Player player;
 
     public World(int sizeX, int sizeY) {
         this.sizeX = sizeX;
         this.sizeY = sizeY;
         this.worldArray = new Tile[sizeX][sizeY];
         this.entities = new HashSet<Entity>();
-        this.player = new Player();
-        entities.add(player);
         initArray();
     }
 
