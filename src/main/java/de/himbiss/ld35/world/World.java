@@ -6,7 +6,7 @@ import java.util.Set;
 /**
  * Created by Oneidavar on 16/04/2016.
  */
-public class World {
+public class World implements Updatable {
 
     private final int sizeX;
     private final int sizeY;
@@ -24,9 +24,9 @@ public class World {
         initArray();
     }
 
-    public void updateWorld(int delta) {
+    public void update(int delta) {
         // TODO: 16.04.2016 implement!
-        player.update();
+        player.update(delta);
     }
 
     public Player getPlayer() {

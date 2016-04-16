@@ -15,7 +15,7 @@ public class Player extends Entity {
     public Player() {
         width = 50;
         height = 100;
-        speed = 3f;
+        speed = .5f;
         coordX =  (Engine.getInstance().getDisplayMode().getWidth() / 2) - (width / 2);
         coordY =  (Engine.getInstance().getDisplayMode().getHeight() / 2) - (height / 2);
     }
@@ -24,18 +24,18 @@ public class Player extends Entity {
         return "dummy";
     }
 
-    public void update() {
+    public void update(int delta) {
         if (Keyboard.isKeyDown(Keyboard.KEY_A)) {
-            coordX -= speed;
+            coordX -= speed * delta;
         }
         if (Keyboard.isKeyDown(Keyboard.KEY_D)) {
-            coordX += speed;
+            coordX += speed * delta;
         }
         if (Keyboard.isKeyDown(Keyboard.KEY_S)) {
-            coordY += speed;
+            coordY += speed * delta;
         }
         if (Keyboard.isKeyDown(Keyboard.KEY_W)) {
-            coordY -= speed;
+            coordY -= speed * delta;
         }
     }
 }
