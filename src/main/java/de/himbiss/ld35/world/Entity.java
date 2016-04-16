@@ -3,7 +3,7 @@ package de.himbiss.ld35.world;
 /**
  * Created by Vincent on 16.04.2016.
  */
-public class Entity {
+public abstract class Entity {
 
     private float coordX;
     private float coordY;
@@ -20,4 +20,5 @@ public class Entity {
     public float getCoordY() {
         return coordY;
     }
+
 }
