@@ -62,7 +62,7 @@ public class MinSpannTree {
     private static int dist_square(Graph_Edge e, List<RoomStrukt> roomStruktList){
         RoomStrukt r1 = roomStruktList.get(e.p1);
         RoomStrukt r2 = roomStruktList.get(e.p2);
-        return  (r1.midX()-r2.midX())*(r1.midX()-r2.midX())+(r1.midY()-r2.midY())*(r1.midY()-r2.midY());
+        return  (int)Math.sqrt((r1.midX()-r2.midX())*(r1.midX()-r2.midX())+(r1.midY()-r2.midY())*(r1.midY()-r2.midY()));
     }
 
     private static List<Graph_Edge> adj(int i){

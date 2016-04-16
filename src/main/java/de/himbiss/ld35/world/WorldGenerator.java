@@ -19,6 +19,7 @@ public class WorldGenerator {
 
 
     public static World generate(int spread, int scale, int seed){
+        System.out.println("SEED: " + seed);
         Random rnd = new Random(seed);
         int world_x = 0;
         int world_y = 0;
@@ -98,50 +99,102 @@ public class WorldGenerator {
 
         World w = new World(world_x,world_y);
         for(RoomStrukt r: roomStruktList){
-
             for(int rx = 0;rx<r.width;rx++){
                 for(int ry = 0;ry<r.height;ry++){
-                    if(r.midX() == rx+r.posx && r.midY() == ry+r.posy){
+                    //if(r.midX() == rx+r.posx && r.midY() == ry+r.posy){
 
-                        w.setTile(r.posx+rx, r.posy+ry,new Tile_Corridor());
-                    } else
+                    //    w.setTile(r.posx+rx, r.posy+ry,new Tile_Corridor());
+                    //} else
 
                     w.setTile(r.posx+rx, r.posy+ry,new Tile_Floor());
                 }
             }
         }
-
         List<Graph_Edge> graph_edgeList = MinSpannTree.span(roomStruktList);
         for(Graph_Edge e:graph_edgeList){
+
             RoomStrukt r1 = roomStruktList.get(e.p1);
             RoomStrukt r2 = roomStruktList.get(e.p2);
             if(r1.midX() < r2.midX()){
                 if(r1.midY()<r2.midY()){
                     if(abs(r1.midX()-r2.midX())<abs(r1.midY()-r2.midY())){
-                        for(int i = 0; i < abs(r1.midY()-r2.midY());i++){
-                            int d = abs(r1.midX()-r2.midX());
-                            d = (d*i)/abs(r1.midY()-r2.midY());
-                            w.setTile(r1.midX()+d,r1.midY()+i,new Tile_Corridor());
+                        int u = (r1.posy+r1.height);
+                        int l = (r2.posy);
+                        int d = (l-u)/2+u;
+                        for(int i = u;i<=d;i++){
+                            w.setTile(r1.midX()-1,i,new Tile_Corridor());
+                            w.setTile(r1.midX(),i,new Tile_Corridor());
+                            w.setTile(r1.midX()+1,i,new Tile_Corridor());
+                        }
+                        for(int i = r1.midX()-1;i<r2.midX()+2;i++){
+                            w.setTile(i,d-1,new Tile_Corridor());
+                            w.setTile(i,d,new Tile_Corridor());
+                            w.setTile(i,d+1,new Tile_Corridor());
+                        }
+                        for(int i = d;i<l;i++){
+                            w.setTile(r2.midX()-1,i,new Tile_Corridor());
+                            w.setTile(r2.midX(),i,new Tile_Corridor());
+                            w.setTile(r2.midX()+1,i,new Tile_Corridor());
                         }
                     } else {
-                        for(int i = 0; i < abs(r1.midX()-r2.midX());i++){
-                            int d = abs(r1.midY()-r2.midY());
-                            d = (d*i)/abs(r1.midX()-r2.midX());
-                            w.setTile(r1.midX()+i,r1.midY()+d,new Tile_Corridor());
+                        int u = (r1.posx+r1.width);
+                        int l = (r2.posx);
+                        int d = (l-u)/2+u;
+
+                        for(int i = u;i<=d;i++){
+                            w.setTile(i,r1.midY()-1,new Tile_Corridor());
+                            w.setTile(i,r1.midY(),new Tile_Corridor());
+                            w.setTile(i,r1.midY()+1,new Tile_Corridor());
+                        }
+                        for(int i = r1.midY()-1;i<r2.midY()+2;i++) {
+                            w.setTile(d-1,i,new Tile_Corridor());
+                            w.setTile(d,i,new Tile_Corridor());
+                            w.setTile(d+1,i,new Tile_Corridor());
+                        }
+                        for(int i = d;i<l;i++){
+                            w.setTile(i,r2.midY()-1,new Tile_Corridor());
+                            w.setTile(i,r2.midY(),new Tile_Corridor());
+                            w.setTile(i,r2.midY()+1,new Tile_Corridor());
                         }
                     }
                 } else {
                     if(abs(r1.midX()-r2.midX())<abs(r1.midY()-r2.midY())){
-                        for(int i = 0; i < abs(r1.midY()-r2.midY());i++){
-                            int d = abs(r1.midX()-r2.midX());
-                            d = (d*i)/abs(r1.midY()-r2.midY());
-                            w.setTile(r1.midX()+d,r1.midY()-i,new Tile_Corridor());
+                        int u = (r2.posy+r2.height);
+                        int l = (r1.posy);
+                        int d = (l-u)/2+u;
+                        for(int i = u;i<=d;i++){
+                            w.setTile(r2.midX()-1,i,new Tile_Corridor());
+                            w.setTile(r2.midX(),i,new Tile_Corridor());
+                            w.setTile(r2.midX()+1,i,new Tile_Corridor());
+                        }
+                        for(int i = r1.midX()-1;i<r2.midX()+2;i++){
+                            w.setTile(i,d-1,new Tile_Corridor());
+                            w.setTile(i,d,new Tile_Corridor());
+                            w.setTile(i,d+1,new Tile_Corridor());
+                        }
+                        for(int i = d;i<l;i++){
+                            w.setTile(r1.midX()-1,i,new Tile_Corridor());
+                            w.setTile(r1.midX(),i,new Tile_Corridor());
+                            w.setTile(r1.midX()+1,i,new Tile_Corridor());
                         }
                     } else {
-                        for(int i = 0; i < abs(r1.midX()-r2.midX());i++){
-                            int d = abs(r1.midY()-r2.midY());
-                            d = (d*i)/abs(r1.midX()-r2.midX());
-                            w.setTile(r1.midX()+i,r1.midY()-d,new Tile_Corridor());
+                        int u = (r2.posx+r2.width);
+                        int l = (r1.posx);
+                        int d = (l-u)/2+u;
+                        for(int i = u;i<=d;i++){
+                            w.setTile(i,r2.midX()-1,new Tile_Corridor());
+                            w.setTile(i,r2.midX(),new Tile_Wall());
+                            w.setTile(i,r2.midX()+1,new Tile_Corridor());
+                        }
+                        for(int i = r1.midX()-1;i<r2.midX()+2;i++){
+                            w.setTile(d-1,i,new Tile_Corridor());
+                            w.setTile(d,i,new Tile_Wall());
+                            w.setTile(d+1,i,new Tile_Corridor());
+                        }
+                        for(int i = d;i<l;i++){
+                            w.setTile(i,r1.midX()-1,new Tile_Corridor());
+                            w.setTile(i,r1.midX(),new Tile_Wall());
+                            w.setTile(i,r1.midX()+1,new Tile_Corridor());
                         }
                     }
                 }
@@ -178,12 +231,49 @@ public class WorldGenerator {
             }
         }
 
-
+        for(int i = 0; i<w.getSizeX();i++){
+            for(int j = 0; j<w.getSizeY();j++){
+                if(w.getWorldArray()[i][j].textureKey=="void"){
+                    if(i+1<w.getSizeX() && w.getWorldArray()[i+1][j].textureKey!="void" && w.getWorldArray()[i+1][j].textureKey!="wall") {
+                        w.setTile(i, j, new Tile_Wall());
+                        continue;
+                    }
+                    if(i-1>=0 && w.getWorldArray()[i-1][j].textureKey!="void"&& w.getWorldArray()[i-1][j].textureKey!="wall") {
+                        w.setTile(i, j, new Tile_Wall());
+                        continue;
+                    }
+                    if(j+1<w.getSizeY() && w.getWorldArray()[i][j+1].textureKey!="void"&& w.getWorldArray()[i][j+1].textureKey!="wall") {
+                        w.setTile(i, j, new Tile_Wall());
+                        continue;
+                    }
+                    if(j-1>=0 && w.getWorldArray()[i][j-1].textureKey!="void"&& w.getWorldArray()[i][j-1].textureKey!="wall") {
+                        w.setTile(i, j, new Tile_Wall());
+                        continue;
+                    }
+                    if(i+1<w.getSizeX() && j+1<w.getSizeY() && w.getWorldArray()[i+1][j+1].textureKey!="void" && w.getWorldArray()[i+1][j+1].textureKey!="wall") {
+                        w.setTile(i, j, new Tile_Wall());
+                        continue;
+                    }
+                    if(i-1>=0 && j+1<w.getSizeY() &&  w.getWorldArray()[i-1][j+1].textureKey!="void"&& w.getWorldArray()[i-1][j+1].textureKey!="wall") {
+                        w.setTile(i, j, new Tile_Wall());
+                        continue;
+                    }
+                    if(i+1<w.getSizeX() && j-1>=0 &&  w.getWorldArray()[i+1][j-1].textureKey!="void"&& w.getWorldArray()[i+1][j-1].textureKey!="wall") {
+                        w.setTile(i, j, new Tile_Wall());
+                        continue;
+                    }
+                    if(i-1>=0 && j-1>=0 && w.getWorldArray()[i-1][j-1].textureKey!="void"&& w.getWorldArray()[i-1][j-1].textureKey!="wall") {
+                        w.setTile(i, j, new Tile_Wall());
+                        continue;
+                    }
+                }
+            }
+        }
         return w;
     }
 
     public static boolean hasCollision(List<RoomStrukt> list, int seed){
-        int offset = 5;
+        int offset = 6;
         for (RoomStrukt r1:list){
             for(RoomStrukt r2:list){
                 if(r1!=r2){

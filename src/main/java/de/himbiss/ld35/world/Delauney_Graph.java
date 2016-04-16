@@ -1,5 +1,7 @@
 package de.himbiss.ld35.world;
 
+import com.sun.corba.se.impl.orbutil.graph.Graph;
+
 import java.awt.*;
 import java.awt.geom.Line2D;
 import java.util.ArrayList;
@@ -51,18 +53,43 @@ public class Delauney_Graph {
                 //System.out.println(dist_square(e,roomlist) + " - " + dist_square(ed,roomlist));
                 if(dist_square(e,roomlist) < dist_square(ed,roomlist)){
                     deletelist.add(ed);
-
                 }
             }
         }
 
         for(Graph_Edge ed:deletelist){
-            list.remove(ed);
+            if(stillconnected(list,ed,roomlist)) list.remove(ed);
         }
 
         list.add(e);
 
 
+    }
+
+    public static boolean stillconnected(List<Graph_Edge> list, Graph_Edge e, List<RoomStrukt> roomlist){
+        boolean k1 = false;
+        boolean k2 = false;
+        for(Graph_Edge ed:list) {
+            if (!same(e, ed)) {
+                if(e.p1 == ed.p1 || e.p1 == ed.p2){
+                    if(dist_square(e,roomlist) >= dist_square(ed,roomlist)) {
+                        k1 = true;
+                        break;
+                    }
+                }
+            }
+        }
+        for(Graph_Edge ed:list) {
+            if (!same(e, ed)) {
+                if(e.p2 == ed.p1 || e.p2 == ed.p2){
+                    if(dist_square(e,roomlist) >= dist_square(ed,roomlist)) {
+                        k2 = true;
+                        break;
+                    }
+                }
+            }
+        }
+        return k1 && k2;
     }
 
     public static boolean same(Graph_Edge e1, Graph_Edge e2){
@@ -112,6 +139,6 @@ public class Delauney_Graph {
     private static int dist_square(Graph_Edge e, List<RoomStrukt> roomStruktList){
         RoomStrukt r1 = roomStruktList.get(e.p1);
         RoomStrukt r2 = roomStruktList.get(e.p2);
-        return  (r1.midX()-r2.midX())*(r1.midX()-r2.midX())+(r1.midY()-r2.midY())*(r1.midY()-r2.midY());
+        return  (int)Math.sqrt((r1.midX()-r2.midX())*(r1.midX()-r2.midX())+(r1.midY()-r2.midY())*(r1.midY()-r2.midY()));
     }
 }
