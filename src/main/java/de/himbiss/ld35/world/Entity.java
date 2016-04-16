@@ -1,16 +1,18 @@
 package de.himbiss.ld35.world;
 
+import de.himbiss.ld35.engine.Renderable;
+
 /**
  * Created by Vincent on 16.04.2016.
  */
-public abstract class Entity {
+public abstract class Entity implements Renderable, Updatable {
 
-    private float coordX;
-    private float coordY;
+    protected float coordX;
+    protected float coordY;
+    protected int height;
+    protected int width;
 
     public Entity() {
-        this.coordX = 0f;
-        this.coordY = 0f;
     }
 
     public float getCoordX() {
@@ -21,4 +23,15 @@ public abstract class Entity {
         return coordY;
     }
 
+    public int getHeight() {
+        return height;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public String getTextureKey() {
+        return "dummy";
+    }
 }

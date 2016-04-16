@@ -10,7 +10,7 @@ public class Main {
 
         public static void main(String[] argv) {
             World world = new World(100, 100);
-            Engine engine = new Engine(world);
-            engine.start();
+            Engine.getInstance().setWorld(world);
+            Engine.getInstance().start();
         }
 }

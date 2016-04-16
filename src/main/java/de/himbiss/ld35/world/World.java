@@ -26,6 +26,11 @@ public class World {
 
     public void updateWorld() {
         // TODO: 16.04.2016 implement!
+        player.update();
+    }
+
+    public Player getPlayer() {
+        return player;
     }
 
     public Tile[][] getWorldArray() {

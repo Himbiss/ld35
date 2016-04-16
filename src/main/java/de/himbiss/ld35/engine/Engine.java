@@ -8,21 +8,43 @@ import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.opengl.Texture;
-import org.newdawn.slick.util.ResourceLoader;
 
 /**
  * Created by Vincent on 16.04.2016.
  */
 public class Engine {
-    private final World world;
 
-    public Engine(World world) {
+    private final int SCROLLING_DISTANCE = 150;
+    private static Engine instance;
+
+    private World world;
+    private DisplayMode displayMode;
+
+    private float offsetX = 0f;
+    private float offsetY = 0f;
+
+    private Engine() {
+        this.displayMode = new DisplayMode(800, 600);
+    }
+
+    public static Engine getInstance() {
+        if (instance == null) {
+            instance = new Engine();
+        }
+        return instance;
+    }
+
+    public void setWorld(World world) {
         this.world = world;
     }
 
     public void start() {
+        if (world == null) {
+            throw new IllegalStateException("a world has to be set first!");
+        }
+
         try {
-            Display.setDisplayMode(new DisplayMode(800,600));
+            Display.setDisplayMode(displayMode);
             Display.create();
         } catch (LWJGLException e) {
             e.printStackTrace();
@@ -52,10 +74,8 @@ public class Engine {
             //TODO Implement FPS Counter
             //System.out.println(1000000/elapsed);
 
-
-
-
             renderWorld();
+            scrollWorld();
 
             Display.update();
 
@@ -66,45 +86,47 @@ public class Engine {
         Display.destroy();
     }
 
+    private void scrollWorld() {
+        Entity player = world.getPlayer();
+
+    }
+
+    public DisplayMode getDisplayMode() {
+        return displayMode;
+    }
+
     private void renderWorld() {
         for (int i = 0; i < world.getSizeX(); i++) {
             for (int j = 0; j < world.getSizeY(); j++) {
                 Tile tile = world.getWorldArray()[i][j];
-                renderTile(tile, i, j);
+                renderObject(tile, i * tile.getWidth(), j * tile.getHeight());
             }
         }
         for (Entity entity : world.getEntities()) {
-            renderEntity(entity);
+            renderObject(entity, entity.getCoordX(), entity.getCoordY());
         }
     }
 
-    private void renderEntity(Entity entity) {
-        // TODO: 16.04.2016 implement!
-    }
+    private void renderObject(Renderable object,float posX, float posY) {
 
-    private void renderTile(Tile tile, int i, int j) {
-
-        Texture texture = ResourceManager.getInstance().getTexture(tile.getTextureKey());
+        Texture texture = ResourceManager.getInstance().getTexture(object.getTextureKey());
         texture.bind();
 
         // draw quad
         GL11.glBegin(GL11.GL_QUADS);
-
-        float posX = i * Tile.TILE_SIZE;
-        float posY = j * Tile.TILE_SIZE;
 
         // upper left
         GL11.glTexCoord2f(0, 0);
         GL11.glVertex2f(posX, posY);
         // upper right
         GL11.glTexCoord2f(1, 0);
-        GL11.glVertex2f(posX + Tile.TILE_SIZE, posY);
+        GL11.glVertex2f(posX + object.getWidth(), posY);
         // lower right
         GL11.glTexCoord2f(1, 1);
-        GL11.glVertex2f(posX + Tile.TILE_SIZE, posY + Tile.TILE_SIZE);
+        GL11.glVertex2f(posX + object.getWidth(), posY + object.getHeight());
         // lower left
         GL11.glTexCoord2f(0, 1);
-        GL11.glVertex2f(posX, posY + Tile.TILE_SIZE);
+        GL11.glVertex2f(posX, posY + object.getHeight());
 
         GL11.glEnd();
     }
