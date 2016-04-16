@@ -67,7 +67,7 @@ public class Engine {
             Display.sync(60);
             Display.update();
 
-            world.updateWorld(delta);
+            world.update(delta);
             updateFPS();
         }
 
