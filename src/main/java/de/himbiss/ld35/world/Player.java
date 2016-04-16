@@ -32,10 +32,10 @@ public class Player extends Entity {
             coordX += speed;
         }
         if (Keyboard.isKeyDown(Keyboard.KEY_S)) {
-            coordY -= speed;
+            coordY += speed;
         }
         if (Keyboard.isKeyDown(Keyboard.KEY_W)) {
-            coordY += speed;
+            coordY -= speed;
         }
     }
 }

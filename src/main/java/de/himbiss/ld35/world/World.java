@@ -24,7 +24,7 @@ public class World {
         initArray();
     }
 
-    public void updateWorld() {
+    public void updateWorld(int delta) {
         // TODO: 16.04.2016 implement!
         player.update();
     }

@@ -4,9 +4,12 @@ import de.himbiss.ld35.world.Entity;
 import de.himbiss.ld35.world.Tile;
 import de.himbiss.ld35.world.World;
 import org.lwjgl.LWJGLException;
+import org.lwjgl.Sys;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.opengl.GL11;
+import org.newdawn.slick.Color;
+import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.opengl.Texture;
 
 /**
@@ -14,8 +17,6 @@ import org.newdawn.slick.opengl.Texture;
  */
 public class Engine {
 
-    private final float SCROLLING_DISTANCE_VERTICAL = 100f;
-    private final float SCROLLING_DISTANCE_HORIZONTAL = 150f;
     private static Engine instance;
 
     private World world;
@@ -23,6 +24,12 @@ public class Engine {
 
     private float offsetX = 0f;
     private float offsetY = 0f;
+
+    private long lastFrame;
+    private int fps;
+    private long lastFPS;
+    private int realFPS;
+    private TrueTypeFont debugFont;
 
     private Engine() {
         this.displayMode = new DisplayMode(800, 600);
@@ -44,57 +51,72 @@ public class Engine {
             throw new IllegalStateException("a world has to be set first!");
         }
 
-        try {
-            Display.setDisplayMode(displayMode);
-            Display.create();
-        } catch (LWJGLException e) {
-            e.printStackTrace();
-            System.exit(0);
-        }
-
-        // init OpenGL
-        GL11.glMatrixMode(GL11.GL_PROJECTION);
-        GL11.glLoadIdentity();
-        GL11.glOrtho(0, 800, 0, 600, 1, -1);
-        GL11.glMatrixMode(GL11.GL_MODELVIEW);
-        GL11.glEnable(GL11.GL_TEXTURE_2D);
-        long start;
-        long elapsed = 1;
-
-        Texture texture = ResourceManager.getInstance().getTexture("crate");
+        initGL();
+        getDelta(); // call once before loop to initialise lastFrame
+        lastFPS = getTime(); // call before loop to initialise fps timer
 
         while (!Display.isCloseRequested()) {
-            start = System.nanoTime();
+            int delta = getDelta();
             // Clear the screen and depth buffer
             GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
-
-            texture.bind();
-            // set the color of the quad (R,G,B,A)
-            //GL11.glColor3f(0.5f,0.5f,1.0f);
-
-            //TODO Implement FPS Counter
-            //System.out.println(1000000/elapsed);
 
             renderWorld();
             scrollWorld();
 
+            debugFont.drawString(10f, 10f, "fps: " + realFPS, Color.white);
             Display.sync(60);
             Display.update();
 
-            world.updateWorld();
-            elapsed = System.nanoTime() - start;
+            world.updateWorld(delta);
+            updateFPS();
         }
 
         Display.destroy();
     }
 
+    private void initGL() {
+        try {
+            Display.setDisplayMode(displayMode);
+            Display.create();
+            Display.setTitle("Ludum Dare 35");
+            Display.setVSyncEnabled(true);
+        } catch (LWJGLException e) {
+            e.printStackTrace();
+            System.exit(0);
+        }
+
+        GL11.glEnable(GL11.GL_TEXTURE_2D);
+        GL11.glShadeModel(GL11.GL_SMOOTH);
+        GL11.glDisable(GL11.GL_DEPTH_TEST);
+        GL11.glDisable(GL11.GL_LIGHTING);
+
+        GL11.glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+        GL11.glClearDepth(1);
+
+        GL11.glEnable(GL11.GL_BLEND);
+        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+
+        GL11.glViewport(0,0,displayMode.getWidth(),displayMode.getHeight());
+        GL11.glMatrixMode(GL11.GL_MODELVIEW);
+
+        GL11.glMatrixMode(GL11.GL_PROJECTION);
+        GL11.glLoadIdentity();
+        GL11.glOrtho(0, displayMode.getWidth(), displayMode.getHeight(), 0, 1, -1);
+        GL11.glMatrixMode(GL11.GL_MODELVIEW);
+
+        this.debugFont = ResourceManager.getInstance().getFont("plasmati");
+    }
+
     private void scrollWorld() {
         Entity player = world.getPlayer();
 
-        float distanceLeft = SCROLLING_DISTANCE_HORIZONTAL;
-        float distanceRight = (displayMode.getWidth() - SCROLLING_DISTANCE_HORIZONTAL) - player.getWidth();
-        float distanceUp = SCROLLING_DISTANCE_VERTICAL;
-        float distanceDown = (displayMode.getHeight() - SCROLLING_DISTANCE_VERTICAL) - player.getHeight();
+        float scrollingDistVertical = 100f;
+        float scrollingDistHorizontal = 150f;
+
+        float distanceLeft = scrollingDistHorizontal;
+        float distanceRight = (displayMode.getWidth() - scrollingDistHorizontal) - player.getWidth();
+        float distanceUp = scrollingDistVertical;
+        float distanceDown = (displayMode.getHeight() - scrollingDistVertical) - player.getHeight();
 
         float coordX = player.getCoordX();
         float coordY = player.getCoordY();
@@ -137,6 +159,27 @@ public class Engine {
         for (Entity entity : world.getEntities()) {
             renderObject(entity, entity.getCoordX(), entity.getCoordY());
         }
+    }
+
+    public int getDelta() {
+        long time = getTime();
+        int delta = (int) (time - lastFrame);
+        lastFrame = time;
+
+        return delta;
+    }
+
+    public long getTime() {
+        return (Sys.getTime() * 1000) / Sys.getTimerResolution();
+    }
+
+    public void updateFPS() {
+        if (getTime() - lastFPS > 1000) {
+            realFPS = fps;
+            fps = 0;
+            lastFPS += 1000;
+        }
+        fps++;
     }
 
     private void renderObject(Renderable object,float posX, float posY) {
