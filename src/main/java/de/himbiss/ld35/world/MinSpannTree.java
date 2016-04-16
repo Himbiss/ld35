@@ -12,6 +12,7 @@ public class MinSpannTree {
     private static List<Graph_Edge> mst;
     private static boolean[] marked;
     private static List<Graph_Edge> pq;
+    private static List<Graph_Edge> delauney;
 
     public static List<Graph_Edge> span(List<RoomStrukt> roomlist){
         List<Graph_Edge> graph_edgeList = new ArrayList<Graph_Edge>();
@@ -19,26 +20,35 @@ public class MinSpannTree {
         mst = new ArrayList<Graph_Edge>();
         pq = new ArrayList<Graph_Edge>();
         marked = new boolean[roomlist.size()];
+        delauney = Delauney_Graph.delauney(roomlist);
+
         for(int v = 0; v<roomlist.size(); v++)
             if(!marked[v]) prim(roomlist, v);
 
-        return graph_edgeList;
+        System.out.println("mst: " + mst.size() + " del: " + delauney.size());
+        return mst;
+        //return delauney;
     }
 
     private static void prim(List <RoomStrukt> roomlist, int v){
-        scan(roomlist,v);
+        scan(v);
         while(!pq.isEmpty()){
             Graph_Edge e = remMin(roomlist);
             if(marked[e.p1] && marked[e.p2]) continue;
             mst.add(e);
-            if(!marked[e.p1]) scan(roomlist,e.p1);
-            if(!marked[e.p2]) scan(roomlist,e.p2);
+            if(!marked[e.p1]) scan(e.p1);
+            if(!marked[e.p2]) scan(e.p2);
         }
     }
 
-    private static void scan(List <RoomStrukt> roomlist, int v){
+    private static void scan(int v){
+        if(marked[v]) System.out.println("!!!!!!!MARKED!!!!!!!!!");
         marked[v] = true;
-        //for(Graph_Edge e:)
+        for(Graph_Edge e:adj(v)){
+            int p = e.p1;
+            if(p == v) p = e.p2;
+            if(!marked[p]) pq.add(e);
+        }
     }
 
     private static Graph_Edge remMin(List<RoomStrukt> list){
@@ -50,10 +60,18 @@ public class MinSpannTree {
         return e;
     }
 
-    public static int dist_square(Graph_Edge e, List<RoomStrukt> roomStruktList){
+    private static int dist_square(Graph_Edge e, List<RoomStrukt> roomStruktList){
         RoomStrukt r1 = roomStruktList.get(e.p1);
         RoomStrukt r2 = roomStruktList.get(e.p2);
         return (r1.midX()-r2.midX())^2+(r1.midY()-r2.midY())^2;
+    }
+
+    private static List<Graph_Edge> adj(int i){
+        List<Graph_Edge> list = new ArrayList<>();
+        for (Graph_Edge e:delauney) {
+            if(e.p1 == i || e.p2 == i) list.add(e);
+        }
+        return list;
     }
 
 }

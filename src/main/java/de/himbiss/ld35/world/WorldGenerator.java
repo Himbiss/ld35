@@ -111,19 +111,70 @@ public class WorldGenerator {
         }
 
         List<Graph_Edge> graph_edgeList = MinSpannTree.span(roomStruktList);
-
+        System.out.println(graph_edgeList.size());
         for(Graph_Edge e:graph_edgeList){
             RoomStrukt r1 = roomStruktList.get(e.p1);
             RoomStrukt r2 = roomStruktList.get(e.p2);
-            int minX = min(r1.midX(),r2.midX());
-            int maxX = max(r1.midX(),r2.midX());
-            int minY = min(r1.midY(),r2.midY());
-            int maxY = max(r1.midY(),r2.midY());
-            for(int xx = minX; xx <= maxX; xx++){
-                w.setTile(xx,minY,new Tile_Corridor());
-            }
-            for(int yy = minY; yy <= maxY; yy++){
-                w.setTile(maxX,yy,new Tile_Corridor());
+            if(r1.midX() < r2.midX()){
+                if(r1.midY()<r2.midY()){
+                    if(abs(r1.midX()-r2.midX())<abs(r1.midY()-r2.midY())){
+                        for(int i = 0; i < abs(r1.midY()-r2.midY());i++){
+                            int d = abs(r1.midX()-r2.midX());
+                            d = (d*i)/abs(r1.midY()-r2.midY());
+                            w.setTile(r1.midX()+d,r1.midY()+i,new Tile_Corridor());
+                        }
+                    } else {
+                        for(int i = 0; i < abs(r1.midX()-r2.midX());i++){
+                            int d = abs(r1.midY()-r2.midY());
+                            d = (d*i)/abs(r1.midX()-r2.midX());
+                            w.setTile(r1.midX()+i,r1.midY()+d,new Tile_Corridor());
+                        }
+                    }
+                } else {
+                    if(abs(r1.midX()-r2.midX())<abs(r1.midY()-r2.midY())){
+                        for(int i = 0; i < abs(r1.midY()-r2.midY());i++){
+                            int d = abs(r1.midX()-r2.midX());
+                            d = (d*i)/abs(r1.midY()-r2.midY());
+                            w.setTile(r1.midX()+d,r1.midY()-i,new Tile_Corridor());
+                        }
+                    } else {
+                        for(int i = 0; i < abs(r1.midX()-r2.midX());i++){
+                            int d = abs(r1.midY()-r2.midY());
+                            d = (d*i)/abs(r1.midX()-r2.midX());
+                            w.setTile(r1.midX()+i,r1.midY()-d,new Tile_Corridor());
+                        }
+                    }
+                }
+            } else {
+                if(r1.midY()<r2.midY()){
+                    if(abs(r1.midX()-r2.midX())<abs(r1.midY()-r2.midY())){
+                        for(int i = 0; i < abs(r1.midY()-r2.midY());i++){
+                            int d = abs(r1.midX()-r2.midX());
+                            d = (d*i)/abs(r1.midY()-r2.midY());
+                            w.setTile(r1.midX()-d,r1.midY()+i,new Tile_Corridor());
+                        }
+                    } else {
+                        for(int i = 0; i < abs(r1.midX()-r2.midX());i++){
+                            int d = abs(r1.midY()-r2.midY());
+                            d = (d*i)/abs(r1.midX()-r2.midX());
+                            w.setTile(r1.midX()-i,r1.midY()+d,new Tile_Corridor());
+                        }
+                    }
+                } else {
+                    if(abs(r1.midX()-r2.midX())<abs(r1.midY()-r2.midY())){
+                        for(int i = 0; i < abs(r1.midY()-r2.midY());i++){
+                            int d = abs(r1.midX()-r2.midX());
+                            d = (d*i)/abs(r1.midY()-r2.midY());
+                            w.setTile(r1.midX()-d,r1.midY()-i,new Tile_Corridor());
+                        }
+                    } else {
+                        for(int i = 0; i < abs(r1.midX()-r2.midX());i++){
+                            int d = abs(r1.midY()-r2.midY());
+                            d = (d*i)/abs(r1.midX()-r2.midX());
+                            w.setTile(r1.midX()-i,r1.midY()-d,new Tile_Corridor());
+                        }
+                    }
+                }
             }
         }
 
@@ -197,11 +248,7 @@ public class WorldGenerator {
     return a;
 }
 
-    public static boolean same(Graph_Edge e1, Graph_Edge e2){
-        if(e1.p1 == e2.p1 && e1.p2 == e2.p2) return true;
-        if(e1.p2 == e2.p1 && e1.p1 == e2.p2) return true;
-        return false;
-    }
+
 
 
 
