@@ -115,120 +115,90 @@ public class WorldGenerator {
 
             RoomStrukt r1 = roomStruktList.get(e.p1);
             RoomStrukt r2 = roomStruktList.get(e.p2);
-            if(r1.midX() < r2.midX()){
-                if(r1.midY()<r2.midY()){
-                    if(abs(r1.midX()-r2.midX())<abs(r1.midY()-r2.midY())){
-                        int u = (r1.posy+r1.height);
-                        int l = (r2.posy);
-                        int d = (l-u)/2+u;
-                        for(int i = u;i<=d;i++){
-                            w.setTile(r1.midX()-1,i,new Tile_Corridor());
-                            w.setTile(r1.midX(),i,new Tile_Corridor());
-                            w.setTile(r1.midX()+1,i,new Tile_Corridor());
-                        }
-                        for(int i = r1.midX()-1;i<r2.midX()+2;i++){
-                            w.setTile(i,d-1,new Tile_Corridor());
-                            w.setTile(i,d,new Tile_Corridor());
-                            w.setTile(i,d+1,new Tile_Corridor());
-                        }
-                        for(int i = d;i<l;i++){
-                            w.setTile(r2.midX()-1,i,new Tile_Corridor());
-                            w.setTile(r2.midX(),i,new Tile_Corridor());
-                            w.setTile(r2.midX()+1,i,new Tile_Corridor());
-                        }
-                    } else {
-                        int u = (r1.posx+r1.width);
-                        int l = (r2.posx);
-                        int d = (l-u)/2+u;
+            int cu,cl,cd,cf,cs,ct,cv;
+            if(abs(r1.midX()-r2.midX())<abs(r1.midY()-r2.midY())){
 
-                        for(int i = u;i<=d;i++){
-                            w.setTile(i,r1.midY()-1,new Tile_Corridor());
-                            w.setTile(i,r1.midY(),new Tile_Corridor());
-                            w.setTile(i,r1.midY()+1,new Tile_Corridor());
-                        }
-                        for(int i = r1.midY()-1;i<r2.midY()+2;i++) {
-                            w.setTile(d-1,i,new Tile_Corridor());
-                            w.setTile(d,i,new Tile_Corridor());
-                            w.setTile(d+1,i,new Tile_Corridor());
-                        }
-                        for(int i = d;i<l;i++){
-                            w.setTile(i,r2.midY()-1,new Tile_Corridor());
-                            w.setTile(i,r2.midY(),new Tile_Corridor());
-                            w.setTile(i,r2.midY()+1,new Tile_Corridor());
-                        }
-                    }
+
+                if(r1.midY()>r2.midY()){
+                    cu = (r2.posy+r2.height);
+                    cl = (r1.posy);
+                    cd = (cl-cu)/2+cu;
                 } else {
-                    if(abs(r1.midX()-r2.midX())<abs(r1.midY()-r2.midY())){
-                        int u = (r2.posy+r2.height);
-                        int l = (r1.posy);
-                        int d = (l-u)/2+u;
-                        for(int i = u;i<=d;i++){
-                            w.setTile(r2.midX()-1,i,new Tile_Corridor());
-                            w.setTile(r2.midX(),i,new Tile_Corridor());
-                            w.setTile(r2.midX()+1,i,new Tile_Corridor());
-                        }
-                        for(int i = r1.midX()-1;i<r2.midX()+2;i++){
-                            w.setTile(i,d-1,new Tile_Corridor());
-                            w.setTile(i,d,new Tile_Corridor());
-                            w.setTile(i,d+1,new Tile_Corridor());
-                        }
-                        for(int i = d;i<l;i++){
-                            w.setTile(r1.midX()-1,i,new Tile_Corridor());
-                            w.setTile(r1.midX(),i,new Tile_Corridor());
-                            w.setTile(r1.midX()+1,i,new Tile_Corridor());
-                        }
-                    } else {
-                        int u = (r2.posx+r2.width);
-                        int l = (r1.posx);
-                        int d = (l-u)/2+u;
-                        for(int i = u;i<=d;i++){
-                            w.setTile(i,r2.midX()-1,new Tile_Corridor());
-                            w.setTile(i,r2.midX(),new Tile_Wall());
-                            w.setTile(i,r2.midX()+1,new Tile_Corridor());
-                        }
-                        for(int i = r1.midX()-1;i<r2.midX()+2;i++){
-                            w.setTile(d-1,i,new Tile_Corridor());
-                            w.setTile(d,i,new Tile_Wall());
-                            w.setTile(d+1,i,new Tile_Corridor());
-                        }
-                        for(int i = d;i<l;i++){
-                            w.setTile(i,r1.midX()-1,new Tile_Corridor());
-                            w.setTile(i,r1.midX(),new Tile_Wall());
-                            w.setTile(i,r1.midX()+1,new Tile_Corridor());
-                        }
-                    }
+                    cu = (r1.posy+r1.height);
+                    cl = (r2.posy);
+                    cd = (cl-cu)/2+cu;
+                }
+                if(r1.midX()>r2.midX()){
+                    cf = r2.midX();
+                    cs = r1.midX();
+                } else {
+                    cf = r1.midX();
+                    cs = r2.midX();
+                }
+                if(r1.midY()>r2.midY()){
+                    ct = r2.midX();
+                    cv = r1.midX();
+                } else {
+                    ct = r1.midX();
+                    cv = r2.midX();
+                }
+                for(int i = cu;i<=cd;i++){
+                    w.setTile(ct-1,i,new Tile_Corridor());
+                    w.setTile(ct,i,new Tile_Corridor());
+                    w.setTile(ct+1,i,new Tile_Corridor());
+                }
+                for(int i = cf-1;i<cs+2;i++){
+                    w.setTile(i,cd-1,new Tile_Corridor());
+                    w.setTile(i,cd,new Tile_Corridor());
+                    w.setTile(i,cd+1,new Tile_Corridor());
+                }
+                for(int i = cd;i<cl;i++){
+                    w.setTile(cv-1,i,new Tile_Corridor());
+                    w.setTile(cv,i,new Tile_Corridor());
+                    w.setTile(cv+1,i,new Tile_Corridor());
                 }
             } else {
-                if(r1.midY()<r2.midY()){
-                    if(abs(r1.midX()-r2.midX())<abs(r1.midY()-r2.midY())){
-                        for(int i = 0; i < abs(r1.midY()-r2.midY());i++){
-                            int d = abs(r1.midX()-r2.midX());
-                            d = (d*i)/abs(r1.midY()-r2.midY());
-                            w.setTile(r1.midX()-d,r1.midY()+i,new Tile_Corridor());
-                        }
-                    } else {
-                        for(int i = 0; i < abs(r1.midX()-r2.midX());i++){
-                            int d = abs(r1.midY()-r2.midY());
-                            d = (d*i)/abs(r1.midX()-r2.midX());
-                            w.setTile(r1.midX()-i,r1.midY()+d,new Tile_Corridor());
-                        }
-                    }
+                if(r1.midX()>r2.midX()){
+                    cu = (r2.posx+r2.width);
+                    cl = (r1.posx);
+                    cd = (cl-cu)/2+cu;
                 } else {
-                    if(abs(r1.midX()-r2.midX())<abs(r1.midY()-r2.midY())){
-                        for(int i = 0; i < abs(r1.midY()-r2.midY());i++){
-                            int d = abs(r1.midX()-r2.midX());
-                            d = (d*i)/abs(r1.midY()-r2.midY());
-                            w.setTile(r1.midX()-d,r1.midY()-i,new Tile_Corridor());
-                        }
-                    } else {
-                        for(int i = 0; i < abs(r1.midX()-r2.midX());i++){
-                            int d = abs(r1.midY()-r2.midY());
-                            d = (d*i)/abs(r1.midX()-r2.midX());
-                            w.setTile(r1.midX()-i,r1.midY()-d,new Tile_Corridor());
-                        }
-                    }
+                    cu = (r1.posx+r1.width);
+                    cl = (r2.posx);
+                    cd = (cl-cu)/2+cu;
+                }
+                if(r1.midY()>r2.midY()){
+                    cf = r2.midY();
+                    cs = r1.midY();
+                } else {
+                    cf = r1.midY();
+                    cs = r2.midY();
+                }
+                if(r1.midX()>r2.midX()){
+                    ct = r2.midY();
+                    cv = r1.midY();
+                } else {
+                    ct = r1.midY();
+                    cv = r2.midY();
+                }
+                for(int i = cu;i<=cd;i++){
+                    w.setTile(i,ct-1,new Tile_Corridor());
+                    w.setTile(i,ct,new Tile_Corridor());
+                    w.setTile(i,ct+1,new Tile_Corridor());
+                }
+                for(int i = cf-1;i<cs+2;i++){
+                    w.setTile(cd-1,i,new Tile_Corridor());
+                    w.setTile(cd,i,new Tile_Corridor());
+                    w.setTile(cd+1,i,new Tile_Corridor());
+                }
+                for(int i = cd;i<cl;i++){
+                    w.setTile(i,cv-1,new Tile_Corridor());
+                    w.setTile(i,cv,new Tile_Corridor());
+                    w.setTile(i,cv+1,new Tile_Corridor());
                 }
             }
+
+
         }
 
         for(int i = 0; i<w.getSizeX();i++){

@@ -10,7 +10,7 @@ import de.himbiss.ld35.world.WorldGenerator;
 public class Main {
 
         public static void main(String[] argv) {
-            World generate = WorldGenerator.generate(60,20,(int) System.currentTimeMillis());//553616882);//
+            World generate = WorldGenerator.generate(60,20,(int) System.currentTimeMillis());
             Engine.getInstance().setWorld(generate);
             Engine.getInstance().start();
         }
