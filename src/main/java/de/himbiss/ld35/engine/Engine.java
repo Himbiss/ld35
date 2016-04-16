@@ -32,19 +32,25 @@ public class Engine {
         GL11.glLoadIdentity();
         GL11.glOrtho(0, 800, 0, 600, 1, -1);
         GL11.glMatrixMode(GL11.GL_MODELVIEW);
+        long start;
+        long elapsed = 1;
         while (!Display.isCloseRequested()) {
+            start = System.nanoTime();
             // Clear the screen and depth buffer
             GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
 
             // set the color of the quad (R,G,B,A)
             GL11.glColor3f(0.5f,0.5f,1.0f);
 
+            //TODO Implement FPS Counter
+            System.out.println(1000000/elapsed);
+
             // draw quad
             GL11.glBegin(GL11.GL_QUADS);
             GL11.glVertex2f(100,100);
             GL11.glVertex2f(200,100);
-            GL11.glVertex2f(100,200);
             GL11.glVertex2f(200,200);
+            GL11.glVertex2f(100,200);
             GL11.glEnd();
 
             renderWorld();
@@ -52,6 +58,7 @@ public class Engine {
             Display.update();
 
             world.updateWorld();
+            elapsed = System.nanoTime() - start;
         }
 
         Display.destroy();
