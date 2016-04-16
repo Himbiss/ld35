@@ -24,7 +24,8 @@ public class Main {
             GL11.glLoadIdentity();
             GL11.glOrtho(0, 800, 0, 600, 1, -1);
             GL11.glMatrixMode(GL11.GL_MODELVIEW);
-
+            int i= 1;
+            int j = 1;
             while (!Display.isCloseRequested()) {
                 // Clear the screen and depth buffer
                 GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
@@ -35,10 +36,13 @@ public class Main {
                 // draw quad
                 GL11.glBegin(GL11.GL_QUADS);
                 GL11.glVertex2f(100,100);
-                GL11.glVertex2f(100+200,100);
-                GL11.glVertex2f(100+200,100+200);
-                GL11.glVertex2f(100,100+200);
+                GL11.glVertex2f(100+i,100);
+                GL11.glVertex2f(100+i,100+i);
+                GL11.glVertex2f(100,100+i);
                 GL11.glEnd();
+
+                i+=j;
+                if(i==500 || i == 1) j
 
                 Display.update();
             }
