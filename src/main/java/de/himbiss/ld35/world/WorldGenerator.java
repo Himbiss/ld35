@@ -41,8 +41,6 @@ public class WorldGenerator {
         }
 
 
-        while(hasCollision(roomStruktList));
-
         int sx = 0;
         int sy = 0;
         int count = 0;
@@ -54,7 +52,6 @@ public class WorldGenerator {
         }
         sx /= count;
         sy /= count;
-
 
         List<RoomStrukt> deleteList = new ArrayList<RoomStrukt>();
 
@@ -68,6 +65,9 @@ public class WorldGenerator {
             roomStruktList.remove(r);
         }
 
+        while(hasCollision(roomStruktList));
+        System.out.println("done shifting");
+        
         int minx = 0;
         int miny = 0;
         int maxx = 0;
@@ -88,18 +88,26 @@ public class WorldGenerator {
         for(RoomStrukt r: roomStruktList){
             System.out.println(toText(r));
         }
+        World w = new World(world_x,world_y);
+        for(RoomStrukt r: roomStruktList){
+            for(int rx = 0;rx<r.width;rx++){
+                for(int ry = 0;ry<r.height;ry++){
+                    w.setTile(r.posx+rx, r.posy+ry,new Tile_Floor());
+                }
+            }
+        }
 
-        return new World(world_x,world_y);
+        return w;
     }
 
     public static boolean hasCollision(List<RoomStrukt> list){
         for (RoomStrukt r1:list){
             for(RoomStrukt r2:list){
                 if(r1!=r2){
-                    if((r1.posx < r2.posx && r1.posx+r1.width > r2.posx)
-                            || (r1.posx < r2.posx+r2.width && r1.posx+r1.width > r2.posx+r2.width)){
-                        if((r1.posy < r2.posy && r1.posy+r1.height > r2.posy)
-                                || (r1.posy < r2.posy+r2.height && r1.posy+r1.height > r2.posy+r2.height)){
+                    if((r1.posx-2 <= r2.posx && r1.posx+r1.width+2 >= r2.posx)
+                            || (r1.posx-2 <= r2.posx+r2.width && r1.posx+r1.width+2 >= r2.posx+r2.width)){
+                        if((r1.posy-2 <= r2.posy && r1.posy+r1.height+2 >= r2.posy)
+                                || (r1.posy-2 <= r2.posy+r2.height && r1.posy+r1.height+2 >= r2.posy+r2.height)){
                             move(r1,r2);
                             //System.out.println(toText(r1) + "| " + toText(r2));
                             return true;

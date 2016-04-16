@@ -49,6 +49,11 @@ public class World {
         return sizeY;
     }
 
+    public void setTile(int x, int y, Tile tile){
+        if(x<0 || y < 0 || x>=this.getSizeX() || y>= this.getSizeY()) return;
+        worldArray[x][y] = tile;
+    }
+
     private void initArray() {
         for (int i = 0; i < sizeX; i++) {
             for (int j = 0; j < sizeY; j++) {
