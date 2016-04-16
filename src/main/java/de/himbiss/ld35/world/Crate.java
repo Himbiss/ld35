@@ -21,7 +21,12 @@ public class Crate extends Entity {
 
     @Override
     public void collideWith(Hitbox object, float deltaX, float deltaY) {
-        coordX -= deltaX;
-        coordY -= deltaY;
+        coordX += deltaX;
+        coordY += deltaY;
+    }
+
+    @Override
+    public String getTextureKey() {
+        return "crate";
     }
 }

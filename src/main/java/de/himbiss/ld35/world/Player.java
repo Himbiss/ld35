@@ -9,12 +9,13 @@ import org.lwjgl.input.Keyboard;
  */
 public class Player extends Entity {
 
+    private static final float DELTA_MAX = 5f;
     private float speed;
 
     public Player() {
         width = 50;
         height = 100;
-        speed = .5f;
+        speed = .2f;
         coordX =  (Engine.getInstance().getDisplayMode().getWidth() / 2) - (width / 2);
         coordY =  (Engine.getInstance().getDisplayMode().getHeight() / 2) - (height / 2);
     }
@@ -25,16 +26,23 @@ public class Player extends Entity {
 
     public void update(int delta) {
         if (Keyboard.isKeyDown(Keyboard.KEY_A)) {
-            coordX -= speed * delta;
+            deltaX -= speed * delta;
         }
         if (Keyboard.isKeyDown(Keyboard.KEY_D)) {
-            coordX += speed * delta;
+            deltaX += speed * delta;
         }
         if (Keyboard.isKeyDown(Keyboard.KEY_S)) {
-            coordY += speed * delta;
+            deltaY += speed * delta;
         }
         if (Keyboard.isKeyDown(Keyboard.KEY_W)) {
-            coordY -= speed * delta;
+            deltaY -= speed * delta;
+        }
+
+        if (Math.abs(deltaX) > DELTA_MAX) {
+            deltaX = deltaX < 0 ? -DELTA_MAX : DELTA_MAX;
+        }
+        if (Math.abs(deltaY) > DELTA_MAX) {
+            deltaY = deltaY < 0 ? -DELTA_MAX : DELTA_MAX;
         }
     }
 

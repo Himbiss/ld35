@@ -1,6 +1,7 @@
 package de.himbiss.ld35.engine;
 
 import de.himbiss.ld35.world.Entity;
+import de.himbiss.ld35.world.World;
 
 import java.util.Set;
 
@@ -47,10 +48,21 @@ public class CollisionDetector {
             hb1_Y < hb2_Y + hb2_H &&
             hb1_Y + hb1_H > hb2_Y) {
             // collision detected!
-            float deltaX = (hb1_X + hb1_W) - hb2_X;
-            float deltaY = (hb1_Y + hb1_H) - hb2_Y;
 
-            hb1.collideWith(hb2, deltaX, deltaY);
+            float hb1_dX = 0f, hb1_dY = 0f;
+            float hb2_dX = 0f, hb2_dY = 0f;
+
+            if (hb1 instanceof HasPhysics) {
+                hb1_dX = ((HasPhysics) hb1).getDeltaX();
+                hb1_dY = ((HasPhysics) hb1).getDeltaY();
+            }
+            if (hb2 instanceof HasPhysics) {
+                hb2_dX = ((HasPhysics) hb2).getDeltaX();
+                hb2_dY = ((HasPhysics) hb2).getDeltaY();
+            }
+
+            hb1.collideWith(hb2, hb2_dX, hb2_dY);
+            hb2.collideWith(hb1, hb1_dX, hb1_dY);
         }
     }
 }

@@ -1,11 +1,11 @@
 package de.himbiss.ld35.engine;
 
 import de.himbiss.ld35.world.Entity;
-import de.himbiss.ld35.world.Player;
 import de.himbiss.ld35.world.Tile;
 import de.himbiss.ld35.world.World;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.Sys;
+import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.opengl.GL11;
@@ -34,6 +34,7 @@ public class Engine {
     private long lastFPS;
     private int realFPS;
     private TrueTypeFont debugFont;
+    private boolean debugMode;
 
     private Engine() {
         this.displayMode = new DisplayMode(1024, 768);
@@ -64,21 +65,55 @@ public class Engine {
             // Clear the screen and depth buffer
             GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
 
+            calculatePhysics();
+            world.update(delta);
+
             renderWorld();
             scrollWorld();
 
-            debugFont.drawString(10f, 10f, "fps: " + realFPS, Color.white);
+            if (debugMode) {
+                renderDebug();
+            }
 
             Display.sync(60);
             Display.update();
 
-            world.update(delta);
-            calculatePhysics();
 
+
+            if (Keyboard.isKeyDown(Keyboard.KEY_F1)) {
+                debugMode = ! debugMode;
+            }
             updateFPS();
         }
 
         Display.destroy();
+    }
+
+    private void renderDebug() {
+        debugFont.drawString(10f, 10f, "fps: " + realFPS, Color.white);
+        debugFont.drawString(10f, 30f, "dX,dY: " + world.getPlayer().getDeltaX() + "," + world.getPlayer().getDeltaY(), Color.white);
+        debugFont.drawString(10f, 50f, "posX,posY: " + world.getPlayer().getCoordX() + "," + world.getPlayer().getCoordY(), Color.white);
+
+//        for (Entity entity : world.getEntities()) {
+//            Renderable hitbox = new Renderable() {
+//                @Override
+//                public int getWidth() {
+//                    return (int) entity.getHitboxWidth();
+//                }
+//
+//                @Override
+//                public int getHeight() {
+//                    return (int) entity.getHitboxHeight();
+//                }
+//
+//                @Override
+//                public String getTextureKey() {
+//                    return "hitbox";
+//                }
+//            };
+
+//            renderObject(hitbox, entity.getHitBoxCoordX(), entity.getHitBoxCoordY());
+//        }
     }
 
     private void calculatePhysics() {
@@ -90,6 +125,13 @@ public class Engine {
                     tileHitboxes.add(((Hitbox) tile));
                 }
             }
+        }
+
+        for (Entity entity : entities) {
+            entity.setCoordX(entity.getCoordX() + entity.getDeltaX());
+            entity.setCoordY(entity.getCoordY() + entity.getDeltaY());
+
+            entity.applyGravity(1f);
         }
 
         CollisionDetector collisionDetector = new CollisionDetector(entities, tileHitboxes);
@@ -147,21 +189,25 @@ public class Engine {
             float dX = distanceLeft - coordX;
             offsetX += dX;
             player.setCoordX(distanceLeft - offsetX);
+            player.setDeltas(0f, 0f);
         }
         if (coordX > distanceRight) {
             float dX = coordX - distanceRight;
             offsetX -= dX;
             player.setCoordX(distanceRight - offsetX);
+            player.setDeltas(0f, 0f);
         }
         if (coordY < distanceUp) {
             float dY = distanceUp - coordY;
             offsetY += dY;
             player.setCoordY(distanceUp - offsetY);
+            player.setDeltas(0f, 0f);
         }
         if (coordY > distanceDown) {
             float dY = coordY - distanceDown;
             offsetY -= dY;
             player.setCoordY(distanceDown - offsetY);
+            player.setDeltas(0f, 0f);
         }
     }
 
