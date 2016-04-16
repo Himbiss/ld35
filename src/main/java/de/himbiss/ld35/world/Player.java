@@ -1,9 +1,8 @@
 package de.himbiss.ld35.world;
 
+import de.himbiss.ld35.engine.Hitbox;
 import de.himbiss.ld35.engine.Engine;
 import org.lwjgl.input.Keyboard;
-
-import java.security.Key;
 
 /**
  * Created by Vincent on 16.04.2016.
@@ -37,5 +36,10 @@ public class Player extends Entity {
         if (Keyboard.isKeyDown(Keyboard.KEY_W)) {
             coordY -= speed * delta;
         }
+    }
+
+    @Override
+    public void collideWith(Hitbox object, float deltaX, float deltaY) {
+        System.out.println("Player collided with: " + object);
     }
 }

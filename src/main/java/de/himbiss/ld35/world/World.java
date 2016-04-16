@@ -21,6 +21,7 @@ public class World implements Updatable {
         this.entities = new HashSet<Entity>();
         this.player = new Player();
         this.entities.add(player);
+        this.entities.add(new Crate(10f, 10f));
         initArray();
     }
 

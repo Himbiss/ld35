@@ -1,6 +1,7 @@
 package de.himbiss.ld35.engine;
 
 import de.himbiss.ld35.world.Entity;
+import de.himbiss.ld35.world.Player;
 import de.himbiss.ld35.world.Tile;
 import de.himbiss.ld35.world.World;
 import org.lwjgl.LWJGLException;
@@ -11,6 +12,9 @@ import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.opengl.Texture;
+
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by Vincent on 16.04.2016.
@@ -64,14 +68,32 @@ public class Engine {
             scrollWorld();
 
             debugFont.drawString(10f, 10f, "fps: " + realFPS, Color.white);
+
             Display.sync(60);
             Display.update();
 
             world.update(delta);
+            calculatePhysics();
+
             updateFPS();
         }
 
         Display.destroy();
+    }
+
+    private void calculatePhysics() {
+        Set<Entity> entities = world.getEntities();
+        Set<Hitbox> tileHitboxes = new HashSet<>();
+        for (Tile[] tiles : world.getWorldArray()) {
+            for (Tile tile : tiles) {
+                if (tile instanceof Hitbox) {
+                    tileHitboxes.add(((Hitbox) tile));
+                }
+            }
+        }
+
+        CollisionDetector collisionDetector = new CollisionDetector(entities, tileHitboxes);
+        collisionDetector.doCollision();
     }
 
     private void initGL() {
@@ -124,22 +146,22 @@ public class Engine {
         if (coordX < distanceLeft) {
             float dX = distanceLeft - coordX;
             offsetX += dX;
-            player.setCoordX(distanceLeft);
+            player.setCoordX(distanceLeft - offsetX);
         }
         if (coordX > distanceRight) {
             float dX = coordX - distanceRight;
             offsetX -= dX;
-            player.setCoordX(distanceRight);
+            player.setCoordX(distanceRight - offsetX);
         }
         if (coordY < distanceUp) {
             float dY = distanceUp - coordY;
             offsetY += dY;
-            player.setCoordY(distanceUp);
+            player.setCoordY(distanceUp - offsetY);
         }
         if (coordY > distanceDown) {
             float dY = coordY - distanceDown;
             offsetY -= dY;
-            player.setCoordY(distanceDown);
+            player.setCoordY(distanceDown - offsetY);
         }
     }
 
@@ -204,5 +226,13 @@ public class Engine {
         GL11.glVertex2f(posX, posY + object.getHeight());
 
         GL11.glEnd();
+    }
+
+    public float getOffsetX() {
+        return offsetX;
+    }
+
+    public float getOffsetY() {
+        return offsetY;
     }
 }
