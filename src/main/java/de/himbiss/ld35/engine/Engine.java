@@ -43,7 +43,7 @@ public class Engine {
             GL11.glColor3f(0.5f,0.5f,1.0f);
 
             //TODO Implement FPS Counter
-            System.out.println(1000000/elapsed);
+            //System.out.println(1000000/elapsed);
 
             // draw quad
             GL11.glBegin(GL11.GL_QUADS);
