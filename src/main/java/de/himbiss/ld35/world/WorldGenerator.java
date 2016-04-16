@@ -19,7 +19,7 @@ public class WorldGenerator {
 
 
     public static World generate(int spread, int scale, int seed){
-        Random rnd = new Random();//seed);
+        Random rnd = new Random(seed);
         int world_x = 0;
         int world_y = 0;
         int z = rnd.nextInt();
@@ -70,7 +70,7 @@ public class WorldGenerator {
         }
 
 
-        while(hasCollision(roomStruktList));
+        while(hasCollision(roomStruktList,rnd.nextInt()));
         System.out.println("done shifting");
 
         int minx = 0;
@@ -96,22 +96,22 @@ public class WorldGenerator {
         }
 
 
-
         World w = new World(world_x,world_y);
         for(RoomStrukt r: roomStruktList){
+
             for(int rx = 0;rx<r.width;rx++){
                 for(int ry = 0;ry<r.height;ry++){
                     if(r.midX() == rx+r.posx && r.midY() == ry+r.posy){
 
                         w.setTile(r.posx+rx, r.posy+ry,new Tile_Corridor());
                     } else
+
                     w.setTile(r.posx+rx, r.posy+ry,new Tile_Floor());
                 }
             }
         }
 
         List<Graph_Edge> graph_edgeList = MinSpannTree.span(roomStruktList);
-        System.out.println(graph_edgeList.size());
         for(Graph_Edge e:graph_edgeList){
             RoomStrukt r1 = roomStruktList.get(e.p1);
             RoomStrukt r2 = roomStruktList.get(e.p2);
@@ -182,7 +182,7 @@ public class WorldGenerator {
         return w;
     }
 
-    public static boolean hasCollision(List<RoomStrukt> list){
+    public static boolean hasCollision(List<RoomStrukt> list, int seed){
         int offset = 5;
         for (RoomStrukt r1:list){
             for(RoomStrukt r2:list){
@@ -191,7 +191,7 @@ public class WorldGenerator {
                             || (r1.posx-offset <= r2.posx+r2.width && r1.posx+r1.width+offset >= r2.posx+r2.width)){
                         if((r1.posy-offset <= r2.posy && r1.posy+r1.height+offset >= r2.posy)
                                 || (r1.posy-offset <= r2.posy+r2.height && r1.posy+r1.height+offset >= r2.posy+r2.height)){
-                            move(r1,r2);
+                            move(r1,r2,seed);
                             //System.out.println(toText(r1) + "| " + toText(r2));
                             return true;
                         }
@@ -202,7 +202,7 @@ public class WorldGenerator {
         return false;
     }
 
-    public static void move(RoomStrukt r1, RoomStrukt r2){
+    public static void move(RoomStrukt r1, RoomStrukt r2, int seed){
         int m1x = r1.midX();
         int m2x = r2.midX();
         int m1y = r1.midY();
@@ -211,7 +211,7 @@ public class WorldGenerator {
         int p1 = m1x^2+m1y^2;
         int p2 = m2x^2+m2y^2;
 
-        Random r = new Random();
+        Random r = new Random(seed);
         int z1 = r.nextInt();
         int v1 = z1/abs(z1);
         int z2 = r.nextInt();

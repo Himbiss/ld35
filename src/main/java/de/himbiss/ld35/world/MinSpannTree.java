@@ -25,7 +25,6 @@ public class MinSpannTree {
         for(int v = 0; v<roomlist.size(); v++)
             if(!marked[v]) prim(roomlist, v);
 
-        System.out.println("mst: " + mst.size() + " del: " + delauney.size());
         return mst;
         //return delauney;
     }
@@ -63,7 +62,7 @@ public class MinSpannTree {
     private static int dist_square(Graph_Edge e, List<RoomStrukt> roomStruktList){
         RoomStrukt r1 = roomStruktList.get(e.p1);
         RoomStrukt r2 = roomStruktList.get(e.p2);
-        return (r1.midX()-r2.midX())^2+(r1.midY()-r2.midY())^2;
+        return  (r1.midX()-r2.midX())*(r1.midX()-r2.midX())+(r1.midY()-r2.midY())*(r1.midY()-r2.midY());
     }
 
     private static List<Graph_Edge> adj(int i){

@@ -1,6 +1,7 @@
 package de.himbiss.ld35.world;
 
 import java.awt.*;
+import java.awt.geom.Line2D;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,9 +26,9 @@ public class Delauney_Graph {
                         }
                     }
                     if(triangle){
-                        myAdd(graph,i,j);
-                        myAdd(graph,i,k);
-                        myAdd(graph,j,k);
+                        myAdd(graph,i,j,roomlist);
+                        myAdd(graph,i,k,roomlist);
+                        myAdd(graph,j,k,roomlist);
                     }
                 }
             }
@@ -35,12 +36,33 @@ public class Delauney_Graph {
         return graph;
     }
 
-    public static void myAdd(List <Graph_Edge> list,int a, int b){
+    public static void myAdd(List <Graph_Edge> list,int a, int b, List<RoomStrukt> roomlist){
         Graph_Edge e = new Graph_Edge(a,b);
         for (Graph_Edge ed:list) {
-            if(same(e,ed)) return;
+            if(same(e,ed)) {
+                return;
+            }
         }
+        List<Graph_Edge> deletelist = new ArrayList<>();
+
+
+        for (Graph_Edge ed:list) {
+            if(scheiden(e,ed,roomlist)) {
+                //System.out.println(dist_square(e,roomlist) + " - " + dist_square(ed,roomlist));
+                if(dist_square(e,roomlist) < dist_square(ed,roomlist)){
+                    deletelist.add(ed);
+
+                }
+            }
+        }
+
+        for(Graph_Edge ed:deletelist){
+            list.remove(ed);
+        }
+
         list.add(e);
+
+
     }
 
     public static boolean same(Graph_Edge e1, Graph_Edge e2){
@@ -50,6 +72,7 @@ public class Delauney_Graph {
     }
 
     public static boolean inside(RoomStrukt r1,RoomStrukt r2,RoomStrukt r3,RoomStrukt r4){
+
         Point p1 = new Point();
         p1.setLocation(r1.midX(), r1.midY());
         Point p2 = new Point();
@@ -64,5 +87,31 @@ public class Delauney_Graph {
         poly.addPoint(p4.x, p4.y);
 
         return poly.contains(p1);
+
+
+/*
+        int x1 = r2.midX(), y1 = r2.midY();
+        int x2 = r3.midX(), y2 = r3.midY();
+        int x3 = r4.midX(), y3 = r3.midY();
+        int x = r1.midX(), y = r1.midY();
+
+        double ABC = Math.abs (x1 * (y2 - y3) + x2 * (y3 - y1) + x3 * (y1 - y2));
+        double ABP = Math.abs (x1 * (y2 - y) + x2 * (y - y1) + x * (y1 - y2));
+        double APC = Math.abs (x1 * (y - y3) + x * (y3 - y1) + x3 * (y1 - y));
+        double PBC = Math.abs (x * (y2 - y3) + x2 * (y3 - y) + x3 * (y - y2));
+
+        return ABP + APC + PBC == ABC;
+        */
+    }
+
+    public static boolean scheiden(Graph_Edge e1, Graph_Edge e2, List<RoomStrukt> list){
+        Line2D line1 = new Line2D.Float(list.get(e1.p1).midX(),list.get(e1.p1).midY(),list.get(e1.p2).midX(),list.get(e1.p2).midY());
+        Line2D line2 = new Line2D.Float(list.get(e2.p1).midX(),list.get(e2.p1).midY(),list.get(e2.p2).midX(),list.get(e2.p2).midY());
+        return line1.intersectsLine(line2);
+    }
+    private static int dist_square(Graph_Edge e, List<RoomStrukt> roomStruktList){
+        RoomStrukt r1 = roomStruktList.get(e.p1);
+        RoomStrukt r2 = roomStruktList.get(e.p2);
+        return  (r1.midX()-r2.midX())*(r1.midX()-r2.midX())+(r1.midY()-r2.midY())*(r1.midY()-r2.midY());
     }
 }
