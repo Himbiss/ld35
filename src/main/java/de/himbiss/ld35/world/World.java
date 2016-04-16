@@ -52,7 +52,7 @@ public class World {
     private void initArray() {
         for (int i = 0; i < sizeX; i++) {
             for (int j = 0; j < sizeY; j++) {
-                worldArray[i][j] = new Tile();
+                worldArray[i][j] = new Tile_Void();
             }
         }
     }

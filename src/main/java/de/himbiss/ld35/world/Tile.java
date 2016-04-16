@@ -6,7 +6,7 @@ import org.newdawn.slick.opengl.Texture;
 /**
  * Created by Oneidavar on 16/04/2016.
  */
-public class Tile implements Renderable {
+public abstract class Tile implements Renderable {
     public static int TILE_SIZE = 50;
     protected String textureKey;
 
