@@ -5,6 +5,8 @@ import de.himbiss.ld35.engine.HasHitbox;
 import de.himbiss.ld35.engine.Renderable;
 import de.himbiss.ld35.engine.ResourceManager;
 import de.himbiss.ld35.world.fightsystem.HasHealth;
+import de.himbiss.ld35.world.fightsystem.Tear;
+import org.lwjgl.input.Mouse;
 import org.newdawn.slick.opengl.Texture;
 
 /**
@@ -13,11 +15,13 @@ import org.newdawn.slick.opengl.Texture;
 public class Enemy_Spider extends Enemy implements Renderable {
     private float speed = .05f;
     private static final float DELTA_MAX = 3f;
+    private long lastShot;
+    private int shotSpeed;
 
     public Enemy_Spider(float posX, float posY) {
         super(posX, posY);
         textureKey="crate";
-        width = 100;
+        width = 50;
         height = 50;
     }
 
@@ -25,51 +29,50 @@ public class Enemy_Spider extends Enemy implements Renderable {
     //TODO Pathing towards player
 
         World w = Engine.getInstance().getWorld();
-        boolean diag = true;
-        float grade = 0;
-        if(getCoordX()-w.getPlayer().getCoordX() == 0) diag=false;
-        if(getCoordY()-w.getPlayer().getCoordY() == 0) diag=false;
-        if(diag){
-            float dx = (getCoordX()-w.getPlayer().getCoordX());
-            float dy = (getCoordY()-w.getPlayer().getCoordY());
 
-            grade = Math.abs(dx/(dx+dy));
-        }
 
-        if(getCoordX() < w.getPlayer().getCoordX()) {
-            //TODO set animation
-            if(diag)
+        float dx = (getCoordX()-w.getPlayer().getCoordX());
+        float dy = (getCoordY()-w.getPlayer().getCoordY());
+
+        if(Math.sqrt(dx*dx+dy*dy)>5*25 ) {
+            float grade = Math.abs(dx / (dx + dy));
+            if (grade < 0) System.out.println("kleiner null");
+            if (getCoordX() < w.getPlayer().getCoordX()) {
+                //TODO set animation
                 deltaX += speed * delta * grade;
-            else
-                deltaX += speed * delta;
-        }
-        if(getCoordX() > w.getPlayer().getCoordX()) {
-            //TODO set animation
-            if(diag)
+            }
+            if (getCoordX() > w.getPlayer().getCoordX()) {
+                //TODO set animation
                 deltaX -= speed * delta * grade;
-            else
-                deltaX -= speed * delta;
+            }
+            if (getCoordY() < w.getPlayer().getCoordY()) {
+                //TODO set animation
+                deltaY += speed * delta * (1 - grade);
+            }
+            if (getCoordY() > w.getPlayer().getCoordY()) {
+                //TODO set animation
+                deltaY -= speed * delta * (1 - grade);
+            }
+            if (Math.abs(deltaX) > DELTA_MAX) {
+                deltaX = deltaX < 0 ? -DELTA_MAX : DELTA_MAX;
+            }
+            if (Math.abs(deltaY) > DELTA_MAX) {
+                deltaY = deltaY < 0 ? -DELTA_MAX : DELTA_MAX;
+            }
+
         }
-        if(getCoordY() < w.getPlayer().getCoordY()) {
-            //TODO set animation
-            if(diag)
-                deltaY += speed * delta * (1-grade);
-            else
-                deltaY += speed * delta;
+        if(Math.sqrt(dx*dx+dy*dy)<7*25 ){
+            shotSpeed = 1000;
+            if ((System.currentTimeMillis() - lastShot) > shotSpeed) {
+                lastShot = System.currentTimeMillis();
+                dx *= -0.1f;
+                dy *= -0.1f;
+                System.out.println("spider shooting tear: " + dx + "," + dy);
+                Engine.getInstance().getWorld().getEntities().add(new Tear(this, coordX + (getWidth() / 2), coordY + (getHeight() / 2), dx, dy));
+            }
         }
-        if(getCoordY() > w.getPlayer().getCoordY()) {
-            //TODO set animation
-            if(diag)
-                deltaY -= speed * delta * (1-grade);
-            else
-                deltaY -= speed * delta;
-        }
-        if (Math.abs(deltaX) > DELTA_MAX) {
-            deltaX = deltaX < 0 ? -DELTA_MAX : DELTA_MAX;
-        }
-        if (Math.abs(deltaY) > DELTA_MAX) {
-            deltaY = deltaY < 0 ? -DELTA_MAX : DELTA_MAX;
-        }
+
+
     }
 
     public Texture getTexture() {
