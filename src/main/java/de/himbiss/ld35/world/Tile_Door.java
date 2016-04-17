@@ -74,7 +74,6 @@ public class Tile_Door extends Tile implements Switchable, HasHitbox {
                 }
 
                 entity.setDeltas(0f, 0f);
-
             }
         }
     }
