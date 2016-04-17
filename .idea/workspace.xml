@@ -5,15 +5,70 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1991adfb-ca10-4b4c-a6c1-fe22c292af65" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/de/himbiss/ld35/Main.java" afterPath="$PROJECT_DIR$/src/main/java/de/himbiss/ld35/Main.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/de/himbiss/ld35/engine/Engine.java" afterPath="$PROJECT_DIR$/src/main/java/de/himbiss/ld35/engine/Engine.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/de/himbiss/ld35/world/Delauney_Graph.java" afterPath="$PROJECT_DIR$/src/main/java/de/himbiss/ld35/world/Delauney_Graph.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/de/himbiss/ld35/world/MinSpannTree.java" afterPath="$PROJECT_DIR$/src/main/java/de/himbiss/ld35/world/MinSpannTree.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/res/font/plasmati.ttf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/res/img/Albert.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/res/img/Captain.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/res/img/ChrisRock.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/res/img/Darryl.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/res/img/Doggy.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/res/img/Faelon.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/res/img/Farmer.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/res/img/Goblin.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/res/img/Guard.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/res/img/Gunnar.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/res/img/Kamwerere.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/res/img/King.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/res/img/Kitty.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/res/img/Mate.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/res/img/Mel.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/res/img/Mom.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/res/img/Rios.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/res/img/SallyJones.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/res/img/Seaside_informant.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/res/img/Tiggy.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/res/img/Tipper.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/res/img/Trent.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/res/img/astronomer.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/res/img/babies_mother.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/res/img/bartender.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/res/img/big_momma.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/res/img/chef.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/res/img/corridor.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/res/img/crate.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/res/img/drunkard0.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/res/img/drunkard1.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/res/img/dummy.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/res/img/fat_old_guy.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/res/img/floor.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/res/img/geisha.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/res/img/guy_world.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/res/img/hitbox.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/res/img/human.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/res/img/humans.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/res/img/lady.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/res/img/mokkan.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/res/img/prisoner.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/res/img/ring_bearer.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/res/img/scarf.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/res/img/sensei.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/res/img/shyzu_female.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/res/img/shyzu_male.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/res/img/skeleton.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/res/img/soldier.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/res/img/testing.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/res/img/toddler.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/res/img/villager1.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/res/img/villager2.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/res/img/villager3.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/res/img/villager4.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/res/img/villager5.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/res/img/villager6.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/res/img/villager7.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/res/img/void.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/img/wall.png" afterPath="$PROJECT_DIR$/src/main/res/img/wall.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/de/himbiss/ld35/world/RoomStrukt.java" afterPath="$PROJECT_DIR$/src/main/java/de/himbiss/ld35/world/RoomStrukt.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/de/himbiss/ld35/world/Tile.java" afterPath="$PROJECT_DIR$/src/main/java/de/himbiss/ld35/world/Tile.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/de/himbiss/ld35/world/Tile_Corridor.java" afterPath="$PROJECT_DIR$/src/main/java/de/himbiss/ld35/world/Tile_Corridor.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/de/himbiss/ld35/world/Tile_Floor.java" afterPath="$PROJECT_DIR$/src/main/java/de/himbiss/ld35/world/Tile_Floor.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/de/himbiss/ld35/world/Tile_Void.java" afterPath="$PROJECT_DIR$/src/main/java/de/himbiss/ld35/world/Tile_Void.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/de/himbiss/ld35/world/Tile_Wall.java" afterPath="$PROJECT_DIR$/src/main/java/de/himbiss/ld35/world/Tile_Wall.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/de/himbiss/ld35/world/World.java" afterPath="$PROJECT_DIR$/src/main/java/de/himbiss/ld35/world/World.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/de/himbiss/ld35/world/WorldGenerator.java" afterPath="$PROJECT_DIR$/src/main/java/de/himbiss/ld35/world/WorldGenerator.java" />
     </list>
@@ -37,36 +92,38 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="ResourceManager.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/de/himbiss/ld35/engine/ResourceManager.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="74" column="33" selection-start-line="74" selection-start-column="33" selection-end-line="74" selection-end-column="33" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Player.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Player.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/de/himbiss/ld35/world/Player.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="33" column="49" selection-start-line="33" selection-start-column="49" selection-end-line="33" selection-end-column="49" />
+            <state vertical-scroll-proportion="0.47058824">
+              <caret line="41" column="35" selection-start-line="41" selection-start-column="35" selection-end-line="41" selection-end-column="35" />
               <folding>
-                <element signature="e#1881#1882#0" expanded="true" />
-                <element signature="e#1908#1909#0" expanded="true" />
-                <element signature="e#1963#1964#0" expanded="true" />
-                <element signature="e#2038#2039#0" expanded="true" />
+                <element signature="e#2947#2948#0" expanded="true" />
+                <element signature="e#2974#2975#0" expanded="true" />
+                <element signature="e#3029#3030#0" expanded="true" />
+                <element signature="e#3107#3108#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Delauney_Graph.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/de/himbiss/ld35/world/Delauney_Graph.java">
+      <file leaf-file-name="Enemy.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/de/himbiss/ld35/world/Enemy.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.025641026">
-              <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="15" column="21" selection-start-line="15" selection-start-column="21" selection-end-line="15" selection-end-column="21" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SpriteSheet.class" pinned="false" current-in-tab="false">
+        <entry file="jar://$MAVEN_REPOSITORY$/org/slick2d/slick2d-core/1.0.1/slick2d-core-1.0.1.jar!/org/newdawn/slick/SpriteSheet.class">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-9.851851">
+              <caret line="108" column="0" selection-start-line="108" selection-start-column="0" selection-end-line="108" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -75,18 +132,8 @@
       <file leaf-file-name="Animation.class" pinned="false" current-in-tab="false">
         <entry file="jar://$MAVEN_REPOSITORY$/org/slick2d/slick2d-core/1.0.1/slick2d-core-1.0.1.jar!/org/newdawn/slick/Animation.class">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.6296296">
-              <caret line="141" column="23" selection-start-line="141" selection-start-column="23" selection-end-line="141" selection-end-column="23" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SpriteSheet.class" pinned="false" current-in-tab="false">
-        <entry file="jar://$MAVEN_REPOSITORY$/org/slick2d/slick2d-core/1.0.1/slick2d-core-1.0.1.jar!/org/newdawn/slick/SpriteSheet.class">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-6.0740743">
-              <caret line="119" column="0" selection-start-line="119" selection-start-column="0" selection-end-line="119" selection-end-column="0" />
+            <state vertical-scroll-proportion="-10.777778">
+              <caret line="154" column="0" selection-start-line="154" selection-start-column="0" selection-end-line="154" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -96,55 +143,72 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/de/himbiss/ld35/world/Tile_Wall.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="42" column="0" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Animator.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/de/himbiss/ld35/world/animation/Animator.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="17" column="16" selection-start-line="17" selection-start-column="16" selection-end-line="17" selection-end-column="16" />
+              <caret line="40" column="48" selection-start-line="40" selection-start-column="48" selection-end-line="40" selection-end-column="48" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#338#339#0" expanded="true" />
-                <element signature="e#384#385#0" expanded="true" />
-                <element signature="e#434#435#0" expanded="true" />
-                <element signature="e#476#477#0" expanded="true" />
-                <element signature="e#511#512#0" expanded="true" />
-                <element signature="e#574#575#0" expanded="true" />
+                <marker date="1460896799356" expanded="true" signature="1084:1090" placeholder="{...}" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Tile_Corridor.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/de/himbiss/ld35/world/Tile_Corridor.java">
+      <file leaf-file-name="Entity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/de/himbiss/ld35/world/Entity.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+              <caret line="36" column="19" selection-start-line="36" selection-start-column="19" selection-end-line="36" selection-end-column="19" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#725#726#0" expanded="true" />
+                <element signature="e#797#798#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="WorldGenerator.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/de/himbiss/ld35/world/WorldGenerator.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="241" column="21" selection-start-line="241" selection-start-column="21" selection-end-line="241" selection-end-column="21" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Tile_Floor.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/de/himbiss/ld35/world/Tile_Floor.java">
+      <file leaf-file-name="Engine.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/de/himbiss/ld35/engine/Engine.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-              <folding />
+              <caret line="67" column="0" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#1192#1193#0" expanded="true" />
+                <element signature="e#1226#1227#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Tile_Void.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/de/himbiss/ld35/world/Tile_Void.java">
+      <file leaf-file-name="Crate.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/de/himbiss/ld35/world/Crate.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+              <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#770#771#0" expanded="true" />
+                <element signature="e#842#843#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="World.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/de/himbiss/ld35/world/World.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="24" column="27" selection-start-line="24" selection-start-column="27" selection-end-line="24" selection-end-column="27" />
               <folding />
             </state>
           </provider>
@@ -186,14 +250,15 @@
         <option value="$PROJECT_DIR$/src/main/java/de/himbiss/ld35/world/Entity.java" />
         <option value="$PROJECT_DIR$/src/main/java/de/himbiss/ld35/world/Crate.java" />
         <option value="$PROJECT_DIR$/src/main/java/de/himbiss/ld35/world/Tile.java" />
-        <option value="$PROJECT_DIR$/src/main/java/de/himbiss/ld35/world/World.java" />
         <option value="$PROJECT_DIR$/src/main/java/de/himbiss/ld35/world/animation/Animator.java" />
         <option value="$PROJECT_DIR$/src/main/java/de/himbiss/ld35/engine/Renderable.java" />
-        <option value="$PROJECT_DIR$/src/main/java/de/himbiss/ld35/engine/Engine.java" />
         <option value="$PROJECT_DIR$/src/main/java/de/himbiss/ld35/world/Tile_Void.java" />
         <option value="$PROJECT_DIR$/src/main/java/de/himbiss/ld35/engine/ResourceManager.java" />
-        <option value="$PROJECT_DIR$/src/main/java/de/himbiss/ld35/world/Player.java" />
         <option value="$PROJECT_DIR$/src/main/java/de/himbiss/ld35/world/Delauney_Graph.java" />
+        <option value="$PROJECT_DIR$/src/main/java/de/himbiss/ld35/engine/Engine.java" />
+        <option value="$PROJECT_DIR$/src/main/java/de/himbiss/ld35/world/Tile_Wall.java" />
+        <option value="$PROJECT_DIR$/src/main/java/de/himbiss/ld35/world/World.java" />
+        <option value="$PROJECT_DIR$/src/main/java/de/himbiss/ld35/world/Player.java" />
       </list>
     </option>
   </component>
@@ -470,6 +535,7 @@
     <property name="settings.editor.selected.configurable" value="MavenSettings" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/res" />
+    <property name="extract.method.default.visibility" value="private" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -935,7 +1001,19 @@
       <option name="project" value="LOCAL" />
       <updated>1460893453464</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Merge branch 'master' of https://github.com/Himbiss/ld35&#10;&#10;# Conflicts:&#10;#&#9;src/main/java/de/himbiss/ld35/world/World.java&#10;">
+      <created>1460893597430</created>
+      <option name="number" value="00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1460893597430</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Merge branch 'master' of https://github.com/Himbiss/ld35&#10;&#10;# Conflicts:&#10;#&#9;src/main/java/de/himbiss/ld35/world/World.java&#10;">
+      <created>1460896766338</created>
+      <option name="number" value="00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1460896766338</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -991,7 +1069,8 @@
     <MESSAGE value="fixed physics bug" />
     <MESSAGE value="added hitbox texture" />
     <MESSAGE value="added animation" />
-    <option name="LAST_COMMIT_MESSAGE" value="added animation" />
+    <MESSAGE value="Merge branch 'master' of https://github.com/Himbiss/ld35&#10;&#10;# Conflicts:&#10;#&#9;src/main/java/de/himbiss/ld35/world/World.java&#10;" />
+    <option name="LAST_COMMIT_MESSAGE" value="Merge branch 'master' of https://github.com/Himbiss/ld35&#10;&#10;# Conflicts:&#10;#&#9;src/main/java/de/himbiss/ld35/world/World.java&#10;" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1004,7 +1083,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/de/himbiss/ld35/world/Player.java</url>
-          <line>33</line>
+          <line>42</line>
           <properties />
           <option name="timeStamp" value="10" />
         </line-breakpoint>
@@ -1128,19 +1207,7 @@
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#1192#1193#0" expanded="true" />
-            <element signature="e#1340#1341#0" expanded="true" />
-            <element signature="e#2868#2869#0" expanded="true" />
-            <element signature="e#2944#2945#0" expanded="true" />
-            <element signature="e#3012#3013#0" expanded="true" />
-            <element signature="e#3089#3090#0" expanded="true" />
-            <element signature="e#3162#3163#0" expanded="true" />
-            <element signature="e#3259#3260#0" expanded="true" />
-            <element signature="e#7358#7359#0" expanded="true" />
-            <element signature="e#7430#7431#0" expanded="true" />
-            <element signature="e#8504#8505#0" expanded="true" />
-            <element signature="e#8534#8535#0" expanded="true" />
-            <element signature="e#8567#8568#0" expanded="true" />
-            <element signature="e#8597#8598#0" expanded="true" />
+            <element signature="e#1226#1227#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1158,10 +1225,10 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="20" column="5" selection-start-line="20" selection-start-column="5" selection-end-line="20" selection-end-column="5" />
           <folding>
-            <element signature="e#1881#1882#0" expanded="true" />
-            <element signature="e#1908#1909#0" expanded="true" />
-            <element signature="e#1963#1964#0" expanded="true" />
-            <element signature="e#2038#2039#0" expanded="true" />
+            <element signature="e#2947#2948#0" expanded="true" />
+            <element signature="e#2974#2975#0" expanded="true" />
+            <element signature="e#3029#3030#0" expanded="true" />
+            <element signature="e#3107#3108#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1195,10 +1262,10 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
           <folding>
-            <element signature="e#1881#1882#0" expanded="true" />
-            <element signature="e#1908#1909#0" expanded="true" />
-            <element signature="e#1963#1964#0" expanded="true" />
-            <element signature="e#2038#2039#0" expanded="true" />
+            <element signature="e#2947#2948#0" expanded="true" />
+            <element signature="e#2974#2975#0" expanded="true" />
+            <element signature="e#3029#3030#0" expanded="true" />
+            <element signature="e#3107#3108#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1356,14 +1423,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/de/himbiss/ld35/world/WorldGenerator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="126" column="13" selection-start-line="126" selection-start-column="13" selection-end-line="126" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/org/jbox2d/jbox2d-library/2.2.1.1/jbox2d-library-2.2.1.1.jar!/org/jbox2d/dynamics/Body.class">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.6296296">
@@ -1414,50 +1473,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/de/himbiss/ld35/world/Enemy.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="15" column="21" selection-start-line="15" selection-start-column="21" selection-end-line="15" selection-end-column="21" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/de/himbiss/ld35/world/Crate.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="36" column="64" selection-start-line="36" selection-start-column="64" selection-end-line="36" selection-end-column="64" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#770#771#0" expanded="true" />
-            <element signature="e#842#843#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/de/himbiss/ld35/world/Entity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="36" column="19" selection-start-line="36" selection-start-column="19" selection-end-line="36" selection-end-column="19" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#725#726#0" expanded="true" />
-            <element signature="e#797#798#0" expanded="true" />
-            <element signature="e#1157#1158#0" expanded="true" />
-            <element signature="e#1222#1223#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/de/himbiss/ld35/world/World.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="30" column="0" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/de/himbiss/ld35/Main.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1477,36 +1492,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/de/himbiss/ld35/engine/Engine.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="244" column="28" selection-start-line="244" selection-start-column="28" selection-end-line="244" selection-end-column="28" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1192#1193#0" expanded="true" />
-            <element signature="e#1340#1341#0" expanded="true" />
-            <element signature="e#2868#2869#0" expanded="true" />
-            <element signature="e#2944#2945#0" expanded="true" />
-            <element signature="e#3012#3013#0" expanded="true" />
-            <element signature="e#3089#3090#0" expanded="true" />
-            <element signature="e#3162#3163#0" expanded="true" />
-            <element signature="e#3259#3260#0" expanded="true" />
-            <element signature="e#7358#7359#0" expanded="true" />
-            <element signature="e#7430#7431#0" expanded="true" />
-            <element signature="e#8504#8505#0" expanded="true" />
-            <element signature="e#8534#8535#0" expanded="true" />
-            <element signature="e#8567#8568#0" expanded="true" />
-            <element signature="e#8597#8598#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/de/himbiss/ld35/world/Tile.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="27" column="0" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
           <folding>
-            <element signature="e#826#827#0" expanded="true" />
+            <element signature="e#825#826#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1556,10 +1547,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/de/himbiss/ld35/world/Tile_Wall.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/de/himbiss/ld35/world/Delauney_Graph.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="42" column="0" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
+          <caret line="36" column="9" selection-start-line="36" selection-start-column="9" selection-end-line="36" selection-end-column="9" />
           <folding />
         </state>
       </provider>
@@ -1567,45 +1558,110 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/de/himbiss/ld35/engine/ResourceManager.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="74" column="33" selection-start-line="74" selection-start-column="33" selection-end-line="74" selection-end-column="33" />
+          <caret line="76" column="0" selection-start-line="76" selection-start-column="0" selection-end-line="76" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/de/himbiss/ld35/world/WorldGenerator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="241" column="21" selection-start-line="241" selection-start-column="21" selection-end-line="241" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/de/himbiss/ld35/world/Entity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="36" column="19" selection-start-line="36" selection-start-column="19" selection-end-line="36" selection-end-column="19" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#725#726#0" expanded="true" />
+            <element signature="e#797#798#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/de/himbiss/ld35/world/Tile_Wall.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="40" column="48" selection-start-line="40" selection-start-column="48" selection-end-line="40" selection-end-column="48" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <marker date="1460896799356" expanded="true" signature="1084:1090" placeholder="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/org/slick2d/slick2d-core/1.0.1/slick2d-core-1.0.1.jar!/org/newdawn/slick/SpriteSheet.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.0740743">
-          <caret line="119" column="0" selection-start-line="119" selection-start-column="0" selection-end-line="119" selection-end-column="0" />
+        <state vertical-scroll-proportion="-9.851851">
+          <caret line="108" column="0" selection-start-line="108" selection-start-column="0" selection-end-line="108" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/org/slick2d/slick2d-core/1.0.1/slick2d-core-1.0.1.jar!/org/newdawn/slick/Animation.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.6296296">
-          <caret line="141" column="23" selection-start-line="141" selection-start-column="23" selection-end-line="141" selection-end-column="23" />
+        <state vertical-scroll-proportion="-10.777778">
+          <caret line="154" column="0" selection-start-line="154" selection-start-column="0" selection-end-line="154" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/de/himbiss/ld35/engine/Engine.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="67" column="0" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1192#1193#0" expanded="true" />
+            <element signature="e#1226#1227#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/de/himbiss/ld35/world/Crate.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#770#771#0" expanded="true" />
+            <element signature="e#842#843#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/de/himbiss/ld35/world/World.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="24" column="27" selection-start-line="24" selection-start-column="27" selection-end-line="24" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/de/himbiss/ld35/world/Enemy.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="15" column="21" selection-start-line="15" selection-start-column="21" selection-end-line="15" selection-end-column="21" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/de/himbiss/ld35/world/Player.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="33" column="49" selection-start-line="33" selection-start-column="49" selection-end-line="33" selection-end-column="49" />
+        <state vertical-scroll-proportion="0.47058824">
+          <caret line="41" column="35" selection-start-line="41" selection-start-column="35" selection-end-line="41" selection-end-column="35" />
           <folding>
-            <element signature="e#1881#1882#0" expanded="true" />
-            <element signature="e#1908#1909#0" expanded="true" />
-            <element signature="e#1963#1964#0" expanded="true" />
-            <element signature="e#2038#2039#0" expanded="true" />
+            <element signature="e#2947#2948#0" expanded="true" />
+            <element signature="e#2974#2975#0" expanded="true" />
+            <element signature="e#3029#3030#0" expanded="true" />
+            <element signature="e#3107#3108#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/de/himbiss/ld35/world/Delauney_Graph.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.025641026">
-          <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>

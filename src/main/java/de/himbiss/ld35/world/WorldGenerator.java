@@ -40,6 +40,7 @@ public class WorldGenerator {
             z = rnd.nextInt();
             z = abs(z);
             r.posy = (z%spread-spread/2-1);
+            r.type = 0;
             roomStruktList.add(r);
         }
 
@@ -99,33 +100,34 @@ public class WorldGenerator {
 
 
         World w = new World(world_x,world_y);
+        List<Graph_Edge> graph_edgeList = MinSpannTree.span(roomStruktList);
 
-        int medX = 0;
-        int medY = 0;
-        count = 0;
-        for(RoomStrukt r : roomStruktList){
-            medX += r.midX();
-            medY += r.midY();
-            count++;
-        }
-        medX /=count;
-        medY /=count;
-
-        int oX = 0;
-        int oY = 0;
-        for (RoomStrukt r:roomStruktList) {
-            int dx = r.midX()-medX;
-            int dy = r.midY()-medY;
-            int odx = oX-medX;
-            int ody = oY-medY;
-
-            if(Math.sqrt(odx*odx+ody*ody)<Math.sqrt(dx*dx+dy*dy) || (oX==0 && oY==0)){
-                oX = r.midX();
-                oY = r.midY();
+        List<RoomStrukt> singlerooms = new ArrayList<>();
+        for(int i = 0; i<roomStruktList.size();i++){
+            int c = 0;
+            for(Graph_Edge e:graph_edgeList){
+                if(e.p1 == i || e.p2==i) c++;
+            }
+            if(c==1){
+                singlerooms.add(roomStruktList.get(i));
             }
         }
+        System.out.println("Einzelräume: " + singlerooms.size());
+        Graph_Edge longest = new Graph_Edge(0,1);
+        for(int i = 0; i< singlerooms.size();i++){
+            for(int j = i+1;j<singlerooms.size();j++){
+                Graph_Edge temp = new Graph_Edge(i,j);
+                if(dist_square(temp,singlerooms) > dist_square(longest,singlerooms)){
+                    longest = new Graph_Edge(i,j);
+                }
+            }
+        }
+        singlerooms.get(longest.p1).type = 1;
+        singlerooms.get(longest.p2).type = 2;
+
         Tile ft = new Tile_Floor(0,0);
-        w.setStart(oX*ft.getWidth(),oY*ft.getHeight());
+        w.setStart(singlerooms.get(longest.p1).midX()*ft.getWidth(),singlerooms.get(longest.p1).midY()*ft.getHeight());
+        w.setBoss(singlerooms.get(longest.p2).midX()*ft.getWidth(),singlerooms.get(longest.p2).midY()*ft.getHeight());
 
 
         for(RoomStrukt r: roomStruktList){
@@ -140,7 +142,7 @@ public class WorldGenerator {
                 }
             }
         }
-        List<Graph_Edge> graph_edgeList = MinSpannTree.span(roomStruktList);
+
         for(Graph_Edge e:graph_edgeList){
 
             RoomStrukt r1 = roomStruktList.get(e.p1);
@@ -269,6 +271,8 @@ public class WorldGenerator {
                 }
             }
         }
+
+
         return w;
     }
 
@@ -340,7 +344,11 @@ public class WorldGenerator {
 
 
 
-
+    private static int dist_square(Graph_Edge e, List<RoomStrukt> roomStruktList){
+        RoomStrukt r1 = roomStruktList.get(e.p1);
+        RoomStrukt r2 = roomStruktList.get(e.p2);
+        return  (int)Math.sqrt((r1.midX()-r2.midX())*(r1.midX()-r2.midX())+(r1.midY()-r2.midY())*(r1.midY()-r2.midY()));
+    }
 
 }
 
