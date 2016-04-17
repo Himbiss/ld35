@@ -9,22 +9,22 @@ import org.newdawn.slick.opengl.Texture;
  * Created by Oneidavar on 17/04/2016.
  */
 public class Tile_Door extends Tile implements Switchable, HasHitbox {
-    boolean state = false;
+    boolean isOpen = false;
     public Tile_Door(int x, int y) {
         textureKey = "door";
         coordx = getWidth() * x;
         coordy = getHeight() * y;
-        state = false;
+        isOpen = false;
     }
 
     public Texture getTexture() {
-        if(state) return ResourceManager.getInstance().getTexture(textureKey+"_open");
+        if(isOpen) return ResourceManager.getInstance().getTexture(textureKey+"_open");
         return ResourceManager.getInstance().getTexture(textureKey);
     }
 
     @Override
     public void trigger() {
-        state =true;
+        isOpen =true;
     }
 
 
@@ -48,9 +48,13 @@ public class Tile_Door extends Tile implements Switchable, HasHitbox {
         return Engine.getInstance().getOffsetY() + coordy;
     }
 
+    public boolean isOpen() {
+        return isOpen;
+    }
+
     @Override
     public void collideWith(HasHitbox object, float deltaX, float deltaY) {
-        if(!state) {
+        if(!isOpen) {
             System.out.print(object + "collided " + coordx + " - " + getHeight() + " - ");
             System.out.println(getHitBoxCoordX());
             if (object instanceof Entity) {

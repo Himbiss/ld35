@@ -2,6 +2,7 @@ package de.himbiss.ld35.world;
 
 import de.himbiss.ld35.engine.*;
 import de.himbiss.ld35.world.fightsystem.DoesDamage;
+import de.himbiss.ld35.world.fightsystem.EntityDecorator;
 import de.himbiss.ld35.world.fightsystem.Tear;
 import org.newdawn.slick.opengl.Texture;
 
@@ -117,5 +118,13 @@ public abstract class Entity implements Renderable, Updatable, HasHitbox, HasPhy
 
     public void setPrevCoordX(float prevCoordX) {
         this.prevCoordX = prevCoordX;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof EntityDecorator) {
+            return equals(((EntityDecorator) obj).getEntity());
+        }
+        return super.equals(obj);
     }
 }

@@ -6,5 +6,5 @@ package de.himbiss.ld35.world.fightsystem;
 public interface HasHealth {
     void setHealth(int health);
     int getHealth();
-    void applyDamage(DoesDamage damageObject);
+    void applyDamage(DoesDamage damageObject, float dX, float dY);
 }
