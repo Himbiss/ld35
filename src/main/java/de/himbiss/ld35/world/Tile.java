@@ -9,16 +9,16 @@ import org.newdawn.slick.opengl.Texture;
  */
 public abstract class Tile implements Renderable {
     public static int TILE_SIZE = 50;
-    public int coordx;
-    public int coordy;
+    public float coordx;
+    public float coordy;
 
     protected String textureKey;
 
-    public int getCoordy() {
+    public float getCoordy() {
         return coordy;
     }
 
-    public int getCoordx() {
+    public float getCoordx() {
         return coordx;
     }
 
@@ -26,7 +26,6 @@ public abstract class Tile implements Renderable {
         textureKey = "crate";
         coordx = 0;
         coordy = 0;
-
     }
 
     public int getWidth() {

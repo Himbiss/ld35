@@ -35,6 +35,7 @@ public class Engine {
     private int realFPS;
     private TrueTypeFont debugFont;
     private boolean debugMode;
+    private float gravity = 1f;
 
     private Engine() {
         this.displayMode = new DisplayMode(1280, 768);
@@ -66,11 +67,11 @@ public class Engine {
             // Clear the screen and depth buffer
             GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
 
-            calculatePhysics();
             world.update(delta);
+            calculatePhysics();
 
-            renderWorld();
             scrollWorld();
+            renderWorld();
 
             if (debugMode) {
                 renderDebug();
@@ -128,15 +129,15 @@ public class Engine {
             }
         }
 
+        CollisionDetector collisionDetector = new CollisionDetector(entities, tileHitboxes);
+        collisionDetector.doCollision();
+
         for (Entity entity : entities) {
             entity.setCoordX((entity.getCoordX() - offsetX) + entity.getDeltaX());
             entity.setCoordY((entity.getCoordY() - offsetY) + entity.getDeltaY());
 
-            entity.applyGravity(1f);
+            entity.applyGravity(gravity);
         }
-
-        CollisionDetector collisionDetector = new CollisionDetector(entities, tileHitboxes);
-        collisionDetector.doCollision();
     }
 
     private void initGL() {
@@ -281,5 +282,9 @@ public class Engine {
 
     public float getOffsetY() {
         return offsetY;
+    }
+
+    public float getGravity() {
+        return gravity;
     }
 }

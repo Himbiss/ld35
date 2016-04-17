@@ -10,6 +10,8 @@ public abstract class Entity implements Renderable, Updatable, HasHitbox, HasPhy
 
     protected float coordX;
     protected float coordY;
+    protected float prevCoordX;
+    protected float prevCoordY;
     protected int height;
     protected int width;
     protected float deltaX;
@@ -39,10 +41,12 @@ public abstract class Entity implements Renderable, Updatable, HasHitbox, HasPhy
     }
 
     public void setCoordX(float coordX) {
+        this.prevCoordX = this.coordX;
         this.coordX = coordX;
     }
 
     public void setCoordY(float coordY) {
+        this.prevCoordY = this.coordY;
         this.coordY = coordY;
     }
 
@@ -64,14 +68,22 @@ public abstract class Entity implements Renderable, Updatable, HasHitbox, HasPhy
         return Engine.getInstance().getOffsetY() + coordY;
     }
 
+    public float getPrevCoordX() {
+        return Engine.getInstance().getOffsetX() + prevCoordX;
+    }
+
+    public float getPrevCoordY() {
+        return Engine.getInstance().getOffsetY() + prevCoordY;
+    }
+
     @Override
     public float getDeltaX() {
-        return Math.abs(deltaX) > .1f ? deltaX : 0f;
+        return deltaX;
     }
 
     @Override
     public float getDeltaY() {
-        return Math.abs(deltaY) > .1f ? deltaY : 0f;
+        return deltaY;
     }
 
     @Override
@@ -95,5 +107,13 @@ public abstract class Entity implements Renderable, Updatable, HasHitbox, HasPhy
         else {
             deltaY = (deltaY - gravity) < .1 ? 0 : (deltaY - gravity);
         }
+    }
+
+    public void setPrevCoordY(float prevCoordY) {
+        this.prevCoordY = prevCoordY;
+    }
+
+    public void setPrevCoordX(float prevCoordX) {
+        this.prevCoordX = prevCoordX;
     }
 }

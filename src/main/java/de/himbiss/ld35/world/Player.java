@@ -6,6 +6,7 @@ import de.himbiss.ld35.engine.ResourceManager;
 import de.himbiss.ld35.world.animation.Animator;
 import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.Animation;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.opengl.Texture;
 
@@ -30,13 +31,32 @@ public class Player extends Entity {
         coordY =  (Engine.getInstance().getDisplayMode().getHeight() / 2) - (height / 2);
         animationMap = new HashMap<>();
         spriteSheet = ResourceManager.getInstance().getSpriteSheet("Albert", 16, 16);
-
         animationMap.put("walk_up", new Animation(spriteSheet, new int[] {0,0, 0,1, 1,1}, new int[] {100, 100, 100}));
         animationMap.put("walk_down", new Animation(spriteSheet, new int[] {2,0, 0,3, 1,3}, new int[] {100, 100, 100}));
         animationMap.put("walk_right", new Animation(spriteSheet, new int[] {1,0, 0,2, 1,2}, new int[] {100, 100, 100}));
         animationMap.put("walk_left", new Animation(spriteSheet, new int[] {3,0, 0,4, 1,4}, new int[] {100, 100, 100}));
         currentAnimation = animationMap.get("walk_down");
         currentAnimation.stop();
+    }
+
+    @Override
+    public float getHitBoxCoordY() {
+        return getCoordY() + (height / 2);
+    }
+
+    @Override
+    public float getHitBoxCoordX() {
+        return super.getHitBoxCoordX() + (width / 4);
+    }
+
+    @Override
+    public float getHitboxHeight() {
+        return super.getHitboxHeight() / 2;
+    }
+
+    @Override
+    public float getHitboxWidth() {
+        return super.getHitboxWidth() / 2;
     }
 
     public void update(int delta) {
@@ -68,10 +88,6 @@ public class Player extends Entity {
         if (Math.abs(deltaY) > DELTA_MAX) {
             deltaY = deltaY < 0 ? -DELTA_MAX : DELTA_MAX;
         }
-
-        //if (Keyboard.next()) {
-        //    animator.step(delta);
-        //}
     }
 
     private void handleAnimation(String animation) {
