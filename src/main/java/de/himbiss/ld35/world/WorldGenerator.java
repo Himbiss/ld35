@@ -326,7 +326,7 @@ public class WorldGenerator {
                 tmp[i] = doors.get(i);
             }
             r.setDoors(tmp);
-            System.out.println("doors: " + doors.size() + " - tmp:" + tmp.length);
+            System.out.println("doors: " + doors.size() + " - tmp: " + tmp.length + " p: " + p.size() + " q: " + q.size());
             for(int j = 0; j<doors.size();j+=3) {
                 System.out.println(j + " " + (j+1) + " " + (j+2));
                 Tile_Door[] tmp2 = new Tile_Door[]{tmp[j],tmp[j+1],tmp[j+2]};
@@ -353,7 +353,7 @@ public class WorldGenerator {
                     w.setTile(t1, t3 + 1, b1);
                     Tile_Button b2 = new Tile_Button(t2, t3 - 1);
                     b2.setChildren(tmp2);
-                    w.setTile(t3, t3 - 1, b2);
+                    w.setTile(t2, t3 - 1, b2);
                 }
             }
 
