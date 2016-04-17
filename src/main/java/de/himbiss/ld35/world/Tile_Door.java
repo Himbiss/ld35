@@ -1,5 +1,7 @@
 package de.himbiss.ld35.world;
 
+import de.himbiss.ld35.engine.Engine;
+import de.himbiss.ld35.engine.HasHitbox;
 import de.himbiss.ld35.engine.ResourceManager;
 import org.newdawn.slick.opengl.Texture;
 
@@ -10,8 +12,8 @@ public class Tile_Door extends Tile implements Switchable, HasHitbox {
     boolean state = false;
     public Tile_Door(int x, int y) {
         textureKey = "door";
-        coordx = x;
-        coordy = y;
+        coordx = getWidth() * x;
+        coordy = getHeight() * y;
         state = false;
     }
 
