@@ -37,8 +37,8 @@ public class AudioManager {
         if(effectCache.containsKey(effectKey)){
             return effectCache.get(effectKey);
         } else {
-            try(InputStream stream = getClass().getClassLoader().getResourceAsStream("effect/"+effectKey+".ogg")){
-                Audio audio = AudioLoader.getAudio("OGG",stream);
+            try(InputStream stream = getClass().getClassLoader().getResourceAsStream("effects/"+effectKey+".ogg")){
+                Audio audio = AudioLoader.getAudio("OGG", stream);
                 effectCache.put(effectKey, audio);
                 return audio;
             } catch(IOException e){
@@ -49,12 +49,11 @@ public class AudioManager {
     }
     public Audio getAudio(String audioKey){
         if(audioCache.containsKey(audioKey)){
-            return effectCache.get(audioKey);
+            return audioCache.get(audioKey);
         } else {
-
             try(InputStream stream = getClass().getClassLoader().getResourceAsStream("audio/"+audioKey+".ogg")){
                 Audio audio = AudioLoader.getAudio("OGG", stream);
-                effectCache.put(audioKey, audio);
+                audioCache.put(audioKey, audio);
                 return audio;
             } catch(IOException e){
                 e.printStackTrace();

@@ -27,7 +27,7 @@ public class Enemy_Spider extends Enemy implements Renderable {
         width = 50;
         height = 50;
 
-        attackSpeed = 500;
+        attackSpeed = 2000;
         dist_move = 5;
         dist_attack = 7;
         dist_ignore = 10;

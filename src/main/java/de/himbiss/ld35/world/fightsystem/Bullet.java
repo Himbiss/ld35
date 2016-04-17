@@ -1,5 +1,6 @@
 package de.himbiss.ld35.world.fightsystem;
 
+import de.himbiss.ld35.engine.AudioManager;
 import de.himbiss.ld35.engine.Engine;
 import de.himbiss.ld35.engine.HasHitbox;
 import de.himbiss.ld35.world.Entity;
@@ -30,6 +31,7 @@ public abstract class Bullet extends Entity implements DoesDamage {
         if (! object.equals(shotBy)) {
             if (object instanceof HasHealth) {
                 ((HasHealth) object).applyDamage(this, deltaX, deltaY);
+                AudioManager.getInstance().getEffect("dummy").playAsSoundEffect(1.0f,1.0f,false);
             }
             else if (object instanceof Tile_Door && ((Tile_Door) object).isOpen()) {
                 return;
