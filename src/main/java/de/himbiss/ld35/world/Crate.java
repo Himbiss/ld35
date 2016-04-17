@@ -1,5 +1,6 @@
 package de.himbiss.ld35.world;
 
+import de.himbiss.ld35.engine.Engine;
 import de.himbiss.ld35.engine.HasHitbox;
 import de.himbiss.ld35.engine.ResourceManager;
 import org.newdawn.slick.opengl.Texture;
@@ -23,8 +24,16 @@ public class Crate extends Entity {
 
     @Override
     public void collideWith(HasHitbox object, float deltaX, float deltaY) {
-        this.deltaX += deltaX * 0.1f;
-        this.deltaY += deltaY * 0.1f;
+        if (object instanceof Entity) {
+            this.deltaX += deltaX;
+            this.deltaY += deltaY;
+            ((Entity) object).setCoordX(((Entity) object).getPrevCoordX() - Engine.getInstance().getOffsetX());
+            ((Entity) object).setCoordY(((Entity) object).getPrevCoordY() - Engine.getInstance().getOffsetY());
+        }
+        else {
+            this.deltaX = 0f;
+            this.deltaY = 0f;
+        }
     }
 
     @Override

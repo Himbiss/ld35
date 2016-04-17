@@ -38,11 +38,33 @@ public class Tile_Wall extends Tile implements HasHitbox {
         System.out.print(object + "collided " + coordx + " - " + getHeight() + " - ");
         System.out.println(getHitBoxCoordX());
         if (object instanceof Entity) {
-            //deltaX = deltaX == 0 ? 0 : deltaX < 0 ? deltaX - 1f : deltaX + 1f;
-            //deltaY = deltaY == 0 ? 0 : deltaY < 0 ? deltaY - 1f : deltaY + 1f;
-            ((Entity) object).setDeltas(0, 0);
-            ((Entity) object).setCoordX(((Entity) object).getCoordX() - Engine.getInstance().getOffsetX() - deltaX);
-            ((Entity) object).setCoordY(((Entity) object).getCoordY() - Engine.getInstance().getOffsetY()- deltaY);
+            Entity entity = (Entity) object;
+            float hitboxOffsetX = Math.abs(entity.getHitBoxCoordX() - entity.getCoordX());
+            if (deltaX < 0) {
+                entity.setCoordX(getCoordx() + getWidth() - hitboxOffsetX);
+            }
+            else if (deltaX > 0) {
+                entity.setCoordX(getCoordx() - entity.getHitboxWidth() - hitboxOffsetX);
+            }
+
+            float hitboxOffsetY = Math.abs(entity.getHitBoxCoordY() - entity.getCoordY());
+            if (deltaY < 0) {
+                entity.setCoordY(getCoordy() + getHeight() - hitboxOffsetY);
+            }
+            else if (deltaY > 0) {
+                entity.setCoordY(getCoordy() - entity.getHitboxHeight() - hitboxOffsetY);
+            }
+
+            entity.setDeltas(0f, 0f);
+
+//            float gravity = Engine.getInstance().getGravity();
+//            entity.setDeltas(0f, 0f);
+//            float prevCoordX = entity.getPrevCoordX();
+//            entity.setCoordX(prevCoordX - offsetX);
+//            entity.setPrevCoordX(prevCoordX);
+//            float prevCoordY = entity.getPrevCoordY();
+//            entity.setCoordY(prevCoordY - Engine.getInstance().getOffsetY());
+//            entity.setPrevCoordY(prevCoordY);
         }
     }
 
