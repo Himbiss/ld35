@@ -37,7 +37,7 @@ public class Engine {
     private boolean debugMode;
 
     private Engine() {
-        this.displayMode = new DisplayMode(1024, 768);
+        this.displayMode = new DisplayMode(1280, 768);
     }//DisplayMode(800, 600);}
 
     public static Engine getInstance() {
@@ -49,6 +49,8 @@ public class Engine {
 
     public void setWorld(World world) {
         this.world = world;
+        world.getPlayer().setCoordX( world.getStartX());
+        world.getPlayer().setCoordY( world.getStartY());
     }
 
     public void start() {

@@ -97,7 +97,37 @@ public class WorldGenerator {
         }
 
 
+
         World w = new World(world_x,world_y);
+
+        int medX = 0;
+        int medY = 0;
+        count = 0;
+        for(RoomStrukt r : roomStruktList){
+            medX += r.midX();
+            medY += r.midY();
+            count++;
+        }
+        medX /=count;
+        medY /=count;
+
+        int oX = 0;
+        int oY = 0;
+        for (RoomStrukt r:roomStruktList) {
+            int dx = r.midX()-medX;
+            int dy = r.midY()-medY;
+            int odx = oX-medX;
+            int ody = oY-medY;
+
+            if(Math.sqrt(odx*odx+ody*ody)<Math.sqrt(dx*dx+dy*dy) || (oX==0 && oY==0)){
+                oX = r.midX();
+                oY = r.midY();
+            }
+        }
+        Tile ft = new Tile_Floor(0,0);
+        w.setStart(oX*ft.getWidth(),oY*ft.getHeight());
+
+
         for(RoomStrukt r: roomStruktList){
             for(int rx = 0;rx<r.width;rx++){
                 for(int ry = 0;ry<r.height;ry++){
@@ -106,7 +136,7 @@ public class WorldGenerator {
                     //    w.setTile(r.posx+rx, r.posy+ry,new Tile_Corridor());
                     //} else
 
-                    w.setTile(r.posx+rx, r.posy+ry,new Tile_Floor());
+                    w.setTile(r.posx+rx, r.posy+ry,new Tile_Floor(r.posx+rx,r.posy+ry));
                 }
             }
         }
@@ -143,19 +173,19 @@ public class WorldGenerator {
                     cv = r2.midX();
                 }
                 for(int i = cu;i<=cd;i++){
-                    w.setTile(ct-1,i,new Tile_Corridor());
-                    w.setTile(ct,i,new Tile_Corridor());
-                    w.setTile(ct+1,i,new Tile_Corridor());
+                    w.setTile(ct-1,i,new Tile_Corridor(ct-1,i));
+                    w.setTile(ct,i,new Tile_Corridor(ct,i));
+                    w.setTile(ct+1,i,new Tile_Corridor(ct+1,i));
                 }
                 for(int i = cf-1;i<cs+2;i++){
-                    w.setTile(i,cd-1,new Tile_Corridor());
-                    w.setTile(i,cd,new Tile_Corridor());
-                    w.setTile(i,cd+1,new Tile_Corridor());
+                    w.setTile(i,cd-1,new Tile_Corridor(i,cd-1));
+                    w.setTile(i,cd,new Tile_Corridor(i,cd));
+                    w.setTile(i,cd+1,new Tile_Corridor(i,cd+1));
                 }
                 for(int i = cd;i<cl;i++){
-                    w.setTile(cv-1,i,new Tile_Corridor());
-                    w.setTile(cv,i,new Tile_Corridor());
-                    w.setTile(cv+1,i,new Tile_Corridor());
+                    w.setTile(cv-1,i,new Tile_Corridor(cv-1,i));
+                    w.setTile(cv,i,new Tile_Corridor(cv,i));
+                    w.setTile(cv+1,i,new Tile_Corridor(cv+1,i));
                 }
             } else {
                 if(r1.midX()>r2.midX()){
@@ -182,19 +212,19 @@ public class WorldGenerator {
                     cv = r2.midY();
                 }
                 for(int i = cu;i<=cd;i++){
-                    w.setTile(i,ct-1,new Tile_Corridor());
-                    w.setTile(i,ct,new Tile_Corridor());
-                    w.setTile(i,ct+1,new Tile_Corridor());
+                    w.setTile(i,ct-1,new Tile_Corridor(i,ct-1));
+                    w.setTile(i,ct,new Tile_Corridor(i,ct));
+                    w.setTile(i,ct+1,new Tile_Corridor(i,ct+1));
                 }
                 for(int i = cf-1;i<cs+2;i++){
-                    w.setTile(cd-1,i,new Tile_Corridor());
-                    w.setTile(cd,i,new Tile_Corridor());
-                    w.setTile(cd+1,i,new Tile_Corridor());
+                    w.setTile(cd-1,i,new Tile_Corridor(cd-1,i));
+                    w.setTile(cd,i,new Tile_Corridor(cd,i));
+                    w.setTile(cd+1,i,new Tile_Corridor(cd+1,i));
                 }
                 for(int i = cd;i<cl;i++){
-                    w.setTile(i,cv-1,new Tile_Corridor());
-                    w.setTile(i,cv,new Tile_Corridor());
-                    w.setTile(i,cv+1,new Tile_Corridor());
+                    w.setTile(i,cv-1,new Tile_Corridor(i,cv-1));
+                    w.setTile(i,cv,new Tile_Corridor(i,cv));
+                    w.setTile(i,cv+1,new Tile_Corridor(i,cv+1));
                 }
             }
 
@@ -205,35 +235,35 @@ public class WorldGenerator {
             for(int j = 0; j<w.getSizeY();j++){
                 if(w.getWorldArray()[i][j].textureKey=="void"){
                     if(i+1<w.getSizeX() && w.getWorldArray()[i+1][j].textureKey!="void" && w.getWorldArray()[i+1][j].textureKey!="wall") {
-                        w.setTile(i, j, new Tile_Wall());
+                        w.setTile(i, j, new Tile_Wall(i,j));
                         continue;
                     }
                     if(i-1>=0 && w.getWorldArray()[i-1][j].textureKey!="void"&& w.getWorldArray()[i-1][j].textureKey!="wall") {
-                        w.setTile(i, j, new Tile_Wall());
+                        w.setTile(i, j, new Tile_Wall(i,j));
                         continue;
                     }
                     if(j+1<w.getSizeY() && w.getWorldArray()[i][j+1].textureKey!="void"&& w.getWorldArray()[i][j+1].textureKey!="wall") {
-                        w.setTile(i, j, new Tile_Wall());
+                        w.setTile(i, j, new Tile_Wall(i,j));
                         continue;
                     }
                     if(j-1>=0 && w.getWorldArray()[i][j-1].textureKey!="void"&& w.getWorldArray()[i][j-1].textureKey!="wall") {
-                        w.setTile(i, j, new Tile_Wall());
+                        w.setTile(i, j, new Tile_Wall(i,j));
                         continue;
                     }
                     if(i+1<w.getSizeX() && j+1<w.getSizeY() && w.getWorldArray()[i+1][j+1].textureKey!="void" && w.getWorldArray()[i+1][j+1].textureKey!="wall") {
-                        w.setTile(i, j, new Tile_Wall());
+                        w.setTile(i, j, new Tile_Wall(i,j));
                         continue;
                     }
                     if(i-1>=0 && j+1<w.getSizeY() &&  w.getWorldArray()[i-1][j+1].textureKey!="void"&& w.getWorldArray()[i-1][j+1].textureKey!="wall") {
-                        w.setTile(i, j, new Tile_Wall());
+                        w.setTile(i, j, new Tile_Wall(i,j));
                         continue;
                     }
                     if(i+1<w.getSizeX() && j-1>=0 &&  w.getWorldArray()[i+1][j-1].textureKey!="void"&& w.getWorldArray()[i+1][j-1].textureKey!="wall") {
-                        w.setTile(i, j, new Tile_Wall());
+                        w.setTile(i, j, new Tile_Wall(i,j));
                         continue;
                     }
                     if(i-1>=0 && j-1>=0 && w.getWorldArray()[i-1][j-1].textureKey!="void"&& w.getWorldArray()[i-1][j-1].textureKey!="wall") {
-                        w.setTile(i, j, new Tile_Wall());
+                        w.setTile(i, j, new Tile_Wall(i,j));
                         continue;
                     }
                 }

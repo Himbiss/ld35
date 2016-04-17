@@ -28,7 +28,7 @@ public class MinSpannTree {
 
         for(int v = 0; v<roomlist.size(); v++)
             if(!marked[v]) prim(roomlist, v);
-        
+
 
         return mst;
         //return delauney;
