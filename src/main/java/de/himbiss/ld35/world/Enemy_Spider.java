@@ -10,8 +10,8 @@ import org.newdawn.slick.opengl.Texture;
  * Created by Oneidavar on 17/04/2016.
  */
 public class Enemy_Spider extends Enemy implements Renderable {
-    private float speed = .1f;
-    private static final float DELTA_MAX = 4.5f;
+    private float speed = .05f;
+    private static final float DELTA_MAX = 3f;
 
     public Enemy_Spider(float posX, float posY) {
         super(posX, posY);
@@ -50,7 +50,6 @@ public class Enemy_Spider extends Enemy implements Renderable {
 
     public Texture getTexture() {
         //TODO Animations
-        System.out.println("Texture requested " + textureKey);
         return ResourceManager.getInstance().getTexture(textureKey);
     }
 

@@ -41,10 +41,11 @@ public class World implements Updatable {
     public void populate() {
         player = new Player();
         entities.add(player);
-        Enemy_Spider spinne = new Enemy_Spider(player.getCoordX(),player.getCoordY()-50);
-        entities.add(spinne);
         player.setCoordX(getStartX());
         player.setCoordY(getStartY());
+
+        Enemy_Spider spinne = new Enemy_Spider(player.getCoordX(),player.getCoordY()-200);
+        entities.add(spinne);
         entities.add(new Crate(player.getCoordX() + 100 , player.getCoordY()));
         entities.add(new Enemy(player.getCoordX() - 100 , player.getCoordY()));
     }
