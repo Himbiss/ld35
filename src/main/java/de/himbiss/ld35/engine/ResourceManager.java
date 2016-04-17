@@ -1,5 +1,7 @@
 package de.himbiss.ld35.engine;
 
+import org.newdawn.slick.SlickException;
+import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.opengl.TextureLoader;
@@ -38,7 +40,7 @@ public class ResourceManager {
             return textureCache.get(textureKey);
         }
         else {
-            try (InputStream stream = getClass().getClassLoader().getResourceAsStream(textureKey + ".png")){
+            try (InputStream stream = getClass().getClassLoader().getResourceAsStream("img/" + textureKey + ".png")){
                 Texture texture = TextureLoader.getTexture("png", stream);
                 textureCache.put(textureKey, texture);
                 return texture;
@@ -54,7 +56,7 @@ public class ResourceManager {
             return fontCache.get(fontKey);
         }
         else {
-            try (InputStream stream = getClass().getClassLoader().getResourceAsStream(fontKey + ".ttf")){
+            try (InputStream stream = getClass().getClassLoader().getResourceAsStream("font/" + fontKey + ".ttf")){
                 Font awtFont = Font.createFont(Font.TRUETYPE_FONT, stream);
                 awtFont = awtFont.deriveFont(FONT_SIZE);
                 TrueTypeFont font = new TrueTypeFont(awtFont, false);
@@ -70,4 +72,14 @@ public class ResourceManager {
         }
     }
 
+    public SpriteSheet getSpriteSheet(String spriteSheetKey, int tw, int th) {
+        try (InputStream stream = getClass().getClassLoader().getResourceAsStream("img/" + spriteSheetKey + ".png")){
+            return new SpriteSheet(spriteSheetKey, stream, tw, th);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SlickException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

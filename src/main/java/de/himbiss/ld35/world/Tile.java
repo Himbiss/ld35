@@ -1,6 +1,7 @@
 package de.himbiss.ld35.world;
 
 import de.himbiss.ld35.engine.Renderable;
+import de.himbiss.ld35.engine.ResourceManager;
 import org.newdawn.slick.opengl.Texture;
 
 /**
@@ -23,8 +24,8 @@ public abstract class Tile implements Renderable {
         return TILE_SIZE;
     }
 
-    public String getTextureKey() {
-        return textureKey;
+    public Texture getTexture() {
+        return ResourceManager.getInstance().getTexture(textureKey);
     }
 }
 

@@ -1,6 +1,8 @@
 package de.himbiss.ld35.world;
 
-import de.himbiss.ld35.engine.Hitbox;
+import de.himbiss.ld35.engine.HasHitbox;
+import de.himbiss.ld35.engine.ResourceManager;
+import org.newdawn.slick.opengl.Texture;
 
 /**
  * Created by Vincent on 16.04.2016.
@@ -20,7 +22,7 @@ public class Crate extends Entity {
     }
 
     @Override
-    public void collideWith(Hitbox object, float deltaX, float deltaY) {
+    public void collideWith(HasHitbox object, float deltaX, float deltaY) {
         this.deltaX += deltaX;
         this.deltaY += deltaY;
     }
@@ -31,7 +33,7 @@ public class Crate extends Entity {
     }
 
     @Override
-    public String getTextureKey() {
-        return "crate";
+    public Texture getTexture() {
+        return ResourceManager.getInstance().getTexture("crate");
     }
 }
