@@ -1,5 +1,6 @@
 package de.himbiss.ld35.world;
 
+import de.himbiss.ld35.engine.AudioManager;
 import de.himbiss.ld35.engine.Engine;
 
 import java.util.ArrayList;
@@ -46,6 +47,8 @@ public class World implements Updatable {
         entities.add(new Enemy_Spider(player.getCoordX(),player.getCoordY()-200));
         entities.add(new Crate(player.getCoordX() + 100 , player.getCoordY()));
         entities.add(new Enemy(player.getCoordX() - 100 , player.getCoordY()));
+        AudioManager.getInstance().getAudio("dummy").playAsMusic(1.0f,1.0f,true);
+        
     }
 
     public void update(int delta) {

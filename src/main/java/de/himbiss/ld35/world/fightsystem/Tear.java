@@ -1,5 +1,6 @@
 package de.himbiss.ld35.world.fightsystem;
 
+import de.himbiss.ld35.engine.AudioManager;
 import de.himbiss.ld35.engine.Engine;
 import de.himbiss.ld35.engine.HasHitbox;
 import de.himbiss.ld35.engine.ResourceManager;
@@ -38,6 +39,7 @@ public class Tear extends Entity implements DoesDamage {
             Engine.getInstance().getWorld().getEntities().remove(this);
             if (object instanceof HasHealth) {
                 ((HasHealth) object).applyDamage(this);
+                AudioManager.getInstance().getEffect("dummy").playAsSoundEffect(1.0f,1.0f,false);;
             }
         }
     }
