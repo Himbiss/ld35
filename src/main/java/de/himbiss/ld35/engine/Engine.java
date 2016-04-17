@@ -3,6 +3,7 @@ package de.himbiss.ld35.engine;
 import de.himbiss.ld35.world.Entity;
 import de.himbiss.ld35.world.Tile;
 import de.himbiss.ld35.world.World;
+import de.himbiss.ld35.world.fightsystem.HasHealth;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.Sys;
 import org.lwjgl.input.Keyboard;
@@ -80,8 +81,6 @@ public class Engine {
             Display.sync(60);
             Display.update();
 
-
-
             if (Keyboard.isKeyDown(Keyboard.KEY_F1)) {
                 debugMode = ! debugMode;
             }
@@ -115,6 +114,9 @@ public class Engine {
             };
 
             renderObject(hitbox, entity.getHitBoxCoordX(), entity.getHitBoxCoordY());
+            if (entity instanceof HasHealth) {
+                debugFont.drawString(entity.getCoordX(), entity.getCoordY() - 10, "HP:" + ((HasHealth) entity).getHealth(), Color.white);
+            }
         }
 
         for (Tile[] tiles : world.getWorldArray()) {

@@ -48,8 +48,10 @@ public class World implements Updatable {
     }
 
     public void update(int delta) {
-        // TODO: 16.04.2016 implement!
-        player.update(delta);
+        Set<Entity> set = new HashSet<>(entities);
+        for (Entity entity : set) {
+            entity.update(delta);
+        }
 
         //TODO player on button
         Engine.getInstance().getOffsetX();

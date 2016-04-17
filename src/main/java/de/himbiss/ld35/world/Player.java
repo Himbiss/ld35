@@ -8,6 +8,7 @@ import de.himbiss.ld35.world.fightsystem.DoesDamage;
 import de.himbiss.ld35.world.fightsystem.HasHealth;
 import de.himbiss.ld35.world.fightsystem.Tear;
 import org.lwjgl.input.Keyboard;
+import org.lwjgl.input.Mouse;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.SpriteSheet;
@@ -86,8 +87,17 @@ public class Player extends Entity implements HasHealth {
             }
         }
 
+        if (Mouse.isButtonDown(0)) {
+            int x = Mouse.getX();
+            int y = Mouse.getY();
+            float dX = x - getCoordX();
+            float dY = y - getCoordY();
+            dX *= 0.1f;
+            dY *= 0.1f;
+            System.out.println("shooting tear: " + dX + "," + dY);
+            Engine.getInstance().getWorld().getEntities().add(new Tear(this, coordX + (getWidth()/2), coordY + (getHeight()/2), dX, dY));
+        }
         if (Keyboard.isKeyDown(Keyboard.KEY_SPACE)) {
-            Engine.getInstance().getWorld().getEntities().add(new Tear(coordX, coordY, deltaX, deltaY));
         }
 
         if (Math.abs(deltaX) > DELTA_MAX) {

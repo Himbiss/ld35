@@ -11,10 +11,11 @@ import org.newdawn.slick.opengl.Texture;
  */
 public class Tear extends Entity implements DoesDamage {
 
-    float dX;
-    float dY;
+    private float dX;
+    private float dY;
+    private Entity shotBy;
 
-    public Tear(float posX, float posY, float dX, float dY) {
+    public Tear(Entity shotBy, float posX, float posY, float dX, float dY) {
         this.deltaX = dX;
         this.deltaY = dY;
         this.dX = dX;
@@ -23,6 +24,7 @@ public class Tear extends Entity implements DoesDamage {
         this.coordY = posY;
         this.width = 16;
         this.height = 16;
+        this.shotBy = shotBy;
     }
 
     @Override
@@ -32,9 +34,11 @@ public class Tear extends Entity implements DoesDamage {
 
     @Override
     public void collideWith(HasHitbox object, float deltaX, float deltaY) {
-        Engine.getInstance().getWorld().getEntities().remove(this);
-        if ((! object.equals(Engine.getInstance().getWorld().getPlayer())) && object instanceof HasHealth) {
-            ((HasHealth) object).applyDamage(this);
+        if ((! object.equals(shotBy))) {
+            Engine.getInstance().getWorld().getEntities().remove(this);
+            if (object instanceof HasHealth) {
+                ((HasHealth) object).applyDamage(this);
+            }
         }
     }
 
