@@ -8,7 +8,7 @@ import org.newdawn.slick.opengl.Texture;
  * Created by Oneidavar on 16/04/2016.
  */
 public abstract class Tile implements Renderable {
-    public static int TILE_SIZE = 5;
+    public static int TILE_SIZE = 50;
     public int coordx;
     public int coordy;
 
@@ -26,7 +26,6 @@ public abstract class Tile implements Renderable {
         textureKey = "crate";
         coordx = 0;
         coordy = 0;
-
     }
 
     public int getWidth() {

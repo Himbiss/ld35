@@ -128,15 +128,15 @@ public class Engine {
             }
         }
 
+        CollisionDetector collisionDetector = new CollisionDetector(entities, tileHitboxes);
+        collisionDetector.doCollision();
+
         for (Entity entity : entities) {
             entity.setCoordX((entity.getCoordX() - offsetX) + entity.getDeltaX());
             entity.setCoordY((entity.getCoordY() - offsetY) + entity.getDeltaY());
 
             entity.applyGravity(1f);
         }
-
-        CollisionDetector collisionDetector = new CollisionDetector(entities, tileHitboxes);
-        collisionDetector.doCollision();
     }
 
     private void initGL() {

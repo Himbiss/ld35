@@ -23,8 +23,8 @@ public class Crate extends Entity {
 
     @Override
     public void collideWith(HasHitbox object, float deltaX, float deltaY) {
-        this.deltaX += deltaX;
-        this.deltaY += deltaY;
+        this.deltaX += deltaX * 0.1f;
+        this.deltaY += deltaY * 0.1f;
     }
 
     @Override

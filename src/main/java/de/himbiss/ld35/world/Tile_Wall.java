@@ -38,7 +38,11 @@ public class Tile_Wall extends Tile implements HasHitbox {
         System.out.print(object + "collided " + coordx + " - " + getHeight() + " - ");
         System.out.println(getHitBoxCoordX());
         if (object instanceof Entity) {
-            ((Entity) object).setDeltas(0f, 0f);
+            //deltaX = deltaX == 0 ? 0 : deltaX < 0 ? deltaX - 1f : deltaX + 1f;
+            //deltaY = deltaY == 0 ? 0 : deltaY < 0 ? deltaY - 1f : deltaY + 1f;
+            ((Entity) object).setDeltas(0, 0);
+            ((Entity) object).setCoordX(((Entity) object).getCoordX() - Engine.getInstance().getOffsetX() - deltaX);
+            ((Entity) object).setCoordY(((Entity) object).getCoordY() - Engine.getInstance().getOffsetY()- deltaY);
         }
     }
 

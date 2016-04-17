@@ -33,10 +33,10 @@ public class World implements Updatable {
     public void populate() {
         player = new Player();
         entities.add(player);
-        entities.add(new Crate(player.getCoordX() , player.getCoordY()));
-        entities.add(new Enemy());
         player.setCoordX(getStartX());
         player.setCoordY(getStartY());
+        entities.add(new Crate(player.getCoordX() + 100 , player.getCoordY()));
+        entities.add(new Enemy(player.getCoordX() - 100 , player.getCoordY()));
     }
 
     public void update(int delta) {

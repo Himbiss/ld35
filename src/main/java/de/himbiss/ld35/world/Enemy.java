@@ -11,11 +11,11 @@ public class Enemy extends Entity {
     private float speed = .05f;
     private float DELTA_MAX = 5f;
 
-    public Enemy() {
+    public Enemy(float posX, float posY) {
         width = 50;
         height = 100;
-        coordX =  (Engine.getInstance().getDisplayMode().getWidth() / 4) - (width / 2);
-        coordY =  (Engine.getInstance().getDisplayMode().getHeight() / 4) - (height / 2);
+        coordX = posX;
+        coordY = posY;
     }
 
     public void update(int delta) {
