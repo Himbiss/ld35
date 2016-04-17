@@ -94,9 +94,12 @@ public class Player extends Entity implements HasHealth {
         if (Mouse.isButtonDown(0) && (System.currentTimeMillis() - lastShot) > shotSpeed) {
             lastShot = System.currentTimeMillis();
             int x = Mouse.getX();
-            int y = Mouse.getY();
-            float dX = x - getCoordX();
-            float dY = y - getCoordY();
+            int y = Engine.getInstance().getDisplayMode().getHeight() - Mouse.getY();
+            System.out.println("MX:"+x + " MY:" + y);
+            float pX = getCoordX();
+            float pY = getCoordY();
+            float dX = x - pX;
+            float dY = y - pY;
             dX *= 0.1f;
             dY *= 0.1f;
             System.out.println("shooting tear: " + dX + "," + dY);
