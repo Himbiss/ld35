@@ -15,6 +15,8 @@ public class World implements Updatable {
     private final Player player;
     private int startX;
     private int startY;
+    private int bossX;
+    private int bossY;
 
     public World(int sizeX, int sizeY) {
         this.sizeX = sizeX;
@@ -26,6 +28,8 @@ public class World implements Updatable {
         this.entities.add(new Crate(10f, 10f));
         this.startX = 0;
         this.startY = 0;
+        this.bossX = 0;
+        this.bossY = 0;
         initArray();
     }
 
@@ -71,6 +75,11 @@ public class World implements Updatable {
         this.startX = x;
         this.startY = y;
     }
+
+    public void setBoss(int x, int y){
+        this.bossX = x;
+        this.bossY = y;
+    }
     public int getStartX() {
         return startX;
     }
@@ -79,4 +88,12 @@ public class World implements Updatable {
         return startY;
     }
 
+
+    public int getBossX() {
+        return bossX;
+    }
+
+    public int getBossY() {
+        return bossY;
+    }
 }

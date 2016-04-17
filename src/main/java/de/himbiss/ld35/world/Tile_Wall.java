@@ -35,6 +35,7 @@ public class Tile_Wall extends Tile implements Hitbox {
 
     @Override
     public void collideWith(Hitbox object, float deltaX, float deltaY) {
+
         System.out.print(object + "collided " + coordx + " - " + getHeight() + " - ");
         System.out.println(getHitBoxCoordX());
     }
