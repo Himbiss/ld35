@@ -75,7 +75,7 @@ public class Enemy_Spider extends Enemy implements Renderable {
                 dx *= -0.1f;
                 dy *= -0.1f;
                 System.out.println("spider shooting tear: " + dx + "," + dy);
-                Engine.getInstance().getWorld().getEntities().add(new Tear(this, coordX + (getWidth() / 2), coordY + (getHeight() / 2), dx, dy));
+                //Engine.getInstance().getWorld().getEntities().add(new Tear(this, coordX + (getWidth() / 2), coordY + (getHeight() / 2), dx, dy));
             }
         }
 

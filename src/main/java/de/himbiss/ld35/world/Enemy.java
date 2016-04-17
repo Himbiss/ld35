@@ -6,7 +6,6 @@ import de.himbiss.ld35.engine.Renderable;
 import de.himbiss.ld35.engine.ResourceManager;
 import de.himbiss.ld35.world.fightsystem.DoesDamage;
 import de.himbiss.ld35.world.fightsystem.HasHealth;
-import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.opengl.Texture;
 
 /**
@@ -59,7 +58,9 @@ public class Enemy extends Entity implements Renderable, HasHealth {
     }
 
     @Override
-    public void applyDamage(DoesDamage damageObject) {
+    public void applyDamage(DoesDamage damageObject, float dX, float dY) {
+        this.deltaX += deltaX;
+        this.deltaY += deltaY;
         health -= damageObject.getBaseDamage();
         if (health <= 0) {
             System.out.println("Killed enemy: " + this.toString());

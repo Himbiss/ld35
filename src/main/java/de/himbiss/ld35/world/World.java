@@ -2,6 +2,8 @@ package de.himbiss.ld35.world;
 
 import de.himbiss.ld35.engine.AudioManager;
 import de.himbiss.ld35.engine.Engine;
+import de.himbiss.ld35.world.fightsystem.MovingDecorator;
+import de.himbiss.ld35.world.fightsystem.ShootingDecorator;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -17,7 +19,7 @@ public class World implements Updatable {
     private final int sizeY;
     private final Tile[][] worldArray;
     private final Set<Entity> entities;
-    private Player player;
+    private Entity player;
     private int startX;
     private int startY;
     private int bossX;
@@ -40,7 +42,8 @@ public class World implements Updatable {
     }
 
     public void populate() {
-        player = new Player();
+        Player entity = new Player();
+        player = new MovingDecorator(new ShootingDecorator(entity, null, 1000), 5f, .1f, entity.buildAnimationMap());
         entities.add(player);
         player.setCoordX(getStartX());
         player.setCoordY(getStartY());
@@ -69,7 +72,7 @@ public class World implements Updatable {
         }
     }
 
-    public Player getPlayer() {
+    public Entity getPlayer() {
         return player;
     }
 
