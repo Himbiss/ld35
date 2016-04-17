@@ -16,13 +16,21 @@ public class Enemy_Spider extends Enemy implements Renderable {
     private float speed = .05f;
     private static final float DELTA_MAX = 3f;
     private long lastShot;
-    private int shotSpeed;
+    private int attackSpeed;
+    private int dist_move;
+    private int dist_attack;
+    private int dist_ignore;
 
     public Enemy_Spider(float posX, float posY) {
         super(posX, posY);
         textureKey="crate";
         width = 50;
         height = 50;
+
+        attackSpeed = 1000;
+        dist_move = 5;
+        dist_attack = 7;
+        dist_ignore = 10;
     }
 
     public void update(int delta) {
@@ -34,7 +42,7 @@ public class Enemy_Spider extends Enemy implements Renderable {
         float dx = (getCoordX()-w.getPlayer().getCoordX());
         float dy = (getCoordY()-w.getPlayer().getCoordY());
 
-        if(Math.sqrt(dx*dx+dy*dy)>5*25 ) {
+        if(Math.sqrt(dx*dx+dy*dy)>dist_move*50 && Math.sqrt(dx*dx+dy*dy)<dist_ignore*50 ) {
             float grade = Math.abs(dx / (dx + dy));
             if (grade < 0) System.out.println("kleiner null");
             if (getCoordX() < w.getPlayer().getCoordX()) {
@@ -61,9 +69,9 @@ public class Enemy_Spider extends Enemy implements Renderable {
             }
 
         }
-        if(Math.sqrt(dx*dx+dy*dy)<7*25 ){
-            shotSpeed = 1000;
-            if ((System.currentTimeMillis() - lastShot) > shotSpeed) {
+        if(Math.sqrt(dx*dx+dy*dy)<dist_attack*50){
+
+            if ((System.currentTimeMillis() - lastShot) > attackSpeed) {
                 lastShot = System.currentTimeMillis();
                 dx *= -0.1f;
                 dy *= -0.1f;
