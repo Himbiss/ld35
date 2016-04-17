@@ -63,5 +63,8 @@ public class Crate extends Entity implements HasHealth {
     @Override
     public void applyDamage(DoesDamage damageObject) {
         health -= damageObject.getBaseDamage();
+        if (health <= 0) {
+            Engine.getInstance().getWorld().getEntities().remove(this);
+        }
     }
 }

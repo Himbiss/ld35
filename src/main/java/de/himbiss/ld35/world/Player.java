@@ -28,6 +28,8 @@ public class Player extends Entity implements HasHealth {
     private Map<String,Animation> animationMap;
     private Animation currentAnimation;
     private int health = 10;
+    private long lastShot;
+    private int shotSpeed;
 
     public Player() {
         width = 50;
@@ -42,6 +44,7 @@ public class Player extends Entity implements HasHealth {
         animationMap.put("walk_left", new Animation(spriteSheet, new int[] {3,0, 0,4, 1,4}, new int[] {100, 100, 100}));
         currentAnimation = animationMap.get("walk_down");
         currentAnimation.stop();
+        lastShot = System.currentTimeMillis();
     }
 
     @Override
@@ -87,7 +90,9 @@ public class Player extends Entity implements HasHealth {
             }
         }
 
-        if (Mouse.isButtonDown(0)) {
+        shotSpeed = 1000;
+        if (Mouse.isButtonDown(0) && (System.currentTimeMillis() - lastShot) > shotSpeed) {
+            lastShot = System.currentTimeMillis();
             int x = Mouse.getX();
             int y = Mouse.getY();
             float dX = x - getCoordX();
