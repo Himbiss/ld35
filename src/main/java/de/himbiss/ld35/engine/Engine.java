@@ -297,13 +297,14 @@ public class Engine {
             GL11.glVertex2f(posX-1, posY-1);
             // upper right
             GL11.glTexCoord2f(1, 0);
-            GL11.glVertex2f(posX + object.getWidth(), posY-1);
+            GL11.glVertex2f(posX + object.getWidth()+1, posY-1);
             // lower right
             GL11.glTexCoord2f(1, 1);
-            GL11.glVertex2f(posX + object.getWidth(), posY + object.getHeight());
+            GL11.glVertex2f(posX + object.getWidth()+1, posY + object.getHeight()+1);
             // lower left
             GL11.glTexCoord2f(0, 1);
-            GL11.glVertex2f(posX-1, posY + object.getHeight());
+            GL11.glVertex2f(posX-1, posY + object.getHeight()+1);
+
 
             GL11.glEnd();
         }
