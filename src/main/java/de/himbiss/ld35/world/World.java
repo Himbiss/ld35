@@ -1,6 +1,8 @@
 package de.himbiss.ld35.world;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -17,12 +19,16 @@ public class World implements Updatable {
     private int startY;
     private int bossX;
     private int bossY;
+    private List<RoomStrukt> roomlist;
+    private List<RoomStrukt> roomlist_end;
 
     public World(int sizeX, int sizeY) {
         this.sizeX = sizeX;
         this.sizeY = sizeY;
         this.worldArray = new Tile[sizeX][sizeY];
         this.entities = new HashSet<Entity>();
+        this.roomlist = new ArrayList<>();
+        this.roomlist_end = new ArrayList<>();
         this.startX = 0;
         this.startY = 0;
         this.bossX = 0;
@@ -94,6 +100,13 @@ public class World implements Updatable {
         return startY;
     }
 
+    public void setRoomlist(List<RoomStrukt> roomlist) {
+        this.roomlist = roomlist;
+    }
+
+    public void setRoomlist_end(List<RoomStrukt> roomlist_end) {
+        this.roomlist_end = roomlist_end;
+    }
 
     public int getBossX() {
         return bossX;
