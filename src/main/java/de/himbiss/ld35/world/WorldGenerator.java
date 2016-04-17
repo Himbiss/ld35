@@ -334,19 +334,26 @@ public class WorldGenerator {
                 int[] q2 = new int[] {q.get(j),q.get(j+1),q.get(j+2)};
 
                 if (p2[0] == p2[2]) {
-                    Tile_Button b1 = new Tile_Button(p2[0] + 1, q2[2], 3);
+
+                    int t1 = p2[0];
+                    int t2 = q2[2];
+                    int t3 = q2[0];
+                    Tile_Button b1 = new Tile_Button(t1 + 1, t2);
                     b1.setChildren(tmp2);
-                    Tile_Button b2 = new Tile_Button(p2[0] - 1, q2[0], 3);
+                    w.setTile(t1 + 1, t2, b1);
+                    Tile_Button b2 = new Tile_Button(t1 - 1, t3);
                     b2.setChildren(tmp2);
-                    w.setTile(p2[0] + 1, q2[2], b1);
-                    w.setTile(p2[0] - 1, q2[0], b2);
+                    w.setTile(t1 - 1, t3, b2);
                 } else {
-                    Tile_Button b1 = new Tile_Button(p2[0], q2[0] + 1, 3);
+                    int t1 = p2[0];
+                    int t2 = p2[2];
+                    int t3 = q2[0];
+                    Tile_Button b1 = new Tile_Button(t1, t3 + 1);
                     b1.setChildren(tmp2);
-                    Tile_Button b2 = new Tile_Button(p2[2], q2[0] - 1, 3);
+                    w.setTile(t1, t3 + 1, b1);
+                    Tile_Button b2 = new Tile_Button(t2, t3 - 1);
                     b2.setChildren(tmp2);
-                    w.setTile(p2[0], q2[0] + 1, b1);
-                    w.setTile(p2[2], q2[0] - 1, b2);
+                    w.setTile(t3, t3 - 1, b2);
                 }
             }
 

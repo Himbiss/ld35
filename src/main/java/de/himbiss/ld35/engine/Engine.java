@@ -254,6 +254,7 @@ public class Engine {
         }
         else {
             Texture texture = object.getTexture();
+            
             texture.bind();
 
             // draw quad
@@ -261,16 +262,16 @@ public class Engine {
 
             // upper left
             GL11.glTexCoord2f(0, 0);
-            GL11.glVertex2f(posX, posY);
+            GL11.glVertex2f(posX-1, posY-1);
             // upper right
             GL11.glTexCoord2f(1, 0);
-            GL11.glVertex2f(posX + object.getWidth(), posY);
+            GL11.glVertex2f(posX + object.getWidth(), posY-1);
             // lower right
             GL11.glTexCoord2f(1, 1);
             GL11.glVertex2f(posX + object.getWidth(), posY + object.getHeight());
             // lower left
             GL11.glTexCoord2f(0, 1);
-            GL11.glVertex2f(posX, posY + object.getHeight());
+            GL11.glVertex2f(posX-1, posY + object.getHeight());
 
             GL11.glEnd();
         }
