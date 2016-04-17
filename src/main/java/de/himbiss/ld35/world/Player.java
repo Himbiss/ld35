@@ -4,6 +4,9 @@ import de.himbiss.ld35.engine.HasHitbox;
 import de.himbiss.ld35.engine.Engine;
 import de.himbiss.ld35.engine.ResourceManager;
 import de.himbiss.ld35.world.animation.Animator;
+import de.himbiss.ld35.world.fightsystem.DoesDamage;
+import de.himbiss.ld35.world.fightsystem.HasHealth;
+import de.himbiss.ld35.world.fightsystem.Tear;
 import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
@@ -16,13 +19,14 @@ import java.util.Map;
 /**
  * Created by Vincent on 16.04.2016.
  */
-public class Player extends Entity {
+public class Player extends Entity implements HasHealth {
 
-    private static final float DELTA_MAX = 4f;
+    private static final float DELTA_MAX = 5f;
     private float speed = .1f;
     private SpriteSheet spriteSheet;
     private Map<String,Animation> animationMap;
     private Animation currentAnimation;
+    private int health = 10;
 
     public Player() {
         width = 50;
@@ -82,6 +86,10 @@ public class Player extends Entity {
             }
         }
 
+        if (Keyboard.isKeyDown(Keyboard.KEY_SPACE)) {
+            Engine.getInstance().getWorld().getEntities().add(new Tear(coordX, coordY, deltaX, deltaY));
+        }
+
         if (Math.abs(deltaX) > DELTA_MAX) {
             deltaX = deltaX < 0 ? -DELTA_MAX : DELTA_MAX;
         }
@@ -109,5 +117,24 @@ public class Player extends Entity {
 
     @Override
     public void collideWith(HasHitbox object, float deltaX, float deltaY) {
+    }
+
+    @Override
+    public void setHealth(int health) {
+        this.health = health;
+    }
+
+    @Override
+    public int getHealth() {
+        return health;
+    }
+
+    @Override
+    public void applyDamage(DoesDamage damageObject) {
+        this.health -= damageObject.getBaseDamage();
+        if (this.health < 0) {
+            System.out.println("Game Over");
+            System.exit(0);
+        }
     }
 }

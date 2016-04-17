@@ -2,6 +2,7 @@ package de.himbiss.ld35.engine;
 
 import de.himbiss.ld35.world.Entity;
 
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -13,12 +14,11 @@ public class CollisionDetector {
     private final Set<HasHitbox> tileHitboxes;
 
     public CollisionDetector(Set<Entity> entities, Set<HasHitbox> tileHitboxes) {
-        this.entities = entities;
-        this.tileHitboxes = tileHitboxes;
+        this.entities = new HashSet<>(entities);
+        this.tileHitboxes = new HashSet<>(tileHitboxes);
     }
 
     public void doCollision() {
-
         for (Entity entity1 : entities) {
             for (Entity entity2 : entities) {
                 if (entity1 != entity2) {

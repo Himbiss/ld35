@@ -116,6 +116,33 @@ public class Engine {
 
             renderObject(hitbox, entity.getHitBoxCoordX(), entity.getHitBoxCoordY());
         }
+
+        for (Tile[] tiles : world.getWorldArray()) {
+            for (Tile tile : tiles) {
+                if (tile instanceof HasHitbox) {
+                    HasHitbox hasHitbox = ((HasHitbox) tile);
+                    Renderable hitbox = new Renderable() {
+                        @Override
+                        public int getWidth() {
+                            return (int) hasHitbox.getHitboxWidth();
+                        }
+
+                        @Override
+                        public int getHeight() {
+                            return (int) hasHitbox.getHitboxHeight();
+                        }
+
+                        @Override
+                        public Texture getTexture() {
+                            return ResourceManager.getInstance().getTexture("hitbox");
+                        }
+                    };
+
+                    renderObject(hitbox, hasHitbox.getHitBoxCoordX(), hasHitbox.getHitBoxCoordY());
+                }
+
+            }
+        }
     }
 
     private void calculatePhysics() {
@@ -286,5 +313,9 @@ public class Engine {
 
     public float getGravity() {
         return gravity;
+    }
+
+    public World getWorld() {
+        return world;
     }
 }
