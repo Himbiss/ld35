@@ -4,12 +4,11 @@ package de.himbiss.ld35.world;
  * Created by Oneidavar on 17/04/2016.
  */
 public class Tile_Button extends Tile{
-    Switchable[] children;
-    public Tile_Button(int x, int y, int c) {
+    Switchable[] children = new Switchable[0];
+    public Tile_Button(int x, int y) {
         textureKey = "button";
         coordx = x;
         coordy = y;
-        children = new Switchable[c];
     }
 
     public void setChildren(Switchable[] children) {

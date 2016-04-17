@@ -1,7 +1,5 @@
 package de.himbiss.ld35.world;
 
-import de.himbiss.ld35.engine.Engine;
-import de.himbiss.ld35.engine.HasHitbox;
 import de.himbiss.ld35.engine.ResourceManager;
 import org.newdawn.slick.opengl.Texture;
 
@@ -27,6 +25,7 @@ public class Tile_Door extends Tile implements Switchable, HasHitbox {
         state =true;
     }
 
+
     @Override
     public float getHitboxWidth() {
         return getWidth();
@@ -39,44 +38,38 @@ public class Tile_Door extends Tile implements Switchable, HasHitbox {
 
     @Override
     public float getHitBoxCoordX() {
-        return Engine.getInstance().getOffsetX() + getCoordx();
+        return Engine.getInstance().getOffsetX() + coordx;
     }
 
     @Override
     public float getHitBoxCoordY() {
-        return Engine.getInstance().getOffsetY() + getCoordy();
+        return Engine.getInstance().getOffsetY() + coordy;
     }
 
     @Override
     public void collideWith(HasHitbox object, float deltaX, float deltaY) {
-        if (object instanceof Entity) {
-            Entity entity = (Entity) object;
-            float hitboxOffsetX = Math.abs(entity.getHitBoxCoordX() - entity.getCoordX());
-            if (deltaX < 0) {
-                entity.setCoordX(getCoordx() + getWidth() - hitboxOffsetX);
-            }
-            else if (deltaX > 0) {
-                entity.setCoordX(getCoordx() - entity.getHitboxWidth() - hitboxOffsetX);
-            }
+        if(!state) {
+            System.out.print(object + "collided " + coordx + " - " + getHeight() + " - ");
+            System.out.println(getHitBoxCoordX());
+            if (object instanceof Entity) {
+                Entity entity = (Entity) object;
+                float hitboxOffsetX = Math.abs(entity.getHitBoxCoordX() - entity.getCoordX());
+                if (deltaX < 0) {
+                    entity.setCoordX(getCoordx() + getWidth() - hitboxOffsetX);
+                } else if (deltaX > 0) {
+                    entity.setCoordX(getCoordx() - entity.getHitboxWidth() - hitboxOffsetX);
+                }
 
-            float hitboxOffsetY = Math.abs(entity.getHitBoxCoordY() - entity.getCoordY());
-            if (deltaY < 0) {
-                entity.setCoordY(getCoordy() + getHeight() - hitboxOffsetY);
-            }
-            else if (deltaY > 0) {
-                entity.setCoordY(getCoordy() - entity.getHitboxHeight() - hitboxOffsetY);
-            }
+                float hitboxOffsetY = Math.abs(entity.getHitBoxCoordY() - entity.getCoordY());
+                if (deltaY < 0) {
+                    entity.setCoordY(getCoordy() + getHeight() - hitboxOffsetY);
+                } else if (deltaY > 0) {
+                    entity.setCoordY(getCoordy() - entity.getHitboxHeight() - hitboxOffsetY);
+                }
 
-            entity.setDeltas(0f, 0f);
+                entity.setDeltas(0f, 0f);
 
-//            float gravity = Engine.getInstance().getGravity();
-//            entity.setDeltas(0f, 0f);
-//            float prevCoordX = entity.getPrevCoordX();
-//            entity.setCoordX(prevCoordX - offsetX);
-//            entity.setPrevCoordX(prevCoordX);
-//            float prevCoordY = entity.getPrevCoordY();
-//            entity.setCoordY(prevCoordY - Engine.getInstance().getOffsetY());
-//            entity.setPrevCoordY(prevCoordY);
+            }
         }
     }
 }
