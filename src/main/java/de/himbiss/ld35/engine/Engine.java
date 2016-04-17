@@ -91,9 +91,10 @@ public class Engine {
     }
 
     private void renderDebug() {
-        debugFont.drawString(10f, 10f, "fps: " + realFPS, Color.white);
-        debugFont.drawString(10f, 30f, "dX,dY: " + world.getPlayer().getDeltaX() + "," + world.getPlayer().getDeltaY(), Color.white);
-        debugFont.drawString(10f, 50f, "posX,posY: " + world.getPlayer().getCoordX() + "," + world.getPlayer().getCoordY(), Color.white);
+        GL11.glColor3f(1f, 0f, 0f);
+        debugFont.drawString(10f, 10f, "fps: " + realFPS, Color.yellow);
+        debugFont.drawString(10f, 30f, "dX,dY: " + world.getPlayer().getDeltaX() + "," + world.getPlayer().getDeltaY(), Color.yellow);
+        debugFont.drawString(10f, 50f, "posX,posY: " + world.getPlayer().getCoordX() + "," + world.getPlayer().getCoordY(), Color.yellow);
 
         for (Entity entity : world.getEntities()) {
             Renderable hitbox = new Renderable() {
@@ -115,7 +116,7 @@ public class Engine {
 
             renderObject(hitbox, entity.getHitBoxCoordX(), entity.getHitBoxCoordY());
             if (entity instanceof HasHealth) {
-                debugFont.drawString(entity.getCoordX(), entity.getCoordY() - 10, "HP:" + ((HasHealth) entity).getHealth(), Color.white);
+                debugFont.drawString(entity.getCoordX(), entity.getCoordY() - 10, "HP:" + ((HasHealth) entity).getHealth(), Color.red);
             }
         }
 
@@ -278,6 +279,8 @@ public class Engine {
     }
 
     private void renderObject(Renderable object,float posX, float posY) {
+
+        GL11.glColor3f(1f, 1f, 1f);
         if (object.renderMyself()) {
             object.render(this);
         }
