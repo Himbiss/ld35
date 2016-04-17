@@ -62,8 +62,8 @@ public class World implements Updatable {
 
         //TODO player on button
         Engine.getInstance().getOffsetX();
-        int cx = (int)(player.coordX+25)/50;
-        int cy = (int)(player.coordY+25)/50;
+        int cx = (int)(player.getCoordX()-Engine.getInstance().getOffsetX()+25)/50;
+        int cy = (int)(player.getCoordY()-Engine.getInstance().getOffsetY()+25)/50;
         if(cx>=0 && cy>=0 && cx<sizeX && cy<sizeY) {
             if (worldArray[cx][cy] instanceof Tile_Button) {
                 Tile_Button btn = ((Tile_Button) worldArray[cx][cy]);
