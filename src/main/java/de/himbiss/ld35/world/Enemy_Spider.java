@@ -4,6 +4,7 @@ import de.himbiss.ld35.engine.Engine;
 import de.himbiss.ld35.engine.HasHitbox;
 import de.himbiss.ld35.engine.Renderable;
 import de.himbiss.ld35.engine.ResourceManager;
+import de.himbiss.ld35.world.fightsystem.HasHealth;
 import org.newdawn.slick.opengl.Texture;
 
 /**
@@ -24,21 +25,44 @@ public class Enemy_Spider extends Enemy implements Renderable {
     //TODO Pathing towards player
 
         World w = Engine.getInstance().getWorld();
+        boolean diag = true;
+        float grade = 0;
+        if(getCoordX()-w.getPlayer().getCoordX() == 0) diag=false;
+        if(getCoordY()-w.getPlayer().getCoordY() == 0) diag=false;
+        if(diag){
+            float dx = (getCoordX()-w.getPlayer().getCoordX());
+            float dy = (getCoordY()-w.getPlayer().getCoordY());
+
+            grade = Math.abs(dx/(dx+dy));
+        }
+
         if(getCoordX() < w.getPlayer().getCoordX()) {
             //TODO set animation
-            deltaX += speed * delta;
+            if(diag)
+                deltaX += speed * delta * grade;
+            else
+                deltaX += speed * delta;
         }
         if(getCoordX() > w.getPlayer().getCoordX()) {
             //TODO set animation
-            deltaX -= speed * delta;
+            if(diag)
+                deltaX -= speed * delta * grade;
+            else
+                deltaX -= speed * delta;
         }
         if(getCoordY() < w.getPlayer().getCoordY()) {
             //TODO set animation
-            deltaY += speed * delta;
+            if(diag)
+                deltaY += speed * delta * (1-grade);
+            else
+                deltaY += speed * delta;
         }
         if(getCoordY() > w.getPlayer().getCoordY()) {
             //TODO set animation
-            deltaY -= speed * delta;
+            if(diag)
+                deltaY -= speed * delta * (1-grade);
+            else
+                deltaY -= speed * delta;
         }
         if (Math.abs(deltaX) > DELTA_MAX) {
             deltaX = deltaX < 0 ? -DELTA_MAX : DELTA_MAX;
