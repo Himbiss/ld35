@@ -272,6 +272,28 @@ public class WorldGenerator {
             }
         }
 
+        RoomStrukt r = singlerooms.get(longest.p1);
+        for(int i = 0; i<r.width+2;i++){
+            for(int j = 0; j<r.height+2;j++){
+                if(w.getWorldArray()[r.posx-1+i][r.posy-1+j].textureKey=="corridor"){
+                    w.setTile(r.posx-1+i,r.posy-1+j,new Tile_Door(r.posx-1+i,r.posy-1+j));
+                }
+        }
+        }
+    /*
+        for(int i = 1; i<w.getSizeX();i++){
+            for(int j = 0; j<w.getSizeY()-1;j++) {
+                if(w.getWorldArray()[i][j].textureKey=="corridor"){
+                    if(w.getWorldArray()[i-1][j].textureKey=="floor"){
+                        if(w.getWorldArray()[i+1][j].textureKey=="corridor"){
+                            w.setTile(i,j,new Tile_Door_horz(i,j));
+                            System.out.println("setDoor");
+                        }
+                    }
+                }
+            }
+        }
+    */
         w.setRoomlist(roomStruktList);
         w.setRoomlist_end(singlerooms);
         return w;
