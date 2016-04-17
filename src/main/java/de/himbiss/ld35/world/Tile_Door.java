@@ -1,7 +1,5 @@
 package de.himbiss.ld35.world;
 
-import de.himbiss.ld35.engine.Engine;
-import de.himbiss.ld35.engine.HasHitbox;
 import de.himbiss.ld35.engine.ResourceManager;
 import org.newdawn.slick.opengl.Texture;
 

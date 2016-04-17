@@ -1,6 +1,8 @@
 package de.himbiss.ld35.world;
 
 import de.himbiss.ld35.engine.*;
+import de.himbiss.ld35.world.fightsystem.DoesDamage;
+import de.himbiss.ld35.world.fightsystem.Tear;
 import org.newdawn.slick.opengl.Texture;
 
 /**
