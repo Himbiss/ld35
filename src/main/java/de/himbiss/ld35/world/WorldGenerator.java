@@ -272,7 +272,8 @@ public class WorldGenerator {
             }
         }
 
-
+        w.setRoomlist(roomStruktList);
+        w.setRoomlist_end(singlerooms);
         return w;
     }
 
