@@ -22,6 +22,6 @@ public class Tile_Door extends Tile implements Switchable {
 
     @Override
     public void trigger() {
-        state =!state;
+        state =true;
     }
 }
