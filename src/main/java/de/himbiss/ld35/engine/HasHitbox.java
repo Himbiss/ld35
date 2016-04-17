@@ -3,7 +3,7 @@ package de.himbiss.ld35.engine;
 /**
  * Created by Vincent on 16.04.2016.
  */
-public interface Hitbox {
+public interface HasHitbox {
 
     float getHitboxWidth();
 
@@ -13,5 +13,5 @@ public interface Hitbox {
 
     float getHitBoxCoordY();
 
-    void collideWith(Hitbox object, float deltaX, float deltaY);
+    void collideWith(HasHitbox object, float deltaX, float deltaY);
 }

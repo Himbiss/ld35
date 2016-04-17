@@ -59,6 +59,7 @@ public class Engine {
         }
 
         initGL();
+        world.populate();
         getDelta(); // call once before loop to initialise lastFrame
         lastFPS = getTime(); // call before loop to initialise fps timer
 
@@ -109,8 +110,8 @@ public class Engine {
                 }
 
                 @Override
-                public String getTextureKey() {
-                    return "hitbox";
+                public Texture getTexture() {
+                    return ResourceManager.getInstance().getTexture("hitbox");
                 }
             };
 
@@ -120,11 +121,11 @@ public class Engine {
 
     private void calculatePhysics() {
         Set<Entity> entities = world.getEntities();
-        Set<Hitbox> tileHitboxes = new HashSet<>();
+        Set<HasHitbox> tileHitboxes = new HashSet<>();
         for (Tile[] tiles : world.getWorldArray()) {
             for (Tile tile : tiles) {
-                if (tile instanceof Hitbox) {
-                    tileHitboxes.add(((Hitbox) tile));
+                if (tile instanceof HasHitbox) {
+                    tileHitboxes.add(((HasHitbox) tile));
                 }
             }
         }
@@ -249,27 +250,31 @@ public class Engine {
     }
 
     private void renderObject(Renderable object,float posX, float posY) {
+        if (object.renderMyself()) {
+            object.render(this);
+        }
+        else {
+            Texture texture = object.getTexture();
+            texture.bind();
 
-        Texture texture = ResourceManager.getInstance().getTexture(object.getTextureKey());
-        texture.bind();
+            // draw quad
+            GL11.glBegin(GL11.GL_QUADS);
 
-        // draw quad
-        GL11.glBegin(GL11.GL_QUADS);
+            // upper left
+            GL11.glTexCoord2f(0, 0);
+            GL11.glVertex2f(posX, posY);
+            // upper right
+            GL11.glTexCoord2f(1, 0);
+            GL11.glVertex2f(posX + object.getWidth(), posY);
+            // lower right
+            GL11.glTexCoord2f(1, 1);
+            GL11.glVertex2f(posX + object.getWidth(), posY + object.getHeight());
+            // lower left
+            GL11.glTexCoord2f(0, 1);
+            GL11.glVertex2f(posX, posY + object.getHeight());
 
-        // upper left
-        GL11.glTexCoord2f(0, 0);
-        GL11.glVertex2f(posX, posY);
-        // upper right
-        GL11.glTexCoord2f(1, 0);
-        GL11.glVertex2f(posX + object.getWidth(), posY);
-        // lower right
-        GL11.glTexCoord2f(1, 1);
-        GL11.glVertex2f(posX + object.getWidth(), posY + object.getHeight());
-        // lower left
-        GL11.glTexCoord2f(0, 1);
-        GL11.glVertex2f(posX, posY + object.getHeight());
-
-        GL11.glEnd();
+            GL11.glEnd();
+        }
     }
 
     public float getOffsetX() {

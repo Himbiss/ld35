@@ -1,7 +1,6 @@
 package de.himbiss.ld35.engine;
 
 import de.himbiss.ld35.world.Entity;
-import de.himbiss.ld35.world.World;
 
 import java.util.Set;
 
@@ -11,9 +10,9 @@ import java.util.Set;
 public class CollisionDetector {
 
     private final Set<Entity> entities;
-    private final Set<Hitbox> tileHitboxes;
+    private final Set<HasHitbox> tileHitboxes;
 
-    public CollisionDetector(Set<Entity> entities, Set<Hitbox> tileHitboxes) {
+    public CollisionDetector(Set<Entity> entities, Set<HasHitbox> tileHitboxes) {
         this.entities = entities;
         this.tileHitboxes = tileHitboxes;
     }
@@ -26,13 +25,13 @@ public class CollisionDetector {
                     calculateCollision(entity1, entity2);
                 }
             }
-            for (Hitbox tileHitbox : tileHitboxes) {
+            for (HasHitbox tileHitbox : tileHitboxes) {
                 calculateCollision(entity1, tileHitbox);
             }
         }
     }
 
-    private void calculateCollision(Hitbox hb1, Hitbox hb2) {
+    private void calculateCollision(HasHitbox hb1, HasHitbox hb2) {
         float hb1_X = hb1.getHitBoxCoordX();
         float hb1_Y = hb1.getHitBoxCoordY();
         float hb1_W = hb1.getHitboxWidth();

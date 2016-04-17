@@ -26,6 +26,7 @@ public class World implements Updatable {
         this.player = new Player();
         this.entities.add(player);
         this.entities.add(new Crate(10f, 10f));
+        this.entities.add(new Enemy());
         this.startX = 0;
         this.startY = 0;
         this.bossX = 0;

@@ -1,14 +1,12 @@
 package de.himbiss.ld35.world;
 
-import de.himbiss.ld35.engine.Engine;
-import de.himbiss.ld35.engine.HasPhysics;
-import de.himbiss.ld35.engine.Hitbox;
-import de.himbiss.ld35.engine.Renderable;
+import de.himbiss.ld35.engine.*;
+import org.newdawn.slick.opengl.Texture;
 
 /**
  * Created by Vincent on 16.04.2016.
  */
-public abstract class Entity implements Renderable, Updatable, Hitbox, HasPhysics {
+public abstract class Entity implements Renderable, Updatable, HasHitbox, HasPhysics {
 
     protected float coordX;
     protected float coordY;
@@ -36,8 +34,8 @@ public abstract class Entity implements Renderable, Updatable, Hitbox, HasPhysic
         return width;
     }
 
-    public String getTextureKey() {
-        return "dummy";
+    public Texture getTexture() {
+        return ResourceManager.getInstance().getTexture("dummy");
     }
 
     public void setCoordX(float coordX) {
