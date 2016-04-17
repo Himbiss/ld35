@@ -12,21 +12,22 @@ public class World implements Updatable {
     private final int sizeY;
     private final Tile[][] worldArray;
     private final Set<Entity> entities;
-    private Player player;
+    private final Player player;
+    private int startX;
+    private int startY;
 
     public World(int sizeX, int sizeY) {
         this.sizeX = sizeX;
         this.sizeY = sizeY;
         this.worldArray = new Tile[sizeX][sizeY];
         this.entities = new HashSet<Entity>();
-        initArray();
-    }
-
-    public void populate() {
         this.player = new Player();
         this.entities.add(player);
         this.entities.add(new Crate(10f, 10f));
         this.entities.add(new Enemy());
+        this.startX = 0;
+        this.startY = 0;
+        initArray();
     }
 
     public void update(int delta) {
@@ -62,8 +63,21 @@ public class World implements Updatable {
     private void initArray() {
         for (int i = 0; i < sizeX; i++) {
             for (int j = 0; j < sizeY; j++) {
-                worldArray[i][j] = new Tile_Void();
+                worldArray[i][j] = new Tile_Void(i,j);
             }
         }
     }
+
+    public void setStart(int x, int y){
+        this.startX = x;
+        this.startY = y;
+    }
+    public int getStartX() {
+        return startX;
+    }
+
+    public int getStartY() {
+        return startY;
+    }
+
 }

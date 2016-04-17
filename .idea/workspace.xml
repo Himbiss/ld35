@@ -4,29 +4,18 @@
     <bookmark url="file://$PROJECT_DIR$/src/main/java/de/himbiss/ld35/world/Entity.java" line="88" mnemonic="9" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1991adfb-ca10-4b4c-a6c1-fe22c292af65" name="Default" comment="added some physics">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/de/himbiss/ld35/world/Enemy.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/de/himbiss/ld35/world/animation/Animator.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/res/corridor.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/res/crate.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/res/dummy.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/res/floor.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/res/hitbox.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/res/plasmati.ttf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/res/void.png" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/de/himbiss/ld35/engine/Hitbox.java" afterPath="$PROJECT_DIR$/src/main/java/de/himbiss/ld35/engine/HasHitbox.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/res/wall.png" afterPath="$PROJECT_DIR$/src/main/res/img/wall.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ld35.iml" afterPath="$PROJECT_DIR$/ld35.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/de/himbiss/ld35/engine/CollisionDetector.java" afterPath="$PROJECT_DIR$/src/main/java/de/himbiss/ld35/engine/CollisionDetector.java" />
+    <list default="true" id="1991adfb-ca10-4b4c-a6c1-fe22c292af65" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/de/himbiss/ld35/Main.java" afterPath="$PROJECT_DIR$/src/main/java/de/himbiss/ld35/Main.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/de/himbiss/ld35/engine/Engine.java" afterPath="$PROJECT_DIR$/src/main/java/de/himbiss/ld35/engine/Engine.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/de/himbiss/ld35/engine/Renderable.java" afterPath="$PROJECT_DIR$/src/main/java/de/himbiss/ld35/engine/Renderable.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/de/himbiss/ld35/engine/ResourceManager.java" afterPath="$PROJECT_DIR$/src/main/java/de/himbiss/ld35/engine/ResourceManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/de/himbiss/ld35/world/Crate.java" afterPath="$PROJECT_DIR$/src/main/java/de/himbiss/ld35/world/Crate.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/de/himbiss/ld35/world/Entity.java" afterPath="$PROJECT_DIR$/src/main/java/de/himbiss/ld35/world/Entity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/de/himbiss/ld35/world/Player.java" afterPath="$PROJECT_DIR$/src/main/java/de/himbiss/ld35/world/Player.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/de/himbiss/ld35/world/Delauney_Graph.java" afterPath="$PROJECT_DIR$/src/main/java/de/himbiss/ld35/world/Delauney_Graph.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/de/himbiss/ld35/world/MinSpannTree.java" afterPath="$PROJECT_DIR$/src/main/java/de/himbiss/ld35/world/MinSpannTree.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/de/himbiss/ld35/world/Tile.java" afterPath="$PROJECT_DIR$/src/main/java/de/himbiss/ld35/world/Tile.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/de/himbiss/ld35/world/Tile_Corridor.java" afterPath="$PROJECT_DIR$/src/main/java/de/himbiss/ld35/world/Tile_Corridor.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/de/himbiss/ld35/world/Tile_Floor.java" afterPath="$PROJECT_DIR$/src/main/java/de/himbiss/ld35/world/Tile_Floor.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/de/himbiss/ld35/world/Tile_Void.java" afterPath="$PROJECT_DIR$/src/main/java/de/himbiss/ld35/world/Tile_Void.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/de/himbiss/ld35/world/Tile_Wall.java" afterPath="$PROJECT_DIR$/src/main/java/de/himbiss/ld35/world/Tile_Wall.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/de/himbiss/ld35/world/World.java" afterPath="$PROJECT_DIR$/src/main/java/de/himbiss/ld35/world/World.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/de/himbiss/ld35/world/WorldGenerator.java" afterPath="$PROJECT_DIR$/src/main/java/de/himbiss/ld35/world/WorldGenerator.java" />
     </list>
     <ignored path="ld35.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -77,7 +66,7 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/de/himbiss/ld35/world/Delauney_Graph.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.025641026">
-              <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+              <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -107,7 +96,7 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/de/himbiss/ld35/world/Tile_Wall.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+              <caret line="42" column="0" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -135,7 +124,7 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/de/himbiss/ld35/world/Tile_Corridor.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+              <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
               <folding />
             </state>
           </provider>
@@ -145,7 +134,7 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/de/himbiss/ld35/world/Tile_Floor.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+              <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
               <folding />
             </state>
           </provider>
@@ -155,7 +144,7 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/de/himbiss/ld35/world/Tile_Void.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+              <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -204,6 +193,7 @@
         <option value="$PROJECT_DIR$/src/main/java/de/himbiss/ld35/world/Tile_Void.java" />
         <option value="$PROJECT_DIR$/src/main/java/de/himbiss/ld35/engine/ResourceManager.java" />
         <option value="$PROJECT_DIR$/src/main/java/de/himbiss/ld35/world/Player.java" />
+        <option value="$PROJECT_DIR$/src/main/java/de/himbiss/ld35/world/Delauney_Graph.java" />
       </list>
     </option>
   </component>
@@ -939,7 +929,13 @@
       <option name="project" value="LOCAL" />
       <updated>1460840666939</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="added animation">
+      <created>1460893453464</created>
+      <option name="number" value="00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1460893453464</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -994,7 +990,8 @@
     <MESSAGE value="added some physics" />
     <MESSAGE value="fixed physics bug" />
     <MESSAGE value="added hitbox texture" />
-    <option name="LAST_COMMIT_MESSAGE" value="added hitbox texture" />
+    <MESSAGE value="added animation" />
+    <option name="LAST_COMMIT_MESSAGE" value="added animation" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1131,19 +1128,19 @@
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#1192#1193#0" expanded="true" />
-            <element signature="e#1226#1227#0" expanded="true" />
-            <element signature="e#2754#2755#0" expanded="true" />
-            <element signature="e#2830#2831#0" expanded="true" />
-            <element signature="e#2898#2899#0" expanded="true" />
-            <element signature="e#2975#2976#0" expanded="true" />
-            <element signature="e#3048#3049#0" expanded="true" />
-            <element signature="e#3145#3146#0" expanded="true" />
-            <element signature="e#7244#7245#0" expanded="true" />
-            <element signature="e#7316#7317#0" expanded="true" />
-            <element signature="e#8390#8391#0" expanded="true" />
-            <element signature="e#8420#8421#0" expanded="true" />
-            <element signature="e#8453#8454#0" expanded="true" />
-            <element signature="e#8483#8484#0" expanded="true" />
+            <element signature="e#1340#1341#0" expanded="true" />
+            <element signature="e#2868#2869#0" expanded="true" />
+            <element signature="e#2944#2945#0" expanded="true" />
+            <element signature="e#3012#3013#0" expanded="true" />
+            <element signature="e#3089#3090#0" expanded="true" />
+            <element signature="e#3162#3163#0" expanded="true" />
+            <element signature="e#3259#3260#0" expanded="true" />
+            <element signature="e#7358#7359#0" expanded="true" />
+            <element signature="e#7430#7431#0" expanded="true" />
+            <element signature="e#8504#8505#0" expanded="true" />
+            <element signature="e#8534#8535#0" expanded="true" />
+            <element signature="e#8567#8568#0" expanded="true" />
+            <element signature="e#8597#8598#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1487,19 +1484,19 @@
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#1192#1193#0" expanded="true" />
-            <element signature="e#1226#1227#0" expanded="true" />
-            <element signature="e#2754#2755#0" expanded="true" />
-            <element signature="e#2830#2831#0" expanded="true" />
-            <element signature="e#2898#2899#0" expanded="true" />
-            <element signature="e#2975#2976#0" expanded="true" />
-            <element signature="e#3048#3049#0" expanded="true" />
-            <element signature="e#3145#3146#0" expanded="true" />
-            <element signature="e#7244#7245#0" expanded="true" />
-            <element signature="e#7316#7317#0" expanded="true" />
-            <element signature="e#8390#8391#0" expanded="true" />
-            <element signature="e#8420#8421#0" expanded="true" />
-            <element signature="e#8453#8454#0" expanded="true" />
-            <element signature="e#8483#8484#0" expanded="true" />
+            <element signature="e#1340#1341#0" expanded="true" />
+            <element signature="e#2868#2869#0" expanded="true" />
+            <element signature="e#2944#2945#0" expanded="true" />
+            <element signature="e#3012#3013#0" expanded="true" />
+            <element signature="e#3089#3090#0" expanded="true" />
+            <element signature="e#3162#3163#0" expanded="true" />
+            <element signature="e#3259#3260#0" expanded="true" />
+            <element signature="e#7358#7359#0" expanded="true" />
+            <element signature="e#7430#7431#0" expanded="true" />
+            <element signature="e#8504#8505#0" expanded="true" />
+            <element signature="e#8534#8535#0" expanded="true" />
+            <element signature="e#8567#8568#0" expanded="true" />
+            <element signature="e#8597#8598#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1509,7 +1506,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="27" column="0" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
           <folding>
-            <element signature="e#620#621#0" expanded="true" />
+            <element signature="e#826#827#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1517,7 +1514,7 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/de/himbiss/ld35/world/Tile_Corridor.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
           <folding />
         </state>
       </provider>
@@ -1525,7 +1522,7 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/de/himbiss/ld35/world/Tile_Floor.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
           <folding />
         </state>
       </provider>
@@ -1554,7 +1551,7 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/de/himbiss/ld35/world/Tile_Void.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+          <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1562,7 +1559,7 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/de/himbiss/ld35/world/Tile_Wall.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+          <caret line="42" column="0" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1607,7 +1604,7 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/de/himbiss/ld35/world/Delauney_Graph.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.025641026">
-          <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+          <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
           <folding />
         </state>
       </provider>
