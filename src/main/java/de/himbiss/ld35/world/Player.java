@@ -9,6 +9,9 @@ import org.newdawn.slick.Animation;
 import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.opengl.Texture;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created by Vincent on 16.04.2016.
  */
@@ -16,32 +19,47 @@ public class Player extends Entity {
 
     private static final float DELTA_MAX = 4f;
     private float speed = .1f;
-    private Animator animator;
     private SpriteSheet spriteSheet;
-    private Animation walkAnimation;
+    private Map<String,Animation> animationMap;
+    private Animation currentAnimation;
 
     public Player() {
         width = 50;
         height = 50;
         coordX =  (Engine.getInstance().getDisplayMode().getWidth() / 2) - (width / 2);
         coordY =  (Engine.getInstance().getDisplayMode().getHeight() / 2) - (height / 2);
+        animationMap = new HashMap<>();
         spriteSheet = ResourceManager.getInstance().getSpriteSheet("Albert", 16, 16);
-        walkAnimation = new Animation(spriteSheet, new int[] {0,3,5}, new int[] {50, 50, 50});
-        walkAnimation.setAutoUpdate(true);
+
+        animationMap.put("walk_up", new Animation(spriteSheet, new int[] {0,0, 0,1, 1,1}, new int[] {100, 100, 100}));
+        animationMap.put("walk_down", new Animation(spriteSheet, new int[] {2,0, 0,3, 1,3}, new int[] {100, 100, 100}));
+        animationMap.put("walk_right", new Animation(spriteSheet, new int[] {1,0, 0,2, 1,2}, new int[] {100, 100, 100}));
+        animationMap.put("walk_left", new Animation(spriteSheet, new int[] {3,0, 0,4, 1,4}, new int[] {100, 100, 100}));
+        currentAnimation = animationMap.get("walk_down");
+        currentAnimation.stop();
     }
 
     public void update(int delta) {
         if (Keyboard.isKeyDown(Keyboard.KEY_A)) {
             deltaX -= speed * delta;
+            handleAnimation("walk_left");
         }
-        if (Keyboard.isKeyDown(Keyboard.KEY_D)) {
+        else if (Keyboard.isKeyDown(Keyboard.KEY_D)) {
             deltaX += speed * delta;
+            handleAnimation("walk_right");
         }
-        if (Keyboard.isKeyDown(Keyboard.KEY_S)) {
+        else if (Keyboard.isKeyDown(Keyboard.KEY_S)) {
             deltaY += speed * delta;
+            handleAnimation("walk_down");
         }
-        if (Keyboard.isKeyDown(Keyboard.KEY_W)) {
+        else if (Keyboard.isKeyDown(Keyboard.KEY_W)) {
             deltaY -= speed * delta;
+            handleAnimation("walk_up");
+        }
+        else {
+            if (! currentAnimation.isStopped()) {
+                currentAnimation.stop();
+            }
         }
 
         if (Math.abs(deltaX) > DELTA_MAX) {
@@ -56,6 +74,13 @@ public class Player extends Entity {
         //}
     }
 
+    private void handleAnimation(String animation) {
+        currentAnimation = animationMap.get(animation);
+        if (currentAnimation.isStopped()) {
+            currentAnimation.start();
+        }
+    }
+
     @Override
     public boolean renderMyself() {
         return true;
@@ -63,7 +88,7 @@ public class Player extends Entity {
 
     @Override
     public void render(Engine engine) {
-        walkAnimation.draw(getCoordX(), getCoordY(), width, height);
+        currentAnimation.draw(getCoordX(), getCoordY(), width, height);
     }
 
     @Override

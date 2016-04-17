@@ -12,7 +12,7 @@ public class World implements Updatable {
     private final int sizeY;
     private final Tile[][] worldArray;
     private final Set<Entity> entities;
-    private final Player player;
+    private Player player;
     private int startX;
     private int startY;
 
@@ -21,13 +21,18 @@ public class World implements Updatable {
         this.sizeY = sizeY;
         this.worldArray = new Tile[sizeX][sizeY];
         this.entities = new HashSet<Entity>();
-        this.player = new Player();
-        this.entities.add(player);
-        this.entities.add(new Crate(10f, 10f));
-        this.entities.add(new Enemy());
         this.startX = 0;
         this.startY = 0;
         initArray();
+    }
+
+    public void populate() {
+        player = new Player();
+        entities.add(player);
+        entities.add(new Crate(player.getCoordX() , player.getCoordY()));
+        entities.add(new Enemy());
+        player.setCoordX(getStartX());
+        player.setCoordY(getStartY());
     }
 
     public void update(int delta) {

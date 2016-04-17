@@ -49,8 +49,6 @@ public class Engine {
 
     public void setWorld(World world) {
         this.world = world;
-        world.getPlayer().setCoordX( world.getStartX());
-        world.getPlayer().setCoordY( world.getStartY());
     }
 
     public void start() {
