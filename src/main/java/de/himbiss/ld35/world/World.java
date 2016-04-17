@@ -58,9 +58,11 @@ public class World implements Updatable {
         Engine.getInstance().getOffsetX();
         int cx = (int)(player.coordX+25)/50;
         int cy = (int)(player.coordY+25)/50;
-        if(worldArray[cx][cy] instanceof Tile_Button) {
-            Tile_Button btn = ((Tile_Button) worldArray[cx][cy]);
-            btn.doStuff();
+        if(cx>=0 && cy>=0 && cx<sizeX && cy<sizeY) {
+            if (worldArray[cx][cy] instanceof Tile_Button) {
+                Tile_Button btn = ((Tile_Button) worldArray[cx][cy]);
+                btn.doStuff();
+            }
         }
     }
 
@@ -128,5 +130,18 @@ public class World implements Updatable {
 
     public int getBossY() {
         return bossY;
+    }
+
+
+    public RoomStrukt getRoom(int x, int y){ //Return room in Worldarray coords
+
+        for(RoomStrukt r: roomlist){
+            if(r.posx <= x && r.posx+r.width>x ){
+                if(r.posy <= y && r.posy+r.height>y ){
+                    return r;
+                }
+            }
+        }
+        return null;
     }
 }
