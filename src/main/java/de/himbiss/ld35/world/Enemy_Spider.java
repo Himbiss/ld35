@@ -27,7 +27,7 @@ public class Enemy_Spider extends Enemy implements Renderable {
         width = 50;
         height = 50;
 
-        attackSpeed = 1000;
+        attackSpeed = 500;
         dist_move = 5;
         dist_attack = 7;
         dist_ignore = 10;
@@ -44,7 +44,6 @@ public class Enemy_Spider extends Enemy implements Renderable {
 
         if(Math.sqrt(dx*dx+dy*dy)>dist_move*50 && Math.sqrt(dx*dx+dy*dy)<dist_ignore*50 ) {
             float grade = Math.abs(dx / (dx + dy));
-            if (grade < 0) System.out.println("kleiner null");
             if (getCoordX() < w.getPlayer().getCoordX()) {
                 //TODO set animation
                 deltaX += speed * delta * grade;

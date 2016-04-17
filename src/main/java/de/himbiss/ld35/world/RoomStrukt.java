@@ -8,7 +8,8 @@ public class RoomStrukt{
     public int height;
     public int posx;
     public int posy;
-    public int type; //0-default, 1-start, 2-end
+    public int type = 0; //0-default, 1-start, 2-end
+    public boolean room_cleared = false;
     public Switchable[] doors = new Switchable[0];
 
 
@@ -23,5 +24,13 @@ public class RoomStrukt{
     public void setDoors(Switchable[] doorlist){
         //this.doors = new Switchable[doorlist.length];
         doors = doorlist;
+    }
+
+    public boolean isRoom_cleared() {
+        return room_cleared;
+    }
+
+    public void setRoom_cleared() {
+        this.room_cleared = true;
     }
 }

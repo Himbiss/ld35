@@ -18,7 +18,7 @@ public class Tile_Door extends Tile implements Switchable, HasHitbox {
     }
 
     public Texture getTexture() {
-        if(isOpen) return ResourceManager.getInstance().getTexture(textureKey+"_open");
+        if(isOpen) return ResourceManager.getInstance().getTexture("corridor");
         return ResourceManager.getInstance().getTexture(textureKey);
     }
 
