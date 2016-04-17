@@ -1,5 +1,7 @@
 package de.himbiss.ld35.world;
 
+import de.himbiss.ld35.engine.Engine;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -48,6 +50,15 @@ public class World implements Updatable {
     public void update(int delta) {
         // TODO: 16.04.2016 implement!
         player.update(delta);
+
+        //TODO player on button
+        Engine.getInstance().getOffsetX();
+        int cx = (int)(player.coordX+25)/50;
+        int cy = (int)(player.coordY+25)/50;
+        if(worldArray[cx][cy] instanceof Tile_Button) {
+            Tile_Button btn = ((Tile_Button) worldArray[cx][cy]);
+            btn.doStuff();
+        }
     }
 
     public Player getPlayer() {

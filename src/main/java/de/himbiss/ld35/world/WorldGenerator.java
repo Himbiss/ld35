@@ -271,40 +271,85 @@ public class WorldGenerator {
                 }
             }
         }
+        for(RoomStrukt r:roomStruktList) {
+            List<Integer> p = new ArrayList<>();
+            List<Integer> q = new ArrayList<>();
+            List<Tile_Door> doors = new ArrayList<>();
 
-        RoomStrukt r = singlerooms.get(longest.p1);
-        int[] p = new int[3];
-        int[] q = new int[3];
-        Tile_Door[] doors = new Tile_Door[3];
-        int c =0;
-        for(int i = 0; i<r.width+2;i++){
-            for(int j = 0; j<r.height+2;j++){
-                if(w.getWorldArray()[r.posx-1+i][r.posy-1+j].textureKey=="corridor"){
-                    w.setTile(r.posx-1+i,r.posy-1+j,new Tile_Door(r.posx-1+i,r.posy-1+j));
-                    p[c] = r.posx-1+i;
-                    q[c] = r.posy-1+j;
-                    c++;
+            for(int i= 0; i<r.width;i++){
+                int cx  = r.posx+i;
+                int cy = r.posy-1;
+                if (w.getWorldArray()[cx][cy].textureKey == "corridor") {
+                    Tile_Door door =  new Tile_Door(cx, cy);
+                    w.setTile(cx, cy, door);
+                    p.add(cx);
+                    q.add(cy);
+                    doors.add(door);
                 }
             }
+            for(int i= 0; i<r.width;i++){
+                int cx  = r.posx+i;
+                int cy = r.posy+r.height;
+                if (w.getWorldArray()[cx][cy].textureKey == "corridor") {
+                    Tile_Door door =  new Tile_Door(cx, cy);
+                    w.setTile(cx, cy, door);
+                    p.add(cx);
+                    q.add(cy);
+                    doors.add(door);
+                }
+            }
+            for(int i= 0; i<r.height;i++){
+                int cx  = r.posx-1;
+                int cy = r.posy+i;
+                if (w.getWorldArray()[cx][cy].textureKey == "corridor") {
+                    Tile_Door door =  new Tile_Door(cx, cy);
+                    w.setTile(cx, cy, door);
+                    p.add(cx);
+                    q.add(cy);
+                    doors.add(door);
+                }
+            }
+            for(int i= 0; i<r.height;i++){
+                int cx  = r.posx+r.width;
+                int cy = r.posy+i;
+                if (w.getWorldArray()[cx][cy].textureKey == "corridor") {
+                    Tile_Door door =  new Tile_Door(cx, cy);
+                    w.setTile(cx, cy, door);
+                    p.add(cx);
+                    q.add(cy);
+                    doors.add(door);
+                }
+            }
+
+            Tile_Door[] tmp = new Tile_Door[doors.size()];
+            for(int i = 0; i<doors.size();i++){
+                tmp[i] = doors.get(i);
+            }
+            r.setDoors(tmp);
+
+            for(int j = 0; j<doors.size();j=j+3) {
+                Tile_Door[] tmp2 = new Tile_Door[]{tmp[j],tmp[j+1],tmp[j+2]};
+                int[] p2 = new int[] {p.get(j),p.get(j+1),p.get(j+2)};
+                int[] q2 = new int[] {q.get(j),q.get(j+1),q.get(j+2)};
+
+                if (p2[0] == p2[2]) {
+                    Tile_Button b1 = new Tile_Button(p2[0] + 1, q2[2], 3);
+                    b1.setChildren(tmp2);
+                    Tile_Button b2 = new Tile_Button(p2[0] - 1, q2[0], 3);
+                    b2.setChildren(tmp2);
+                    w.setTile(p2[0] + 1, q2[2], b1);
+                    w.setTile(p2[0] - 1, q2[0], b2);
+                } else {
+                    Tile_Button b1 = new Tile_Button(p2[0], q2[0] + 1, 3);
+                    b1.setChildren(tmp2);
+                    Tile_Button b2 = new Tile_Button(p2[2], q2[0] - 1, 3);
+                    b2.setChildren(tmp2);
+                    w.setTile(p2[0], q2[0] + 1, b1);
+                    w.setTile(p2[2], q2[0] - 1, b2);
+                }
+            }
+
         }
-
-        if(p[0] == p[2]){
-            Tile_Button b1 = new Tile_Button(p[0]+1,q[2],3);
-            b1.setChildren(doors);
-            Tile_Button b2 = new Tile_Button(p[0]-1,q[0],3);
-            b2.setChildren(doors);
-            w.setTile(p[0]+1,q[2],b1);
-            w.setTile(p[0]-1,q[0],b2);
-        } else {
-            Tile_Button b1 = new Tile_Button(p[0],q[0]+1,3);
-            b1.setChildren(doors);
-            Tile_Button b2 = new Tile_Button(p[2],q[0]-1,3);
-            b2.setChildren(doors);
-            w.setTile(p[0],q[0]+1,b1);
-            w.setTile(p[2],q[0]-1,b2);
-        }
-
-
         w.setRoomlist(roomStruktList);
         w.setRoomlist_end(singlerooms);
         return w;
