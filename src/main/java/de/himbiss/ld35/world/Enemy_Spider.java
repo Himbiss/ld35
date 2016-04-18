@@ -1,35 +1,31 @@
 package de.himbiss.ld35.world;
 
-import de.himbiss.ld35.engine.Engine;
-import de.himbiss.ld35.engine.HasHitbox;
-import de.himbiss.ld35.engine.Renderable;
-import de.himbiss.ld35.engine.ResourceManager;
+import de.himbiss.ld35.engine.*;
 import org.newdawn.slick.opengl.Texture;
 
 /**
  * Created by Oneidavar on 17/04/2016.
  */
-public class Enemy_Spider extends Enemy implements Renderable{
-    private float speed = .1f;
-    private static final float DELTA_MAX = 3f;
-    private long lastShot;
-    private int attackSpeed;
-    private int dist_move;
-    private int dist_attack;
-    private int dist_ignore;
+public class Enemy_Spider extends Enemy implements HasScript {
+    public float speed = .1f;
+    public static final float DELTA_MAX = 3f;
+    public long lastShot;
+    public int attackSpeed;
+    public int dist_move;
+    public int dist_attack;
+    public int dist_ignore;
+    public String script;
 
     public Enemy_Spider(float posX, float posY) {
         super(posX, posY);
         textureKey="crate";
         width = 50;
         height = 50;
-
-
-
         attackSpeed = 2000;
         dist_move = 5;
         dist_attack = 7;
         dist_ignore = 10;
+        script = ResourceManager.getInstance().getScript("spider");
     }
 
     public void update(int delta) {
@@ -90,5 +86,21 @@ public class Enemy_Spider extends Enemy implements Renderable{
         //TODO Animations
         return ResourceManager.getInstance().getTexture(textureKey);
     }
+
+    @Override
+    public String toString() {
+        return "Spider";
+    }
+
+    @Override
+    public String getScript() {
+        return script;
+    }
+
+    @Override
+    public void setScript(String script) {
+        this.script = script;
+    }
+
 
 }

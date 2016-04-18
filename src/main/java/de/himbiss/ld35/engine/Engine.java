@@ -2,7 +2,6 @@ package de.himbiss.ld35.engine;
 
 import de.himbiss.ld35.world.*;
 import de.himbiss.ld35.world.fightsystem.HasHealth;
-import de.himbiss.ld35.world.fightsystem.ShapeShiftDecorator;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.Sys;
 import org.lwjgl.input.Keyboard;
@@ -13,8 +12,14 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.opengl.Texture;
 
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+import javax.script.ScriptException;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * Created by Vincent on 16.04.2016.
@@ -25,6 +30,7 @@ public class Engine {
 
     private World world;
     private DisplayMode displayMode;
+    private ExecutorService scriptThreadPool;
 
     private float offsetX = 0f;
     private float offsetY = 0f;
@@ -36,16 +42,38 @@ public class Engine {
     private TrueTypeFont debugFont;
     private boolean debugMode;
     private float gravity = 1f;
+    private ScriptEngine scriptEngine;
 
     private Engine() {
         this.displayMode = new DisplayMode(800, 600);
-    }//DisplayMode(800, 600);}
+        this.scriptThreadPool = Executors.newCachedThreadPool();
+        this.scriptEngine = new ScriptEngineManager().getEngineByName("JavaScript");
+    }
 
     public static Engine getInstance() {
         if (instance == null) {
             instance = new Engine();
         }
         return instance;
+    }
+
+    public ExecutorService getScriptThreadPool() {
+        return scriptThreadPool;
+    }
+
+    public void invokeScript(HasScript hasScript) throws ScriptException {
+        scriptEngine.put("engine", this);
+        scriptEngine.put("world", world);
+        scriptEngine.put("player", world.getPlayer());
+        scriptEngine.put("me", hasScript);
+        scriptThreadPool.execute(() -> {
+            try {
+                scriptEngine.eval(hasScript.getScript());
+            } catch (ScriptException e) {
+                e.printStackTrace();
+            }
+        });
+
     }
 
     public void setWorld(World world) {
@@ -223,7 +251,7 @@ public class Engine {
     }
 
     private void calculatePhysics() {
-        Set<Entity> entities = world.getEntities();
+        List<Entity> entities = world.getEntities();
         Set<HasHitbox> tileHitboxes = new HashSet<>();
         for (Tile[] tiles : world.getWorldArray()) {
             for (Tile tile : tiles) {

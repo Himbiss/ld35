@@ -2,19 +2,18 @@ package de.himbiss.ld35.engine;
 
 import de.himbiss.ld35.world.Entity;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by Vincent on 16.04.2016.
  */
 public class CollisionDetector {
 
-    private final Set<Entity> entities;
+    private final List<Entity> entities;
     private final Set<HasHitbox> tileHitboxes;
 
-    public CollisionDetector(Set<Entity> entities, Set<HasHitbox> tileHitboxes) {
-        this.entities = new HashSet<>(entities);
+    public CollisionDetector(List<Entity> entities, Set<HasHitbox> tileHitboxes) {
+        this.entities = new ArrayList<>(entities);
         this.tileHitboxes = new HashSet<>(tileHitboxes);
     }
 

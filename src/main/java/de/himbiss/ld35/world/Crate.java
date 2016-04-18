@@ -67,4 +67,9 @@ public class Crate extends Entity implements HasHealth {
             Engine.getInstance().getWorld().getEntities().remove(this);
         }
     }
+
+    @Override
+    public String toString() {
+        return "Crate";
+    }
 }

@@ -167,4 +167,9 @@ public abstract class EntityDecorator extends Entity implements HasHealth {
     public boolean equals(Object obj) {
         return entity.equals(obj);
     }
+
+    @Override
+    public String toString() {
+        return entity.toString();
+    }
 }

@@ -1,9 +1,6 @@
 package de.himbiss.ld35.world;
 
-import de.himbiss.ld35.engine.AudioManager;
-import de.himbiss.ld35.engine.HasHitbox;
-import de.himbiss.ld35.engine.Engine;
-import de.himbiss.ld35.engine.ResourceManager;
+import de.himbiss.ld35.engine.*;
 import de.himbiss.ld35.world.fightsystem.*;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.SpriteSheet;
@@ -14,15 +11,17 @@ import java.util.Map;
 /**
  * Created by Vincent on 16.04.2016.
  */
-public class Player extends Entity implements HasHealth {
+public class Player extends Entity implements HasHealth, HasScript {
 
     private int health = 10;
+    private String script;
 
     public Player() {
         width = 50;
         height = 50;
         coordX =  (Engine.getInstance().getDisplayMode().getWidth() / 2) - (width / 2);
         coordY =  (Engine.getInstance().getDisplayMode().getHeight() / 2) - (height / 2);
+        script = ResourceManager.getInstance().getScript("player");
     }
 
     public Map<String, Animation> buildAnimationMap() {
@@ -81,5 +80,20 @@ public class Player extends Entity implements HasHealth {
             System.out.println("Game Over");
             System.exit(0);
         }
+    }
+
+    @Override
+    public String toString() {
+        return "Player";
+    }
+
+    @Override
+    public String getScript() {
+        return script;
+    }
+
+    @Override
+    public void setScript(String script) {
+        this.script = script;
     }
 }
