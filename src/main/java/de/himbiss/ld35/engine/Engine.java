@@ -43,6 +43,7 @@ public class Engine {
     private int realFPS;
     private TrueTypeFont debugFont;
     private boolean debugMode;
+    private boolean minimap;
     private float gravity = 1f;
     private ScriptEngine scriptEngine;
 
@@ -125,6 +126,9 @@ public class Engine {
             }
 
             renderUI();
+            if(minimap){
+                renderMinimap();
+            }
 
             Display.sync(60);
             Display.update();
@@ -156,6 +160,9 @@ public class Engine {
             }
             else if (Keyboard.getEventKey() == Keyboard.KEY_F1 && Keyboard.getEventKeyState()) {
                 debugMode = ! debugMode;
+            }
+            else if (Keyboard.getEventKey() == Keyboard.KEY_F3 && Keyboard.getEventKeyState()) {
+                minimap = ! minimap;
             }
         }
     }
@@ -277,6 +284,37 @@ public class Engine {
             GL11.glTexCoord2f(0, 1);
             GL11.glVertex2f(displayMode.getWidth()/2-200+i*40+i*5,displayMode.getHeight()-10);
             GL11.glEnd();
+        }
+    }
+
+    private void renderMinimap(){
+        for(int i = 0; i<world.getSizeX();i++){
+            for(int j = 0; j<world.getSizeY();j++){
+                Tile t = world.getWorldArray()[i][j];
+                Texture texture = null;
+                if(t instanceof Tile_Floor || t instanceof  Tile_SpawnButton){
+                    texture = ResourceManager.getInstance().getTexture("gray");
+                }else if(t instanceof Tile_Corridor || t instanceof  Tile_Button || (t instanceof  Tile_Door && ((Tile_Door)t).isOpen())){
+                    texture = ResourceManager.getInstance().getTexture("gray2");
+                }else if(t instanceof Tile_Wall ||(t instanceof  Tile_Door && !((Tile_Door)t).isOpen())){
+                    texture = ResourceManager.getInstance().getTexture("blue");
+                } else {
+                    texture = ResourceManager.getInstance().getTexture("alpha");
+                }
+                if(texture!=null) texture.bind();
+
+                GL11.glBegin(GL11.GL_QUADS);
+
+                // upper left
+                GL11.glVertex2f(displayMode.getWidth()-world.getSizeX()*2-2+i*2, j*2);
+                // upper right
+                GL11.glVertex2f(displayMode.getWidth()-world.getSizeX()*2+i*2,j*2);
+                // lower right
+                GL11.glVertex2f(displayMode.getWidth()-world.getSizeX()*2+i*2, (j*2)+2);
+                // lower left
+                GL11.glVertex2f(displayMode.getWidth()-world.getSizeX()*2-2+i*2,(j*2)+2);
+                GL11.glEnd();
+            }
         }
     }
 
