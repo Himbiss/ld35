@@ -19,6 +19,7 @@ public class Player extends Entity implements HasHealth, HasScript {
     protected boolean[] slot_unlocked;
     protected EntityDecorator[] slots;
     public int currentslot;
+    private long lastKey;
 
     public Player() {
         width = 50;
@@ -30,9 +31,9 @@ public class Player extends Entity implements HasHealth, HasScript {
         currentslot = 0;
         slot_unlocked = new boolean[3];
         slots = new EntityDecorator[3];
-        slot_unlocked[0] = false;
-        slot_unlocked[0] = false;
-        slot_unlocked[0] = false;
+        slot_unlocked[0] = true;
+        slot_unlocked[1] = false;
+        slot_unlocked[2] = false;
 
     }
 
@@ -67,11 +68,13 @@ public class Player extends Entity implements HasHealth, HasScript {
     }
 
     public void update(int delta) {
-        if (Keyboard.isKeyDown(Keyboard.KEY_ADD)) {
+        if (Keyboard.isKeyDown(Keyboard.KEY_ADD) && (System.currentTimeMillis() - lastKey) > 100) {
             index_inc();
+            lastKey = System.currentTimeMillis();
         }
-        else if (Keyboard.isKeyDown(Keyboard.KEY_SUBTRACT)) {
+        else if (Keyboard.isKeyDown(Keyboard.KEY_SUBTRACT) && (System.currentTimeMillis() - lastKey) > 100) {
             index_dec();
+            lastKey = System.currentTimeMillis();
         }
     }
 
@@ -163,6 +166,8 @@ public class Player extends Entity implements HasHealth, HasScript {
     public boolean set_current_index(int i){
         if(0<=i && i<slots.length){
             currentslot = i;
+            System.out.println("Current Slot: " + i);
+            strip_unstrip();
             return true;
         }
         return false;
@@ -172,16 +177,17 @@ public class Player extends Entity implements HasHealth, HasScript {
         if(slots[currentslot]!=null) {
             World w = Engine.getInstance().getWorld();
             EntityDecorator e = (EntityDecorator) w.getPlayer();
-            Player pc = (Player) e.getEntity();
+            //Player pc = (Player) e.getEntity();
             w.getEntities().remove(e);
-            e.setEntityR(null);
+            //e.setEntityR(null);
             EntityDecorator e2 = slots[currentslot];
-            e2.setEntityR(pc);
+            e2.setEntityR(this);
             w.getEntities().add(e2);
         }
     }
 
     public void index_inc(){
+        System.out.println("inc");
         currentslot = (currentslot+1)%3;
         while(!slot_unlocked[currentslot]){
             currentslot = (currentslot+1)%3;
