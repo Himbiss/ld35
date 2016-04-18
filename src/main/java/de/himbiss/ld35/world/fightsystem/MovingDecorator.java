@@ -2,6 +2,7 @@ package de.himbiss.ld35.world.fightsystem;
 
 import de.himbiss.ld35.engine.Engine;
 import de.himbiss.ld35.world.Entity;
+import de.himbiss.ld35.world.Player;
 import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.Animation;
 
@@ -29,38 +30,36 @@ public class MovingDecorator extends EntityDecorator {
     @Override
     public void update(int delta) {
         super.update(delta);
-        float acceleration = speed * delta;
-        if (Keyboard.isKeyDown(Keyboard.KEY_A)) {
-            setDeltas(getDeltaX() - acceleration, getDeltaY());
-            handleAnimation("walk_left");
-        }
-        else if (Keyboard.isKeyDown(Keyboard.KEY_D)) {
-            setDeltas(getDeltaX() + acceleration, getDeltaY());
-            handleAnimation("walk_right");
-        }
-        else if (Keyboard.isKeyDown(Keyboard.KEY_S)) {
-            setDeltas(getDeltaX(), getDeltaY() + acceleration);
-            handleAnimation("walk_down");
-        }
-        else if (Keyboard.isKeyDown(Keyboard.KEY_W)) {
-            setDeltas(getDeltaX(), getDeltaY() - acceleration);
-            handleAnimation("walk_up");
-        }
-        else {
-            if (! currentAnimation.isStopped()) {
-                currentAnimation.stop();
+        if(getEntity() instanceof Player) {
+            float acceleration = speed * delta;
+            if (Keyboard.isKeyDown(Keyboard.KEY_A)) {
+                setDeltas(getDeltaX() - acceleration, getDeltaY());
+                handleAnimation("walk_left");
+            } else if (Keyboard.isKeyDown(Keyboard.KEY_D)) {
+                setDeltas(getDeltaX() + acceleration, getDeltaY());
+                handleAnimation("walk_right");
+            } else if (Keyboard.isKeyDown(Keyboard.KEY_S)) {
+                setDeltas(getDeltaX(), getDeltaY() + acceleration);
+                handleAnimation("walk_down");
+            } else if (Keyboard.isKeyDown(Keyboard.KEY_W)) {
+                setDeltas(getDeltaX(), getDeltaY() - acceleration);
+                handleAnimation("walk_up");
+            } else {
+                if (!currentAnimation.isStopped()) {
+                    currentAnimation.stop();
+                }
             }
-        }
 
-        float deltaX = getDeltaX();
-        float deltaY = getDeltaY();
-        if (Math.abs(deltaX) > deltaMax) {
-            deltaX = deltaX < 0 ? -deltaMax : deltaMax;
+            float deltaX = getDeltaX();
+            float deltaY = getDeltaY();
+            if (Math.abs(deltaX) > deltaMax) {
+                deltaX = deltaX < 0 ? -deltaMax : deltaMax;
+            }
+            if (Math.abs(deltaY) > deltaMax) {
+                deltaY = deltaY < 0 ? -deltaMax : deltaMax;
+            }
+            setDeltas(deltaX, deltaY);
         }
-        if (Math.abs(deltaY) > deltaMax) {
-            deltaY = deltaY < 0 ? -deltaMax : deltaMax;
-        }
-        setDeltas(deltaX, deltaY);
     }
 
     private void handleAnimation(String animation) {
