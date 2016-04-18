@@ -59,7 +59,7 @@ public class World implements Updatable {
 
         Enemy_Spider spider = new Enemy_Spider(player.getCoordX(),player.getCoordY()-200);
         //TODO Enemy BUildanimationMap
-        EntityDecorator spiderDecorator = new MovingDecorator(new ShootingDecorator(spider,null,10000),5f,.1f,entity.buildAnimationMap());
+        EntityDecorator spiderDecorator = new MovingDecorator(new ShootingDecorator(spider,null,10000),5.f,.1f,entity.buildAnimationMap());
 
 
         entities.add(spiderDecorator);
@@ -81,6 +81,10 @@ public class World implements Updatable {
         if(cx>=0 && cy>=0 && cx<sizeX && cy<sizeY) {
             if (worldArray[cx][cy] instanceof Tile_Button) {
                 Tile_Button btn = ((Tile_Button) worldArray[cx][cy]);
+                btn.doStuff();
+            }
+            if (worldArray[cx][cy] instanceof Tile_SpawnButton) {
+                Tile_SpawnButton btn = ((Tile_SpawnButton) worldArray[cx][cy]);
                 btn.doStuff();
             }
         }

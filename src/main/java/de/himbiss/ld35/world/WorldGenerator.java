@@ -133,11 +133,9 @@ public class WorldGenerator {
         for(RoomStrukt r: roomStruktList){
             for(int rx = 0;rx<r.width;rx++){
                 for(int ry = 0;ry<r.height;ry++){
-                    //if(r.midX() == rx+r.posx && r.midY() == ry+r.posy){
-
-                    //    w.setTile(r.posx+rx, r.posy+ry,new Tile_Corridor());
-                    //} else
-
+                    if(r.midX() == rx+r.posx && r.midY() == ry+r.posy && r.type!=1 && r.type!=2){
+                        w.setTile(r.posx+rx, r.posy+ry,new Tile_SpawnButton(r.posx+rx,r.posy+ry,r));
+                    } else
                     w.setTile(r.posx+rx, r.posy+ry,new Tile_Floor(r.posx+rx,r.posy+ry));
                 }
             }
