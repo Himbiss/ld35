@@ -1,9 +1,13 @@
 package de.himbiss.ld35.world;
 
+import com.sun.javafx.collections.ObservableListWrapper;
+import de.himbiss.ld35.editor.Editor;
 import de.himbiss.ld35.engine.AudioManager;
 import de.himbiss.ld35.engine.Engine;
 import de.himbiss.ld35.world.fightsystem.MovingDecorator;
 import de.himbiss.ld35.world.fightsystem.ShootingDecorator;
+import javafx.collections.ObservableList;
+import org.lwjgl.input.Keyboard;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -18,7 +22,7 @@ public class World implements Updatable {
     private final int sizeX;
     private final int sizeY;
     private final Tile[][] worldArray;
-    private final Set<Entity> entities;
+    private final ObservableList<Entity> entities;
     private Entity player;
     private int startX;
     private int startY;
@@ -31,7 +35,7 @@ public class World implements Updatable {
         this.sizeX = sizeX;
         this.sizeY = sizeY;
         this.worldArray = new Tile[sizeX][sizeY];
-        this.entities = new HashSet<Entity>();
+        this.entities = new ObservableListWrapper<Entity>(new ArrayList<>());
         this.roomlist = new ArrayList<>();
         this.roomlist_end = new ArrayList<>();
         this.startX = 0;
@@ -51,7 +55,6 @@ public class World implements Updatable {
         entities.add(new Crate(player.getCoordX() + 100 , player.getCoordY()));
         entities.add(new Enemy(player.getCoordX() - 100 , player.getCoordY()));
         AudioManager.getInstance().getAudio("dummy").playAsMusic(1.0f,1.0f,true);
-        
     }
 
     public void update(int delta) {
@@ -70,6 +73,11 @@ public class World implements Updatable {
                 btn.doStuff();
             }
         }
+
+        if (Keyboard.isKeyDown(Keyboard.KEY_F2)) {
+            Editor editor = Editor.getInstance();
+            editor.setVisible(! editor.isVisible());
+        }
     }
 
     public Entity getPlayer() {
@@ -80,7 +88,7 @@ public class World implements Updatable {
         return worldArray;
     }
 
-    public Set<Entity> getEntities() {
+    public ObservableList<Entity> getEntities() {
         return entities;
     }
 

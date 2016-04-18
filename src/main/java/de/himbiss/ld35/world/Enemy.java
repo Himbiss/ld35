@@ -79,4 +79,9 @@ public class Enemy extends Entity implements Renderable, HasHealth {
             Engine.getInstance().getWorld().getEntities().remove(this);
         }
     }
+
+    @Override
+    public String toString() {
+        return "Enemy";
+    }
 }

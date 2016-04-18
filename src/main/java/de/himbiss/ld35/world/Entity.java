@@ -127,4 +127,9 @@ public abstract class Entity implements Renderable, Updatable, HasHitbox, HasPhy
         }
         return super.equals(obj);
     }
+
+    @Override
+    public String toString() {
+        return "Entity";
+    }
 }

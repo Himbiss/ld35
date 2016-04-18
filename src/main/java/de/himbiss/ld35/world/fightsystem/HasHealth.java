@@ -7,4 +7,8 @@ public interface HasHealth {
     void setHealth(int health);
     int getHealth();
     void applyDamage(DoesDamage damageObject, float dX, float dY);
+
+    default void applyDamage(int damage, double dX, double dY) {
+        applyDamage(() -> damage, (float) dX, (float) dY);
+    }
 }

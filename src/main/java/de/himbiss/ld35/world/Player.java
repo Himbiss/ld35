@@ -1,8 +1,6 @@
 package de.himbiss.ld35.world;
 
-import de.himbiss.ld35.engine.HasHitbox;
-import de.himbiss.ld35.engine.Engine;
-import de.himbiss.ld35.engine.ResourceManager;
+import de.himbiss.ld35.engine.*;
 import de.himbiss.ld35.world.fightsystem.*;
 import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.Animation;
@@ -14,9 +12,10 @@ import java.util.Map;
 /**
  * Created by Vincent on 16.04.2016.
  */
-public class Player extends Entity implements HasHealth {
+public class Player extends Entity implements HasHealth, HasScript {
 
     private int health = 10;
+    private String script;
     protected boolean[] slot_unlocked;
     protected EntityDecorator[] slots;
     public int currentslot;
@@ -26,6 +25,7 @@ public class Player extends Entity implements HasHealth {
         height = 50;
         coordX =  (Engine.getInstance().getDisplayMode().getWidth() / 2) - (width / 2);
         coordY =  (Engine.getInstance().getDisplayMode().getHeight() / 2) - (height / 2);
+        script = ResourceManager.getInstance().getScript("player");
 
         currentslot = 0;
         slot_unlocked = new boolean[3];
@@ -98,6 +98,21 @@ public class Player extends Entity implements HasHealth {
             System.out.println("Game Over");
             System.exit(0);
         }
+    }
+
+    @Override
+    public String toString() {
+        return "Player";
+    }
+
+    @Override
+    public String getScript() {
+        return script;
+    }
+
+    @Override
+    public void setScript(String script) {
+        this.script = script;
     }
 
     public void unlock_next_slot(){

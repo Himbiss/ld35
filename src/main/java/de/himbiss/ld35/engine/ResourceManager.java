@@ -5,13 +5,17 @@ import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.opengl.TextureLoader;
+import sun.misc.IOUtils;
 
 
 import java.awt.*;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.StringReader;
+import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 
 /**
  * Created by Vincent on 16.04.2016.
@@ -82,5 +86,14 @@ public class ResourceManager {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public String getScript(String scriptKey) {
+        try (InputStream stream = getClass().getClassLoader().getResourceAsStream("scripts/" + scriptKey + ".js")){
+            return new Scanner(stream,"UTF-8").useDelimiter("\\A").next();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 }
