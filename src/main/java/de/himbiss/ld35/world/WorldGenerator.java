@@ -339,22 +339,30 @@ public class WorldGenerator {
                         int t1 = p2[0];
                         int t2 = q2[2];
                         int t3 = q2[0];
-                        Tile_Button b1 = new Tile_Button(t1 + 1, t2);
-                        b1.setChildren(tmp2);
-                        w.setTile(t1 + 1, t2, b1);
-                        Tile_Button b2 = new Tile_Button(t1 - 1, t3);
-                        b2.setChildren(tmp2);
-                        w.setTile(t1 - 1, t3, b2);
+                        if(!inRoom(r,t1+1,t2)) {
+                            Tile_Button b1 = new Tile_Button(t1 + 1, t2);
+                            b1.setChildren(tmp2);
+                            w.setTile(t1 + 1, t2, b1);
+                        }
+                        if(!inRoom(r,t1-1,t3)) {
+                            Tile_Button b2 = new Tile_Button(t1 - 1, t3);
+                            b2.setChildren(tmp2);
+                            w.setTile(t1 - 1, t3, b2);
+                        }
                     } else {
                         int t1 = p2[0];
                         int t2 = p2[2];
                         int t3 = q2[0];
-                        Tile_Button b1 = new Tile_Button(t1, t3 + 1);
-                        b1.setChildren(tmp2);
-                        w.setTile(t1, t3 + 1, b1);
-                        Tile_Button b2 = new Tile_Button(t2, t3 - 1);
-                        b2.setChildren(tmp2);
-                        w.setTile(t2, t3 - 1, b2);
+                        if(!inRoom(r,t1,t3+1)) {
+                            Tile_Button b1 = new Tile_Button(t1, t3 + 1);
+                            b1.setChildren(tmp2);
+                            w.setTile(t1, t3 + 1, b1);
+                        }
+                        if(!inRoom(r,t2,t3-1)) {
+                            Tile_Button b2 = new Tile_Button(t2, t3 - 1);
+                            b2.setChildren(tmp2);
+                            w.setTile(t2, t3 - 1, b2);
+                        }
                     }
                 }
             }
@@ -363,6 +371,15 @@ public class WorldGenerator {
         w.setRoomlist(roomStruktList);
         w.setRoomlist_end(singlerooms);
         return w;
+    }
+
+    private static boolean inRoom(RoomStrukt r, int x, int y){
+        if(r.posx <= x && r.posx+r.width>x ){
+            if(r.posy <= y && r.posy+r.height>y ){
+                return true;
+            }
+        }
+        return false;
     }
 
     public static boolean hasCollision(List<RoomStrukt> list, int seed){

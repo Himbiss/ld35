@@ -66,4 +66,8 @@ public class Tile_Door extends Tile implements Switchable, HasHitbox {
             }
         }
     }
+
+    public void close(){
+        isOpen = false;
+    }
 }

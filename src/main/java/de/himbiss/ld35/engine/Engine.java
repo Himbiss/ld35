@@ -1,9 +1,6 @@
 package de.himbiss.ld35.engine;
 
-import de.himbiss.ld35.world.Entity;
-import de.himbiss.ld35.world.Tile;
-import de.himbiss.ld35.world.Tile_Door;
-import de.himbiss.ld35.world.World;
+import de.himbiss.ld35.world.*;
 import de.himbiss.ld35.world.fightsystem.HasHealth;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.Sys;
@@ -79,12 +76,26 @@ public class Engine {
                 renderDebug();
             }
 
+
             Display.sync(60);
             Display.update();
 
             if (Keyboard.isKeyDown(Keyboard.KEY_F1)) {
                 debugMode = ! debugMode;
             }
+            if (Keyboard.isKeyDown(Keyboard.KEY_O)) {
+                int cx = (int)(world.getPlayer().getCoordX()-Engine.getInstance().getOffsetX()+25)/50;
+                int cy = (int)(world.getPlayer().getCoordY()-Engine.getInstance().getOffsetY()+25)/50;
+                RoomStrukt r = world.getRoom(cx,cy);
+                if(r!=null)r.openDoors();
+            }
+            if (Keyboard.isKeyDown(Keyboard.KEY_P)) {
+                int cx = (int)(world.getPlayer().getCoordX()-Engine.getInstance().getOffsetX()+25)/50;
+                int cy = (int)(world.getPlayer().getCoordY()-Engine.getInstance().getOffsetY()+25)/50;
+                RoomStrukt r = world.getRoom(cx,cy);
+                if(r!=null)r.closeDoors();
+            }
+            
             updateFPS();
         }
 

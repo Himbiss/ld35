@@ -33,4 +33,17 @@ public class RoomStrukt{
     public void setRoom_cleared() {
         this.room_cleared = true;
     }
+
+    public void openDoors(){
+        for(Switchable s:doors){
+            s.trigger();
+        }
+    }
+    public void closeDoors(){
+        for(Switchable s:doors){
+            if(s instanceof Tile_Door)
+                ((Tile_Door) s).close();
+
+        }
+    }
 }
