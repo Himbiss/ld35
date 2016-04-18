@@ -15,11 +15,10 @@ import org.newdawn.slick.opengl.Texture;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 /**
  * Created by Vincent on 16.04.2016.
@@ -31,6 +30,7 @@ public class Engine {
     private World world;
     private DisplayMode displayMode;
     private ExecutorService scriptThreadPool;
+    private Map<HasScript, Future<?>> scriptThreadMap;
 
     private float offsetX = 0f;
     private float offsetY = 0f;
@@ -48,6 +48,7 @@ public class Engine {
         this.displayMode = new DisplayMode(800, 600);
         this.scriptThreadPool = Executors.newCachedThreadPool();
         this.scriptEngine = new ScriptEngineManager().getEngineByName("JavaScript");
+        this.scriptThreadMap = new HashMap<>();
     }
 
     public static Engine getInstance() {
@@ -62,18 +63,30 @@ public class Engine {
     }
 
     public void invokeScript(HasScript hasScript) throws ScriptException {
+        stopScript(hasScript);
         scriptEngine.put("engine", this);
         scriptEngine.put("world", world);
         scriptEngine.put("player", world.getPlayer());
         scriptEngine.put("me", hasScript);
-        scriptThreadPool.execute(() -> {
+        Future<?> future = scriptThreadPool.submit(() -> {
             try {
+                System.out.println("Script starting.");
                 scriptEngine.eval(hasScript.getScript());
-            } catch (ScriptException e) {
+                System.out.println("Script finished.");
+            }
+            catch (ScriptException e) {
                 e.printStackTrace();
+                System.out.println("Script stopped.");
             }
         });
+        scriptThreadMap.put(hasScript, future);
+    }
 
+    public void stopScript(HasScript script) {
+        Future future = scriptThreadMap.get(script);
+        if (future != null) {
+            future.cancel(true);
+        }
     }
 
     public void setWorld(World world) {
