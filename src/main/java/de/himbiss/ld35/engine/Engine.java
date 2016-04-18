@@ -150,9 +150,9 @@ public class Engine {
 
     private void handleKeyEvents() {
         while(Keyboard.next()) {
-            if(Keyboard.getEventKey() == Keyboard.KEY_F2) {
+            if(Keyboard.getEventKey() == Keyboard.KEY_F2 && Keyboard.getEventKeyState()) {
                 Editor editor = Editor.getInstance();
-                editor.setVisible(Keyboard.getEventKeyState());
+                editor.setVisible(! editor.isVisible());
             }
             else if (Keyboard.getEventKey() == Keyboard.KEY_F1 && Keyboard.getEventKeyState()) {
                 debugMode = ! debugMode;
