@@ -3,6 +3,7 @@ package de.himbiss.ld35.world;
 import de.himbiss.ld35.engine.AudioManager;
 import de.himbiss.ld35.engine.Engine;
 import de.himbiss.ld35.world.fightsystem.MovingDecorator;
+import de.himbiss.ld35.world.fightsystem.ShapeShiftDecorator;
 import de.himbiss.ld35.world.fightsystem.ShootingDecorator;
 
 import java.util.ArrayList;
@@ -43,7 +44,7 @@ public class World implements Updatable {
 
     public void populate() {
         Player entity = new Player();
-        player = new MovingDecorator(new ShootingDecorator(entity, null, 100), 5f, .1f, entity.buildAnimationMap());
+        player = new MovingDecorator(new ShootingDecorator(new ShapeShiftDecorator(entity,null,null), null, 100), 5f, .1f, entity.buildAnimationMap());
         entities.add(player);
         player.setCoordX(getStartX());
         player.setCoordY(getStartY());

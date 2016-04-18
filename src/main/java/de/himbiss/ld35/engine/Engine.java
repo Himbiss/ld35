@@ -2,6 +2,7 @@ package de.himbiss.ld35.engine;
 
 import de.himbiss.ld35.world.*;
 import de.himbiss.ld35.world.fightsystem.HasHealth;
+import de.himbiss.ld35.world.fightsystem.ShapeShiftDecorator;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.Sys;
 import org.lwjgl.input.Keyboard;
@@ -76,6 +77,7 @@ public class Engine {
                 renderDebug();
             }
 
+            renderUI();
 
             Display.sync(60);
             Display.update();
@@ -158,6 +160,65 @@ public class Engine {
                     }
                 }
             }
+        }
+    }
+
+    private void renderUI(){
+        Texture texture = ResourceManager.getInstance().getTexture("dummy");
+        texture.bind();
+        // draw quad
+        GL11.glBegin(GL11.GL_QUADS);
+        // upper left
+        GL11.glTexCoord2f(0, 0);
+        GL11.glVertex2f(displayMode.getWidth()/2-205, displayMode.getHeight()-55);
+        // upper right
+        GL11.glTexCoord2f(1, 0);
+        GL11.glVertex2f(displayMode.getWidth()/2+205,displayMode.getHeight()-55);
+        // lower right
+        GL11.glTexCoord2f(1, 1);
+        GL11.glVertex2f(displayMode.getWidth()/2+205, displayMode.getHeight()-5);
+        // lower left
+        GL11.glTexCoord2f(0, 1);
+        GL11.glVertex2f(displayMode.getWidth()/2-205,displayMode.getHeight()-5);
+        GL11.glEnd();
+
+        texture = ResourceManager.getInstance().getTexture("floor");
+        texture.bind();
+        int ci = 8; //TODO get current slot index
+        // draw quad
+        GL11.glBegin(GL11.GL_QUADS);
+        // upper left
+        GL11.glTexCoord2f(0, 0);
+        GL11.glVertex2f(displayMode.getWidth()/2-200+ci*40+ci*5-2, displayMode.getHeight()-52);
+        // upper right
+        GL11.glTexCoord2f(1, 0);
+        GL11.glVertex2f(displayMode.getWidth()/2-160+ci*40+ci*5+1,displayMode.getHeight()-52);
+        // lower right
+        GL11.glTexCoord2f(1, 1);
+        GL11.glVertex2f(displayMode.getWidth()/2-160+ci*40+ci*5+1, displayMode.getHeight()-9);
+        // lower left
+        GL11.glTexCoord2f(0, 1);
+        GL11.glVertex2f(displayMode.getWidth()/2-200+ci*40+ci*5-2,displayMode.getHeight()-9);
+        GL11.glEnd();
+
+        for(int i = 0; i < 9; i++){
+            texture = ResourceManager.getInstance().getTexture("crate");
+            texture.bind();
+            // draw quad
+            GL11.glBegin(GL11.GL_QUADS);
+            // upper left
+            GL11.glTexCoord2f(0, 0);
+            GL11.glVertex2f(displayMode.getWidth()/2-200+i*40+i*5, displayMode.getHeight()-50);
+            // upper right
+            GL11.glTexCoord2f(1, 0);
+            GL11.glVertex2f(displayMode.getWidth()/2-160+i*40+i*5,displayMode.getHeight()-50);
+            // lower right
+            GL11.glTexCoord2f(1, 1);
+            GL11.glVertex2f(displayMode.getWidth()/2-160+i*40+i*5, displayMode.getHeight()-10);
+            // lower left
+            GL11.glTexCoord2f(0, 1);
+            GL11.glVertex2f(displayMode.getWidth()/2-200+i*40+i*5,displayMode.getHeight()-10);
+            GL11.glEnd();
         }
     }
 

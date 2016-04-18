@@ -1,6 +1,7 @@
 package de.himbiss.ld35.world.fightsystem;
 
 import de.himbiss.ld35.world.Entity;
+import org.lwjgl.input.Keyboard;
 
 /**
  * Created by Oneidavar on 18/04/2016.
@@ -9,7 +10,7 @@ public class ShapeShiftDecorator extends EntityDecorator {
 
     protected boolean[] slot_unlocked;
     protected Object[] slots;
-    protected int currentslot;
+    public int currentslot;
 
     public ShapeShiftDecorator(Entity entity, Object slot0, Object slot1){
         super(entity);
@@ -46,8 +47,8 @@ public class ShapeShiftDecorator extends EntityDecorator {
 
     public boolean swap_to_slot(Object obj, int slot){
         if(slot_unlocked[slot]) {
-            drop_from_slot(i);
-            slots[i] = obj;
+            drop_from_slot(slot);
+            slots[slot] = obj;
             return true;
         }
         return false;
@@ -76,5 +77,22 @@ public class ShapeShiftDecorator extends EntityDecorator {
             return true;
         }
         return false;
+    }
+
+    public void index_inc(){
+        currentslot = (currentslot+1)%9;
+    }
+    public void index_dec(){
+        currentslot = (currentslot+8)%9;
+    }
+
+    public void update(int delta) {
+        super.update(delta);
+        if (Keyboard.isKeyDown(Keyboard.KEY_ADD)) {
+            index_inc();
+        }
+        else if (Keyboard.isKeyDown(Keyboard.KEY_SUBTRACT)) {
+            index_dec();
+        }
     }
 }
