@@ -4,16 +4,13 @@ import de.himbiss.ld35.engine.Engine;
 import de.himbiss.ld35.engine.HasHitbox;
 import de.himbiss.ld35.engine.Renderable;
 import de.himbiss.ld35.engine.ResourceManager;
-import de.himbiss.ld35.world.fightsystem.HasHealth;
-import de.himbiss.ld35.world.fightsystem.Tear;
-import org.lwjgl.input.Mouse;
 import org.newdawn.slick.opengl.Texture;
 
 /**
  * Created by Oneidavar on 17/04/2016.
  */
-public class Enemy_Spider extends Enemy implements Renderable {
-    private float speed = .05f;
+public class Enemy_Spider extends Enemy implements Renderable{
+    private float speed = .1f;
     private static final float DELTA_MAX = 3f;
     private long lastShot;
     private int attackSpeed;
@@ -27,6 +24,8 @@ public class Enemy_Spider extends Enemy implements Renderable {
         width = 50;
         height = 50;
 
+
+
         attackSpeed = 2000;
         dist_move = 5;
         dist_attack = 7;
@@ -38,28 +37,33 @@ public class Enemy_Spider extends Enemy implements Renderable {
 
         World w = Engine.getInstance().getWorld();
 
+        float tX = getCoordX()-Engine.getInstance().getOffsetX();
+        float tY = getCoordY()-Engine.getInstance().getOffsetY();
+        float pX = w.getPlayer().getCoordX()-Engine.getInstance().getOffsetX();
+        float pY = w.getPlayer().getCoordY()-Engine.getInstance().getOffsetY();
 
-        float dx = (getCoordX()-w.getPlayer().getCoordX());
-        float dy = (getCoordY()-w.getPlayer().getCoordY());
+        float dx = Math.abs(tX-pX);
+        float dy = Math.abs(tY-pY);
+
 
         if(Math.sqrt(dx*dx+dy*dy)>dist_move*50 && Math.sqrt(dx*dx+dy*dy)<dist_ignore*50 ) {
-            float grade = Math.abs(dx / (dx + dy));
-            if (getCoordX() < w.getPlayer().getCoordX()) {
+            float grade = (dx / (dx + dy));
+
+            if (tX < pX ) {
                 //TODO set animation
                 deltaX += speed * delta * grade;
-            }
-            if (getCoordX() > w.getPlayer().getCoordX()) {
+            } else if (tX > pX ) {
                 //TODO set animation
                 deltaX -= speed * delta * grade;
             }
-            if (getCoordY() < w.getPlayer().getCoordY()) {
+            if (tY < pY) {
                 //TODO set animation
-                deltaY += speed * delta * (1 - grade);
-            }
-            if (getCoordY() > w.getPlayer().getCoordY()) {
+                deltaY += speed * delta * (1-grade);
+            } else if (tY > pY) {
                 //TODO set animation
-                deltaY -= speed * delta * (1 - grade);
+                deltaY -= speed * delta * (1-grade);
             }
+
             if (Math.abs(deltaX) > DELTA_MAX) {
                 deltaX = deltaX < 0 ? -DELTA_MAX : DELTA_MAX;
             }
@@ -74,7 +78,7 @@ public class Enemy_Spider extends Enemy implements Renderable {
                 lastShot = System.currentTimeMillis();
                 dx *= -0.1f;
                 dy *= -0.1f;
-                System.out.println("spider shooting tear: " + dx + "," + dy);
+                //System.out.println("spider shooting tear: " + dx + "," + dy);
                 //Engine.getInstance().getWorld().getEntities().add(new Tear(this, coordX + (getWidth() / 2), coordY + (getHeight() / 2), dx, dy));
             }
         }

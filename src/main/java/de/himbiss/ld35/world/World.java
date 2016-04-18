@@ -43,7 +43,7 @@ public class World implements Updatable {
 
     public void populate() {
         Player entity = new Player();
-        player = new MovingDecorator(new ShootingDecorator(entity, null, 1000), 5f, .1f, entity.buildAnimationMap());
+        player = new MovingDecorator(new ShootingDecorator(entity, null, 100), 5f, .1f, entity.buildAnimationMap());
         entities.add(player);
         player.setCoordX(getStartX());
         player.setCoordY(getStartY());

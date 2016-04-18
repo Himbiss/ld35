@@ -2,6 +2,7 @@ package de.himbiss.ld35.engine;
 
 import de.himbiss.ld35.world.Entity;
 import de.himbiss.ld35.world.Tile;
+import de.himbiss.ld35.world.Tile_Door;
 import de.himbiss.ld35.world.World;
 import de.himbiss.ld35.world.fightsystem.HasHealth;
 import org.lwjgl.LWJGLException;
@@ -123,27 +124,28 @@ public class Engine {
         for (Tile[] tiles : world.getWorldArray()) {
             for (Tile tile : tiles) {
                 if (tile instanceof HasHitbox) {
-                    HasHitbox hasHitbox = ((HasHitbox) tile);
-                    Renderable hitbox = new Renderable() {
-                        @Override
-                        public int getWidth() {
-                            return (int) hasHitbox.getHitboxWidth();
-                        }
+                    if (!(tile instanceof Tile_Door) || (tile instanceof Tile_Door && !((Tile_Door) tile).isOpen())) {
+                        HasHitbox hasHitbox = ((HasHitbox) tile);
+                        Renderable hitbox = new Renderable() {
+                            @Override
+                            public int getWidth() {
+                                return (int) hasHitbox.getHitboxWidth();
+                            }
 
-                        @Override
-                        public int getHeight() {
-                            return (int) hasHitbox.getHitboxHeight();
-                        }
+                            @Override
+                            public int getHeight() {
+                                return (int) hasHitbox.getHitboxHeight();
+                            }
 
-                        @Override
-                        public Texture getTexture() {
-                            return ResourceManager.getInstance().getTexture("hitbox");
-                        }
-                    };
+                            @Override
+                            public Texture getTexture() {
+                                return ResourceManager.getInstance().getTexture("hitbox");
+                            }
+                        };
 
-                    renderObject(hitbox, hasHitbox.getHitBoxCoordX(), hasHitbox.getHitBoxCoordY());
+                        renderObject(hitbox, hasHitbox.getHitBoxCoordX(), hasHitbox.getHitBoxCoordY());
+                    }
                 }
-
             }
         }
     }
@@ -154,20 +156,29 @@ public class Engine {
         for (Tile[] tiles : world.getWorldArray()) {
             for (Tile tile : tiles) {
                 if (tile instanceof HasHitbox) {
-                    tileHitboxes.add(((HasHitbox) tile));
+                    if (!(tile instanceof Tile_Door) || (tile instanceof Tile_Door && !((Tile_Door) tile).isOpen())){
+                        tileHitboxes.add(((HasHitbox) tile));
+                    }
                 }
             }
+        }
+
+        //Move entity according to deltaX / deltaY
+        for (Entity entity : entities) {
+            entity.setCoordX((entity.getCoordX() - offsetX) + entity.getDeltaX());
+            entity.setCoordY((entity.getCoordY() - offsetY) + entity.getDeltaY());
         }
 
         CollisionDetector collisionDetector = new CollisionDetector(entities, tileHitboxes);
         collisionDetector.doCollision();
 
-        for (Entity entity : entities) {
-            entity.setCoordX((entity.getCoordX() - offsetX) + entity.getDeltaX());
-            entity.setCoordY((entity.getCoordY() - offsetY) + entity.getDeltaY());
-
+        //Apply Gravity only after Collision Detection!!!
+        //this way collisionDetection can use the deltas to restore the position before moving
+        for(Entity entity : entities){
             entity.applyGravity(gravity);
         }
+
+
     }
 
     private void initGL() {

@@ -6,6 +6,8 @@ import de.himbiss.ld35.engine.Renderable;
 import de.himbiss.ld35.engine.ResourceManager;
 import de.himbiss.ld35.world.fightsystem.DoesDamage;
 import de.himbiss.ld35.world.fightsystem.HasHealth;
+import de.himbiss.ld35.world.fightsystem.MovingDecorator;
+import de.himbiss.ld35.world.fightsystem.Tear;
 import org.newdawn.slick.opengl.Texture;
 
 /**
@@ -21,9 +23,11 @@ public class Enemy extends Entity implements Renderable, HasHealth {
     public Enemy(float posX, float posY) {
         textureKey = "crate";
         width = 50;
-        height = 100;
+        height = 50;
         coordX = posX;
         coordY = posY;
+
+
     }
 
     public void update(int delta) {
@@ -32,6 +36,14 @@ public class Enemy extends Entity implements Renderable, HasHealth {
 
     @Override
     public void collideWith(HasHitbox object, float deltaX, float deltaY) {
+        /*
+        if(object instanceof MovingDecorator) System.out.print("Player ");
+        if(object instanceof Tear) System.out.print("Tear ");
+        System.out.println("colided: " + getHitBoxCoordX() + " " + getHitBoxCoordY()
+                + " : " + getHitboxWidth() + " " + getHitboxHeight()
+                + " | " + object.getHitBoxCoordX() + " " + object.getHitBoxCoordY()
+                + " : " + object.getHitboxWidth() + " " + object.getHitboxHeight());
+                */
     }
 
     public int getWidth() {

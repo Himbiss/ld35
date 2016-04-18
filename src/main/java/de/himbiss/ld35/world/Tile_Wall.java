@@ -35,25 +35,30 @@ public class Tile_Wall extends Tile implements HasHitbox {
 
     @Override
     public void collideWith(HasHitbox object, float deltaX, float deltaY) {
-        System.out.print(object + "collided " + coordx + " - " + getHeight() + " - ");
-        System.out.println(getHitBoxCoordX());
         if (object instanceof Entity) {
             Entity entity = (Entity) object;
+
+
+                entity.setCoordX((entity.getCoordX() - Engine.getInstance().getOffsetX()) - entity.getDeltaX());
+                entity.setCoordY((entity.getCoordY() - Engine.getInstance().getOffsetY()) - entity.getDeltaY());
+
+/*
             float hitboxOffsetX = Math.abs(entity.getHitBoxCoordX() - entity.getCoordX());
             if (deltaX < 0) {
-                entity.setCoordX(getCoordx() + getWidth() - hitboxOffsetX);
+                entity.setCoordX(getCoordx() + getWidth() - hitboxOffsetX+1);
             }
             else if (deltaX > 0) {
-                entity.setCoordX(getCoordx() - entity.getHitboxWidth() - hitboxOffsetX);
+                entity.setCoordX(getCoordx() - entity.getHitboxWidth() - hitboxOffsetX-1);
             }
 
             float hitboxOffsetY = Math.abs(entity.getHitBoxCoordY() - entity.getCoordY());
             if (deltaY < 0) {
-                entity.setCoordY(getCoordy() + getHeight() - hitboxOffsetY);
+                entity.setCoordY(getCoordy() + getHeight() - hitboxOffsetY+1);
             }
             else if (deltaY > 0) {
-                entity.setCoordY(getCoordy() - entity.getHitboxHeight() - hitboxOffsetY);
+                entity.setCoordY(getCoordy() - entity.getHitboxHeight() - hitboxOffsetY-1);
             }
+            */
 
             entity.setDeltas(0f, 0f);
 

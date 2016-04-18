@@ -17,8 +17,8 @@ public abstract class Entity implements Renderable, Updatable, HasHitbox, HasPhy
     protected float prevCoordY;
     protected int height;
     protected int width;
-    protected float deltaX;
-    protected float deltaY;
+    protected float deltaX = 0;
+    protected float deltaY = 0;
 
     public Entity() {
     }

@@ -5,8 +5,6 @@ import de.himbiss.ld35.engine.HasHitbox;
 import de.himbiss.ld35.engine.Engine;
 import de.himbiss.ld35.engine.ResourceManager;
 import de.himbiss.ld35.world.fightsystem.*;
-import org.lwjgl.input.Keyboard;
-import org.lwjgl.input.Mouse;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.SpriteSheet;
 
