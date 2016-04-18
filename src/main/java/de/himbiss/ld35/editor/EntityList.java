@@ -19,7 +19,9 @@ public class EntityList extends JList<Entity> {
 
     public EntityList(World world) {
         super(new EntityListModel());
-
+        for (Entity entity : Engine.getInstance().getWorld().getEntities()) {
+            ((EntityListModel) getModel()).addElement(entity);
+        }
     }
 
     @Override

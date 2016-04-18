@@ -32,15 +32,11 @@ public class ScriptEditor extends JPanel implements ListSelectionListener {
         runScriptBtn.addActionListener(e -> {
             if (hasScript != null) {
                 try {
-                    try {
-                        saveScript();
-                    } catch (BadLocationException e1) {
-                        e1.printStackTrace();
-                    }
-                    Engine.getInstance().invokeScript(hasScript);
-                } catch (ScriptException e1) {
+                    saveScript();
+                } catch (BadLocationException e1) {
                     e1.printStackTrace();
                 }
+                Engine.getInstance().invokeScript(hasScript);
             }
         });
         add(runScriptBtn);
@@ -61,24 +57,23 @@ public class ScriptEditor extends JPanel implements ListSelectionListener {
         Entity selected = source.getSelectedValue();
         if (selected != null) {
             try {
+                saveScript();
                 if (selected instanceof EntityDecorator) {
                     selected = ((EntityDecorator) selected).getEntity();
                 }
-
                 if (selected instanceof HasScript) {
                     setEnabled(true);
                     textArea.setEnabled(true);
                     String script = ((HasScript) selected).getScript();
 
-                    saveScript();
                     textArea.getDocument().remove(0, textArea.getDocument().getLength());
                     this.hasScript = (HasScript) selected;
                     textArea.getDocument().insertString(0, script, null);
                 } else {
-                    saveScript();
                     textArea.getDocument().remove(0, textArea.getDocument().getLength());
                     setEnabled(false);
                     textArea.setEnabled(false);
+                    this.hasScript = null;
                 }
             } catch (BadLocationException e1) {
                 e1.printStackTrace();

@@ -23,7 +23,6 @@ public class Editor extends JFrame {
         ScriptEditor scriptEditor = new ScriptEditor();
         EntityList entityList = new EntityList(Engine.getInstance().getWorld());
         JScrollPane scrollPane = new JScrollPane(entityList);
-
         entityList.addListSelectionListener(scriptEditor);
 
         setLayout(new BorderLayout());

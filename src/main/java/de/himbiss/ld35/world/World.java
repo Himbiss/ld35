@@ -78,11 +78,6 @@ public class World implements Updatable {
                 btn.doStuff();
             }
         }
-
-        if (Keyboard.isKeyDown(Keyboard.KEY_F2)) {
-            Editor editor = Editor.getInstance();
-            editor.setVisible(! editor.isVisible());
-        }
     }
 
     public Entity getPlayer() {

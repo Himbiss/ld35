@@ -6,6 +6,8 @@ import de.himbiss.ld35.world.fightsystem.EntityDecorator;
 import de.himbiss.ld35.world.fightsystem.Tear;
 import org.newdawn.slick.opengl.Texture;
 
+import javax.script.ScriptException;
+
 /**
  * Created by Vincent on 16.04.2016.
  */

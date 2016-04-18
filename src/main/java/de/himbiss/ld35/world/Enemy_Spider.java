@@ -26,6 +26,7 @@ public class Enemy_Spider extends Enemy implements HasScript {
         dist_attack = 7;
         dist_ignore = 10;
         script = ResourceManager.getInstance().getScript("spider");
+        Engine.getInstance().invokeScript(this);
     }
 
     public void update(int delta) {

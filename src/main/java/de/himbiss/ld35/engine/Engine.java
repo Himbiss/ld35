@@ -1,5 +1,6 @@
 package de.himbiss.ld35.engine;
 
+import de.himbiss.ld35.editor.Editor;
 import de.himbiss.ld35.world.*;
 import de.himbiss.ld35.world.fightsystem.EntityDecorator;
 import de.himbiss.ld35.world.fightsystem.HasHealth;
@@ -64,7 +65,7 @@ public class Engine {
         return scriptThreadPool;
     }
 
-    public void invokeScript(HasScript hasScript) throws ScriptException {
+    public void invokeScript(HasScript hasScript) {
         stopScript(hasScript);
         scriptEngine.put("engine", this);
         scriptEngine.put("world", world);
@@ -117,6 +118,8 @@ public class Engine {
             scrollWorld();
             renderWorld();
 
+            handleKeyEvents();
+
             if (debugMode) {
                 renderDebug();
             }
@@ -126,9 +129,6 @@ public class Engine {
             Display.sync(60);
             Display.update();
 
-            if (Keyboard.isKeyDown(Keyboard.KEY_F1)) {
-                debugMode = ! debugMode;
-            }
             if (Keyboard.isKeyDown(Keyboard.KEY_O)) {
                 int cx = (int)(world.getPlayer().getCoordX()-Engine.getInstance().getOffsetX()+25)/50;
                 int cy = (int)(world.getPlayer().getCoordY()-Engine.getInstance().getOffsetY()+25)/50;
@@ -146,6 +146,18 @@ public class Engine {
         }
 
         Display.destroy();
+    }
+
+    private void handleKeyEvents() {
+        while(Keyboard.next()) {
+            if(Keyboard.getEventKey() == Keyboard.KEY_F2) {
+                Editor editor = Editor.getInstance();
+                editor.setVisible(Keyboard.getEventKeyState());
+            }
+            else if (Keyboard.getEventKey() == Keyboard.KEY_F1 && Keyboard.getEventKeyState()) {
+                debugMode = ! debugMode;
+            }
+        }
     }
 
     private void renderDebug() {
