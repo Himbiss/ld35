@@ -54,6 +54,15 @@ public abstract class EntityDecorator extends Entity implements HasHealth {
         this.entity = entity;
     }
 
+    public void setEntityR(Entity entity) {
+        if (this.entity instanceof EntityDecorator) {
+            ((EntityDecorator) this.entity).setEntityR(entity);
+            return;
+        }
+        this.entity = entity;
+        return;
+    }
+
     @Override
     public void setPrevCoordY(float prevCoordY) {
         entity.setCoordY(prevCoordY);

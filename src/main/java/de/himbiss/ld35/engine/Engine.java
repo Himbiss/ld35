@@ -1,8 +1,8 @@
 package de.himbiss.ld35.engine;
 
 import de.himbiss.ld35.world.*;
+import de.himbiss.ld35.world.fightsystem.EntityDecorator;
 import de.himbiss.ld35.world.fightsystem.HasHealth;
-import de.himbiss.ld35.world.fightsystem.ShapeShiftDecorator;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.Sys;
 import org.lwjgl.input.Keyboard;
@@ -38,8 +38,9 @@ public class Engine {
     private float gravity = 1f;
 
     private Engine() {
-        this.displayMode = new DisplayMode(800, 600);
+        this.displayMode = new DisplayMode(1280, 720);
     }//DisplayMode(800, 600);}
+
 
     public static Engine getInstance() {
         if (instance == null) {
@@ -57,12 +58,13 @@ public class Engine {
             throw new IllegalStateException("a world has to be set first!");
         }
 
+
         initGL();
         world.populate();
         getDelta(); // call once before loop to initialise lastFrame
         lastFPS = getTime(); // call before loop to initialise fps timer
-
         while (!Display.isCloseRequested()) {
+
             int delta = getDelta();
             // Clear the screen and depth buffer
             GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
@@ -164,6 +166,8 @@ public class Engine {
     }
 
     private void renderUI(){
+
+
         Texture texture = ResourceManager.getInstance().getTexture("dummy");
         texture.bind();
         // draw quad
