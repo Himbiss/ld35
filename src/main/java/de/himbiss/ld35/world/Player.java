@@ -2,6 +2,7 @@ package de.himbiss.ld35.world;
 
 import de.himbiss.ld35.engine.*;
 import de.himbiss.ld35.world.fightsystem.*;
+import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.SpriteSheet;
 
@@ -15,6 +16,10 @@ public class Player extends Entity implements HasHealth, HasScript {
 
     private int health = 10;
     private String script;
+    protected boolean[] slot_unlocked;
+    protected EntityDecorator[] slots;
+    public int currentslot;
+    private long lastKey;
 
     public Player() {
         width = 50;
@@ -22,6 +27,14 @@ public class Player extends Entity implements HasHealth, HasScript {
         coordX =  (Engine.getInstance().getDisplayMode().getWidth() / 2) - (width / 2);
         coordY =  (Engine.getInstance().getDisplayMode().getHeight() / 2) - (height / 2);
         script = ResourceManager.getInstance().getScript("player");
+
+        currentslot = 0;
+        slot_unlocked = new boolean[3];
+        slots = new EntityDecorator[3];
+        slot_unlocked[0] = true;
+        slot_unlocked[1] = false;
+        slot_unlocked[2] = false;
+
     }
 
     public Map<String, Animation> buildAnimationMap() {
@@ -55,6 +68,14 @@ public class Player extends Entity implements HasHealth, HasScript {
     }
 
     public void update(int delta) {
+        if (Keyboard.isKeyDown(Keyboard.KEY_ADD) && (System.currentTimeMillis() - lastKey) > 100) {
+            index_inc();
+            lastKey = System.currentTimeMillis();
+        }
+        else if (Keyboard.isKeyDown(Keyboard.KEY_SUBTRACT) && (System.currentTimeMillis() - lastKey) > 100) {
+            index_dec();
+            lastKey = System.currentTimeMillis();
+        }
     }
 
     @Override
@@ -96,4 +117,96 @@ public class Player extends Entity implements HasHealth, HasScript {
     public void setScript(String script) {
         this.script = script;
     }
+
+    public void unlock_next_slot(){
+        for(int i = 0; i<slot_unlocked.length; i++){
+            if(!slot_unlocked[i]){
+                slot_unlocked[i] = true;
+                return;
+            }
+        }
+    }
+
+    public EntityDecorator getSlot(int i){
+        if(slot_unlocked[i]) {
+            if (slots[i] != null) {
+                return slots[i];
+            }
+        }
+        return null;
+    }
+
+
+    public boolean swap_to_slot(EntityDecorator dec, int slot){
+        if(slot_unlocked[slot]) {
+            drop_from_slot(slot);
+            slots[slot] = dec;
+            return true;
+        }
+        return false;
+    }
+
+    public void drop_from_slot(int i){
+        if(slot_unlocked[i]){
+            if(slots[i]!=null){
+                //TODO drop the item to the map
+                slots[i] = null;
+            }
+        }
+    }
+
+    public EntityDecorator get_current_Dec(){
+        return slots[currentslot];
+    }
+
+    public int get_current_index(){
+        return currentslot;
+    }
+
+    public boolean set_current_index(int i){
+        if(0<=i && i<slots.length){
+            currentslot = i;
+            System.out.println("Current Slot: " + i);
+            strip_unstrip();
+            return true;
+        }
+        return false;
+    }
+
+    private void strip_unstrip(){
+        if(slots[currentslot]!=null) {
+            World w = Engine.getInstance().getWorld();
+            EntityDecorator e = (EntityDecorator) w.getPlayer();
+            //Player pc = (Player) e.getEntity();
+            w.getEntities().remove(e);
+            //e.setEntityR(null);
+            EntityDecorator e2 = slots[currentslot];
+            e2.setEntityR(this);
+            w.getEntities().add(e2);
+        }
+    }
+
+    public void index_inc(){
+        System.out.println("inc");
+        currentslot = (currentslot+1)%3;
+        while(!slot_unlocked[currentslot]){
+            currentslot = (currentslot+1)%3;
+        }
+        set_current_index(currentslot);
+    }
+    public void index_dec(){
+        currentslot = (currentslot+2)%3;
+        while(!slot_unlocked[currentslot]){
+            currentslot = (currentslot+2)%3;
+        }
+        set_current_index(currentslot);
+    }
+
+
+
+
+
+
+
+
 }

@@ -4,8 +4,8 @@ import com.sun.javafx.collections.ObservableListWrapper;
 import de.himbiss.ld35.editor.Editor;
 import de.himbiss.ld35.engine.AudioManager;
 import de.himbiss.ld35.engine.Engine;
+import de.himbiss.ld35.world.fightsystem.EntityDecorator;
 import de.himbiss.ld35.world.fightsystem.MovingDecorator;
-import de.himbiss.ld35.world.fightsystem.ShapeShiftDecorator;
 import de.himbiss.ld35.world.fightsystem.ShootingDecorator;
 import javafx.collections.ObservableList;
 import org.lwjgl.input.Keyboard;
@@ -48,7 +48,11 @@ public class World implements Updatable {
 
     public void populate() {
         Player entity = new Player();
-        player = new MovingDecorator(new ShootingDecorator(new ShapeShiftDecorator(entity,null,null), null, 100), 5f, .1f, entity.buildAnimationMap());
+        entity.unlock_next_slot();
+        EntityDecorator tmp = new MovingDecorator(new ShootingDecorator(entity, null, 1000), 5f, .1f, entity.buildAnimationMap());
+        entity.swap_to_slot(tmp,1);
+        player = new MovingDecorator(new ShootingDecorator(entity, null, 100), 5f, .1f, entity.buildAnimationMap());
+        entity.swap_to_slot((EntityDecorator)player,0);
         entities.add(player);
         player.setCoordX(getStartX());
         player.setCoordY(getStartY());
