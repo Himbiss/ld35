@@ -37,7 +37,7 @@ public class Engine {
     private float gravity = 1f;
 
     private Engine() {
-        this.displayMode = new DisplayMode(1280, 768);
+        this.displayMode = new DisplayMode(800, 600);
     }//DisplayMode(800, 600);}
 
     public static Engine getInstance() {
@@ -95,7 +95,7 @@ public class Engine {
                 RoomStrukt r = world.getRoom(cx,cy);
                 if(r!=null)r.closeDoors();
             }
-            
+
             updateFPS();
         }
 
