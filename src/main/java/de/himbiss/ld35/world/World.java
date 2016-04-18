@@ -56,7 +56,13 @@ public class World implements Updatable {
         entities.add(player);
         player.setCoordX(getStartX());
         player.setCoordY(getStartY());
-        entities.add(new Enemy_Spider(player.getCoordX(),player.getCoordY()-200));
+
+        Enemy_Spider spider = new Enemy_Spider(player.getCoordX(),player.getCoordY()-200);
+        //TODO Enemy BUildanimationMap
+        EntityDecorator spiderDecorator = new MovingDecorator(new ShootingDecorator(spider,null,10000),5f,.1f,entity.buildAnimationMap());
+
+
+        entities.add(spiderDecorator);
         entities.add(new Crate(player.getCoordX() + 100 , player.getCoordY()));
         entities.add(new Enemy(player.getCoordX() - 100 , player.getCoordY()));
         AudioManager.getInstance().getAudio("dummy").playAsMusic(1.0f,1.0f,true);

@@ -4,10 +4,7 @@ import de.himbiss.ld35.engine.Engine;
 import de.himbiss.ld35.engine.HasHitbox;
 import de.himbiss.ld35.engine.Renderable;
 import de.himbiss.ld35.engine.ResourceManager;
-import de.himbiss.ld35.world.fightsystem.DoesDamage;
-import de.himbiss.ld35.world.fightsystem.HasHealth;
-import de.himbiss.ld35.world.fightsystem.MovingDecorator;
-import de.himbiss.ld35.world.fightsystem.Tear;
+import de.himbiss.ld35.world.fightsystem.*;
 import org.newdawn.slick.opengl.Texture;
 
 /**
@@ -77,6 +74,7 @@ public class Enemy extends Entity implements Renderable, HasHealth {
         if (health <= 0) {
             System.out.println("Killed enemy: " + this.toString());
             Engine.getInstance().getWorld().getEntities().remove(this);
+
         }
     }
 

@@ -30,7 +30,7 @@ public class Enemy_Spider extends Enemy implements HasScript {
 
     public void update(int delta) {
     //TODO Pathing towards player
-
+        /*
         World w = Engine.getInstance().getWorld();
 
         float tX = getCoordX()-Engine.getInstance().getOffsetX();
@@ -78,7 +78,7 @@ public class Enemy_Spider extends Enemy implements HasScript {
                 //Engine.getInstance().getWorld().getEntities().add(new Tear(this, coordX + (getWidth() / 2), coordY + (getHeight() / 2), dx, dy));
             }
         }
-
+    */
 
     }
 
