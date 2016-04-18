@@ -55,26 +55,19 @@ public class Tile_Door extends Tile implements Switchable, HasHitbox {
     @Override
     public void collideWith(HasHitbox object, float deltaX, float deltaY) {
         if(!isOpen) {
-            System.out.print(object + "collided " + coordx + " - " + getHeight() + " - ");
-            System.out.println(getHitBoxCoordX());
+
             if (object instanceof Entity) {
                 Entity entity = (Entity) object;
-                float hitboxOffsetX = Math.abs(entity.getHitBoxCoordX() - entity.getCoordX());
-                if (deltaX < 0) {
-                    entity.setCoordX(getCoordx() + getWidth() - hitboxOffsetX);
-                } else if (deltaX > 0) {
-                    entity.setCoordX(getCoordx() - entity.getHitboxWidth() - hitboxOffsetX);
-                }
 
-                float hitboxOffsetY = Math.abs(entity.getHitBoxCoordY() - entity.getCoordY());
-                if (deltaY < 0) {
-                    entity.setCoordY(getCoordy() + getHeight() - hitboxOffsetY);
-                } else if (deltaY > 0) {
-                    entity.setCoordY(getCoordy() - entity.getHitboxHeight() - hitboxOffsetY);
-                }
+                entity.setCoordX((entity.getCoordX() - Engine.getInstance().getOffsetX()) - entity.getDeltaX());
+                entity.setCoordY((entity.getCoordY() - Engine.getInstance().getOffsetY()) - entity.getDeltaY());
 
                 entity.setDeltas(0f, 0f);
             }
         }
+    }
+
+    public void close(){
+        isOpen = false;
     }
 }

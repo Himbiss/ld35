@@ -1,9 +1,8 @@
 package de.himbiss.ld35.engine;
 
-import de.himbiss.ld35.world.Entity;
-import de.himbiss.ld35.world.Tile;
-import de.himbiss.ld35.world.World;
+import de.himbiss.ld35.world.*;
 import de.himbiss.ld35.world.fightsystem.HasHealth;
+import de.himbiss.ld35.world.fightsystem.ShapeShiftDecorator;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.Sys;
 import org.lwjgl.input.Keyboard;
@@ -39,7 +38,7 @@ public class Engine {
     private float gravity = 1f;
 
     private Engine() {
-        this.displayMode = new DisplayMode(1280, 768);
+        this.displayMode = new DisplayMode(800, 600);
     }//DisplayMode(800, 600);}
 
     public static Engine getInstance() {
@@ -78,12 +77,27 @@ public class Engine {
                 renderDebug();
             }
 
+            renderUI();
+
             Display.sync(60);
             Display.update();
 
             if (Keyboard.isKeyDown(Keyboard.KEY_F1)) {
                 debugMode = ! debugMode;
             }
+            if (Keyboard.isKeyDown(Keyboard.KEY_O)) {
+                int cx = (int)(world.getPlayer().getCoordX()-Engine.getInstance().getOffsetX()+25)/50;
+                int cy = (int)(world.getPlayer().getCoordY()-Engine.getInstance().getOffsetY()+25)/50;
+                RoomStrukt r = world.getRoom(cx,cy);
+                if(r!=null)r.openDoors();
+            }
+            if (Keyboard.isKeyDown(Keyboard.KEY_P)) {
+                int cx = (int)(world.getPlayer().getCoordX()-Engine.getInstance().getOffsetX()+25)/50;
+                int cy = (int)(world.getPlayer().getCoordY()-Engine.getInstance().getOffsetY()+25)/50;
+                RoomStrukt r = world.getRoom(cx,cy);
+                if(r!=null)r.closeDoors();
+            }
+
             updateFPS();
         }
 
@@ -123,28 +137,88 @@ public class Engine {
         for (Tile[] tiles : world.getWorldArray()) {
             for (Tile tile : tiles) {
                 if (tile instanceof HasHitbox) {
-                    HasHitbox hasHitbox = ((HasHitbox) tile);
-                    Renderable hitbox = new Renderable() {
-                        @Override
-                        public int getWidth() {
-                            return (int) hasHitbox.getHitboxWidth();
-                        }
+                    if (!(tile instanceof Tile_Door) || (tile instanceof Tile_Door && !((Tile_Door) tile).isOpen())) {
+                        HasHitbox hasHitbox = ((HasHitbox) tile);
+                        Renderable hitbox = new Renderable() {
+                            @Override
+                            public int getWidth() {
+                                return (int) hasHitbox.getHitboxWidth();
+                            }
 
-                        @Override
-                        public int getHeight() {
-                            return (int) hasHitbox.getHitboxHeight();
-                        }
+                            @Override
+                            public int getHeight() {
+                                return (int) hasHitbox.getHitboxHeight();
+                            }
 
-                        @Override
-                        public Texture getTexture() {
-                            return ResourceManager.getInstance().getTexture("hitbox");
-                        }
-                    };
+                            @Override
+                            public Texture getTexture() {
+                                return ResourceManager.getInstance().getTexture("hitbox");
+                            }
+                        };
 
-                    renderObject(hitbox, hasHitbox.getHitBoxCoordX(), hasHitbox.getHitBoxCoordY());
+                        renderObject(hitbox, hasHitbox.getHitBoxCoordX(), hasHitbox.getHitBoxCoordY());
+                    }
                 }
-
             }
+        }
+    }
+
+    private void renderUI(){
+        Texture texture = ResourceManager.getInstance().getTexture("dummy");
+        texture.bind();
+        // draw quad
+        GL11.glBegin(GL11.GL_QUADS);
+        // upper left
+        GL11.glTexCoord2f(0, 0);
+        GL11.glVertex2f(displayMode.getWidth()/2-205, displayMode.getHeight()-55);
+        // upper right
+        GL11.glTexCoord2f(1, 0);
+        GL11.glVertex2f(displayMode.getWidth()/2+205,displayMode.getHeight()-55);
+        // lower right
+        GL11.glTexCoord2f(1, 1);
+        GL11.glVertex2f(displayMode.getWidth()/2+205, displayMode.getHeight()-5);
+        // lower left
+        GL11.glTexCoord2f(0, 1);
+        GL11.glVertex2f(displayMode.getWidth()/2-205,displayMode.getHeight()-5);
+        GL11.glEnd();
+
+        texture = ResourceManager.getInstance().getTexture("floor");
+        texture.bind();
+        int ci = 8; //TODO get current slot index
+        // draw quad
+        GL11.glBegin(GL11.GL_QUADS);
+        // upper left
+        GL11.glTexCoord2f(0, 0);
+        GL11.glVertex2f(displayMode.getWidth()/2-200+ci*40+ci*5-2, displayMode.getHeight()-52);
+        // upper right
+        GL11.glTexCoord2f(1, 0);
+        GL11.glVertex2f(displayMode.getWidth()/2-160+ci*40+ci*5+1,displayMode.getHeight()-52);
+        // lower right
+        GL11.glTexCoord2f(1, 1);
+        GL11.glVertex2f(displayMode.getWidth()/2-160+ci*40+ci*5+1, displayMode.getHeight()-9);
+        // lower left
+        GL11.glTexCoord2f(0, 1);
+        GL11.glVertex2f(displayMode.getWidth()/2-200+ci*40+ci*5-2,displayMode.getHeight()-9);
+        GL11.glEnd();
+
+        for(int i = 0; i < 9; i++){
+            texture = ResourceManager.getInstance().getTexture("crate");
+            texture.bind();
+            // draw quad
+            GL11.glBegin(GL11.GL_QUADS);
+            // upper left
+            GL11.glTexCoord2f(0, 0);
+            GL11.glVertex2f(displayMode.getWidth()/2-200+i*40+i*5, displayMode.getHeight()-50);
+            // upper right
+            GL11.glTexCoord2f(1, 0);
+            GL11.glVertex2f(displayMode.getWidth()/2-160+i*40+i*5,displayMode.getHeight()-50);
+            // lower right
+            GL11.glTexCoord2f(1, 1);
+            GL11.glVertex2f(displayMode.getWidth()/2-160+i*40+i*5, displayMode.getHeight()-10);
+            // lower left
+            GL11.glTexCoord2f(0, 1);
+            GL11.glVertex2f(displayMode.getWidth()/2-200+i*40+i*5,displayMode.getHeight()-10);
+            GL11.glEnd();
         }
     }
 
@@ -154,20 +228,29 @@ public class Engine {
         for (Tile[] tiles : world.getWorldArray()) {
             for (Tile tile : tiles) {
                 if (tile instanceof HasHitbox) {
-                    tileHitboxes.add(((HasHitbox) tile));
+                    if (!(tile instanceof Tile_Door) || (tile instanceof Tile_Door && !((Tile_Door) tile).isOpen())){
+                        tileHitboxes.add(((HasHitbox) tile));
+                    }
                 }
             }
+        }
+
+        //Move entity according to deltaX / deltaY
+        for (Entity entity : entities) {
+            entity.setCoordX((entity.getCoordX() - offsetX) + entity.getDeltaX());
+            entity.setCoordY((entity.getCoordY() - offsetY) + entity.getDeltaY());
         }
 
         CollisionDetector collisionDetector = new CollisionDetector(entities, tileHitboxes);
         collisionDetector.doCollision();
 
-        for (Entity entity : entities) {
-            entity.setCoordX((entity.getCoordX() - offsetX) + entity.getDeltaX());
-            entity.setCoordY((entity.getCoordY() - offsetY) + entity.getDeltaY());
-
+        //Apply Gravity only after Collision Detection!!!
+        //this way collisionDetection can use the deltas to restore the position before moving
+        for(Entity entity : entities){
             entity.applyGravity(gravity);
         }
+
+
     }
 
     private void initGL() {

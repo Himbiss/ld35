@@ -1,7 +1,9 @@
 package de.himbiss.ld35.world;
 
+import de.himbiss.ld35.engine.AudioManager;
 import de.himbiss.ld35.engine.Engine;
 import de.himbiss.ld35.world.fightsystem.MovingDecorator;
+import de.himbiss.ld35.world.fightsystem.ShapeShiftDecorator;
 import de.himbiss.ld35.world.fightsystem.ShootingDecorator;
 
 import java.util.ArrayList;
@@ -42,13 +44,15 @@ public class World implements Updatable {
 
     public void populate() {
         Player entity = new Player();
-        player = new MovingDecorator(new ShootingDecorator(entity, null, 1000), 5f, .1f, entity.buildAnimationMap());
+        player = new MovingDecorator(new ShootingDecorator(new ShapeShiftDecorator(entity,null,null), null, 100), 5f, .1f, entity.buildAnimationMap());
         entities.add(player);
         player.setCoordX(getStartX());
         player.setCoordY(getStartY());
         entities.add(new Enemy_Spider(player.getCoordX(),player.getCoordY()-200));
         entities.add(new Crate(player.getCoordX() + 100 , player.getCoordY()));
         entities.add(new Enemy(player.getCoordX() - 100 , player.getCoordY()));
+        AudioManager.getInstance().getAudio("dummy").playAsMusic(1.0f,1.0f,true);
+        
     }
 
     public void update(int delta) {
@@ -59,8 +63,8 @@ public class World implements Updatable {
 
         //TODO player on button
         Engine.getInstance().getOffsetX();
-        int cx = (int)(player.coordX+25)/50;
-        int cy = (int)(player.coordY+25)/50;
+        int cx = (int)(player.getCoordX()-Engine.getInstance().getOffsetX()+25)/50;
+        int cy = (int)(player.getCoordY()-Engine.getInstance().getOffsetY()+25)/50;
         if(cx>=0 && cy>=0 && cx<sizeX && cy<sizeY) {
             if (worldArray[cx][cy] instanceof Tile_Button) {
                 Tile_Button btn = ((Tile_Button) worldArray[cx][cy]);

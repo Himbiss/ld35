@@ -19,7 +19,7 @@ public class ShootingDecorator extends EntityDecorator {
         this.bullet = bullet;
         this.shotSpeedInMillis = shotSpeedInMillis;
         this.lastShot = 0;
-        this.maxBulletSpeed = 5f;
+        this.maxBulletSpeed = 6f;
     }
 
     @Override
