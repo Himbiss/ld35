@@ -175,6 +175,10 @@ public class Player extends Entity implements HasHealth, HasScript, MovingStrate
             //e.setEntityR(null);
             EntityDecorator e2 = slots[currentslot];
             e2.setEntityR(this);
+            e2.setCoordX(e.getCoordX()-Engine.getInstance().getOffsetX());
+            e2.setCoordY(e.getCoordY()-Engine.getInstance().getOffsetY());
+            e2.setDeltas(e.getDeltaX(),e.getDeltaY());
+            w.setPlayer(e2);
             w.getEntities().add(e2);
         }
     }
