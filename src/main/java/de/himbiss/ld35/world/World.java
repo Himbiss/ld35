@@ -55,7 +55,7 @@ public class World implements Updatable {
     public void populate() {
         Player entity = new Player();
         entity.unlock_next_slot();
-        EntityDecorator tmp = new MovingDecorator(new ShootingDecorator(entity, null));
+        EntityDecorator tmp = new MovingDecorator(new ShootingDecorator(entity, BulletFactory.BulletType.TEAR));
         entity.swap_to_slot(tmp,1);
         player = new MovingDecorator(new ShootingDecorator(entity, BulletFactory.BulletType.TEAR));
         entity.swap_to_slot((EntityDecorator)player,0);
@@ -86,6 +86,10 @@ public class World implements Updatable {
         if(cx>=0 && cy>=0 && cx<sizeX && cy<sizeY) {
             if (worldArray[cx][cy] instanceof Tile_Button) {
                 Tile_Button btn = ((Tile_Button) worldArray[cx][cy]);
+                btn.doStuff();
+            }
+            if (worldArray[cx][cy] instanceof Tile_SpawnButton) {
+                Tile_SpawnButton btn = ((Tile_SpawnButton) worldArray[cx][cy]);
                 btn.doStuff();
             }
         }
@@ -157,6 +161,9 @@ public class World implements Updatable {
         return bossY;
     }
 
+    public void setPlayer(Entity player) {
+        this.player = player;
+    }
 
     public RoomStrukt getRoom(int x, int y){ //Return room in Worldarray coords
 

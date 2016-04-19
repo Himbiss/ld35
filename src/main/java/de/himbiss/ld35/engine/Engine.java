@@ -297,6 +297,8 @@ public class Engine {
     }
 
     private void renderMinimap(){
+        int cx = (int)(world.getPlayer().getCoordX()-Engine.getInstance().getOffsetX()+25)/50;
+        int cy = (int)(world.getPlayer().getCoordY()-Engine.getInstance().getOffsetY()+25)/50;
         for(int i = 0; i<world.getSizeX();i++){
             for(int j = 0; j<world.getSizeY();j++){
                 Tile t = world.getWorldArray()[i][j];
@@ -305,7 +307,7 @@ public class Engine {
                     texture = ResourceManager.getInstance().getTexture("gray");
                 }else if(t instanceof Tile_Corridor || t instanceof  Tile_Button || (t instanceof  Tile_Door && ((Tile_Door)t).isOpen())){
                     texture = ResourceManager.getInstance().getTexture("gray2");
-                }else if(t instanceof Tile_Wall ||(t instanceof  Tile_Door && !((Tile_Door)t).isOpen())){
+                }else if(t instanceof Tile_Wall ||(t instanceof  Tile_Door && !((Tile_Door)t).isOpen()) || (i == cx && j == cy)){
                     texture = ResourceManager.getInstance().getTexture("blue");
                 } else {
                     texture = ResourceManager.getInstance().getTexture("alpha");
