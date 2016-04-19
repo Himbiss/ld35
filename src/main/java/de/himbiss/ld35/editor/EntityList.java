@@ -1,15 +1,12 @@
 package de.himbiss.ld35.editor;
 
 import de.himbiss.ld35.engine.Engine;
-import de.himbiss.ld35.world.Entity;
+import de.himbiss.ld35.world.entity.Entity;
 import de.himbiss.ld35.world.World;
 import javafx.collections.ListChangeListener;
 
 import javax.swing.*;
-import javax.swing.event.ListDataEvent;
-import javax.swing.event.ListDataListener;
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.LinkedList;
 
 /**

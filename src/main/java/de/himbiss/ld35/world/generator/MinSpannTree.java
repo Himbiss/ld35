@@ -1,9 +1,8 @@
-package de.himbiss.ld35.world;
+package de.himbiss.ld35.world.generator;
 
 import java.awt.geom.Line2D;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import static java.lang.Math.abs;
 

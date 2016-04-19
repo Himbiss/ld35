@@ -1,9 +1,8 @@
 package de.himbiss.ld35.world.fightsystem;
 
 import de.himbiss.ld35.engine.Engine;
-import de.himbiss.ld35.world.Entity;
-import de.himbiss.ld35.world.Player;
-import org.lwjgl.input.Mouse;
+import de.himbiss.ld35.engine.Vector2D;
+import de.himbiss.ld35.world.entity.Entity;
 
 /**
  * Created by Vincent on 17.04.2016.
@@ -11,36 +10,30 @@ import org.lwjgl.input.Mouse;
 public class ShootingDecorator extends EntityDecorator {
 
     private final Bullet bullet;
-    private int shotSpeedInMillis;
     private long lastShot;
-    private float maxBulletSpeed;
 
-    public ShootingDecorator(Entity entity, Bullet bullet, int shotSpeedInMillis) {
+    public ShootingDecorator(Entity entity, Bullet bullet) {
         super(entity);
         this.bullet = bullet;
-        this.shotSpeedInMillis = shotSpeedInMillis;
         this.lastShot = 0;
-        this.maxBulletSpeed = 6f;
     }
 
     @Override
     public void update(int delta) {
         super.update(delta);
-        if (getEntity() instanceof Player) {
-            if (Mouse.isButtonDown(0) && (System.currentTimeMillis() - lastShot) > shotSpeedInMillis) {
+        Entity entity = getEntity();
+        if (entity instanceof ShootingStrategy) {
+            ShootingStrategy strategy = ((ShootingStrategy) entity);
+            if (strategy.isShooting() && (System.currentTimeMillis() - lastShot) > strategy.getShotDelayInMillis()) {
                 lastShot = System.currentTimeMillis();
-                int x = Mouse.getX();
-                int y = Engine.getInstance().getDisplayMode().getHeight() - Mouse.getY();
-                float pX = getCoordX();
-                float pY = getCoordY();
-                float dX = x - pX;
-                float dY = y - pY;
-                float mult = maxBulletSpeed / Math.max(Math.abs(dX), Math.abs(dY));
-                dX *= mult;
-                dY *= mult;
+                Vector2D shotDirection = strategy.calcDirectionOfShot();
+                float mult = strategy.getMaxBulletSpeed() / shotDirection.abs().max();
+                float dX = shotDirection.getX() * mult;
+                float dY = shotDirection.getY() * mult;
                 float coordX = getCoordX() - Engine.getInstance().getOffsetX();
                 float coordY = getCoordY() - Engine.getInstance().getOffsetY();
-                Engine.getInstance().getWorld().getEntities().add(new Tear(this, coordX + (getWidth() / 2), coordY + (getHeight() / 2), dX, dY));
+                Entity bullet = BulletFactory.createBullet(BulletFactory.BulletType.TEAR, this, coordX + (getWidth() / 2), coordY + (getHeight() / 2), dX, dY);
+                Engine.getInstance().getWorld().getEntities().add(bullet);
             }
         }
     }

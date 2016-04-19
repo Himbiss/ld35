@@ -2,7 +2,7 @@ package de.himbiss.ld35;
 
 import de.himbiss.ld35.engine.Engine;
 import de.himbiss.ld35.world.World;
-import de.himbiss.ld35.world.WorldGenerator;
+import de.himbiss.ld35.world.generator.WorldGenerator;
 
 /**
  * Created by Vincent on 15.04.2016.

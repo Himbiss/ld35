@@ -1,10 +1,7 @@
 package de.himbiss.ld35.world.fightsystem;
 
-import de.himbiss.ld35.engine.Engine;
-import de.himbiss.ld35.engine.HasHitbox;
 import de.himbiss.ld35.engine.ResourceManager;
-import de.himbiss.ld35.world.Entity;
-import de.himbiss.ld35.world.Tile_Door;
+import de.himbiss.ld35.world.entity.Entity;
 import org.newdawn.slick.opengl.Texture;
 
 /**
@@ -12,7 +9,7 @@ import org.newdawn.slick.opengl.Texture;
  */
 public class Tear extends Bullet {
 
-    public Tear(Entity shotBy, float posX, float posY, float dX, float dY) {
+    Tear(Entity shotBy, float posX, float posY, float dX, float dY) {
         super(shotBy, posX, posY, dX, dY);
     }
 
@@ -24,5 +21,10 @@ public class Tear extends Bullet {
     @Override
     public int getBaseDamage() {
         return 1;
+    }
+
+    @Override
+    public float getDeltaMax() {
+        return Float.MAX_VALUE;
     }
 }

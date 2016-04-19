@@ -1,4 +1,6 @@
-package de.himbiss.ld35.world;
+package de.himbiss.ld35.world.generator;
+
+import de.himbiss.ld35.world.Switchable;
 
 /**
  * Created by Oneidavar on 17/04/2016.

@@ -1,14 +1,18 @@
 package de.himbiss.ld35.world;
 
 import com.sun.javafx.collections.ObservableListWrapper;
-import de.himbiss.ld35.editor.Editor;
 import de.himbiss.ld35.engine.AudioManager;
 import de.himbiss.ld35.engine.Engine;
+import de.himbiss.ld35.world.*;
+import de.himbiss.ld35.world.entity.*;
 import de.himbiss.ld35.world.fightsystem.EntityDecorator;
 import de.himbiss.ld35.world.fightsystem.MovingDecorator;
 import de.himbiss.ld35.world.fightsystem.ShootingDecorator;
+import de.himbiss.ld35.world.generator.RoomStrukt;
+import de.himbiss.ld35.world.generator.Tile;
+import de.himbiss.ld35.world.generator.Tile_Button;
+import de.himbiss.ld35.world.generator.Tile_Void;
 import javafx.collections.ObservableList;
-import org.lwjgl.input.Keyboard;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -46,20 +50,24 @@ public class World implements Updatable {
         initArray();
     }
 
+    public void spawnEntity(Entity entity) {
+        this.entities.add(entity);
+    }
+
     public void populate() {
         Player entity = new Player();
         entity.unlock_next_slot();
-        EntityDecorator tmp = new MovingDecorator(new ShootingDecorator(entity, null, 1000), 5f, .1f, entity.buildAnimationMap());
+        EntityDecorator tmp = new MovingDecorator(new ShootingDecorator(entity, null));
         entity.swap_to_slot(tmp,1);
-        player = new MovingDecorator(new ShootingDecorator(entity, null, 100), 5f, .1f, entity.buildAnimationMap());
+        player = new MovingDecorator(new ShootingDecorator(entity, null));
         entity.swap_to_slot((EntityDecorator)player,0);
         entities.add(player);
         player.setCoordX(getStartX());
         player.setCoordY(getStartY());
 
-        Enemy_Spider spider = new Enemy_Spider(player.getCoordX(),player.getCoordY()-200);
+        Guard spider = new Guard(player.getCoordX(),player.getCoordY()-200);
         //TODO Enemy BUildanimationMap
-        EntityDecorator spiderDecorator = new MovingDecorator(new ShootingDecorator(spider,null,10000),5f,.1f,entity.buildAnimationMap());
+        EntityDecorator spiderDecorator = new MovingDecorator(new ShootingDecorator(spider, null));
 
 
         entities.add(spiderDecorator);

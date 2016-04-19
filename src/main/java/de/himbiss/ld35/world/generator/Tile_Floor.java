@@ -1,4 +1,4 @@
-package de.himbiss.ld35.world;
+package de.himbiss.ld35.world.generator;
 
 /**
  * Created by Oneidavar on 16/04/2016.

@@ -8,13 +8,13 @@ var speed = 1000;
 var running = true;
 while(running) {
     wait(speed);
-    me.setDeltas(10, 0);
+    //me.setDeltas(10, 0);
     wait(speed);
-    me.setDeltas(0, 10);
+    //me.setDeltas(0, 10);
     wait(speed);
-    me.setDeltas(-10, 0);
+    //me.setDeltas(-10, 0);
     wait(speed);
-    me.setDeltas(0, -10);
+    //me.setDeltas(0, -10);
 }
 
 function wait (sleep) {

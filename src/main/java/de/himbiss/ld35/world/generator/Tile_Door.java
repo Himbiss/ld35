@@ -1,8 +1,11 @@
-package de.himbiss.ld35.world;
+package de.himbiss.ld35.world.generator;
 
 import de.himbiss.ld35.engine.Engine;
 import de.himbiss.ld35.engine.HasHitbox;
+import de.himbiss.ld35.engine.Movement;
 import de.himbiss.ld35.engine.ResourceManager;
+import de.himbiss.ld35.world.entity.Entity;
+import de.himbiss.ld35.world.Switchable;
 import org.newdawn.slick.opengl.Texture;
 
 /**
@@ -59,10 +62,12 @@ public class Tile_Door extends Tile implements Switchable, HasHitbox {
             if (object instanceof Entity) {
                 Entity entity = (Entity) object;
 
-                entity.setCoordX((entity.getCoordX() - Engine.getInstance().getOffsetX()) - entity.getDeltaX());
-                entity.setCoordY((entity.getCoordY() - Engine.getInstance().getOffsetY()) - entity.getDeltaY());
-
-                entity.setDeltas(0f, 0f);
+                if (object instanceof Movement) {
+                    Movement hasMovement = ((Movement) object);
+                    entity.setCoordX((entity.getCoordX() - Engine.getInstance().getOffsetX()) - hasMovement.getDeltaX());
+                    entity.setCoordY((entity.getCoordY() - Engine.getInstance().getOffsetY()) - hasMovement.getDeltaY());
+                    hasMovement.setDeltas(0f, 0f);
+                }
             }
         }
     }

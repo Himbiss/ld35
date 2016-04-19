@@ -1,9 +1,12 @@
 package de.himbiss.ld35.engine;
 
 import de.himbiss.ld35.editor.Editor;
-import de.himbiss.ld35.world.*;
-import de.himbiss.ld35.world.fightsystem.EntityDecorator;
+import de.himbiss.ld35.world.entity.Entity;
 import de.himbiss.ld35.world.fightsystem.HasHealth;
+import de.himbiss.ld35.world.generator.RoomStrukt;
+import de.himbiss.ld35.world.generator.Tile;
+import de.himbiss.ld35.world.generator.Tile_Door;
+import de.himbiss.ld35.world.World;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.Sys;
 import org.lwjgl.input.Keyboard;
@@ -47,12 +50,11 @@ public class Engine {
     private ScriptEngine scriptEngine;
 
     private Engine() {
-        this.displayMode = new DisplayMode(1280, 720);
+        this.displayMode = new DisplayMode(800, 600);
         this.scriptThreadPool = Executors.newCachedThreadPool();
         this.scriptEngine = new ScriptEngineManager().getEngineByName("JavaScript");
         this.scriptThreadMap = new HashMap<>();
     }
-
 
     public static Engine getInstance() {
         if (instance == null) {
@@ -101,7 +103,6 @@ public class Engine {
             throw new IllegalStateException("a world has to be set first!");
         }
 
-
         initGL();
         world.populate();
         getDelta(); // call once before loop to initialise lastFrame
@@ -142,6 +143,9 @@ public class Engine {
                 if(r!=null)r.closeDoors();
             }
 
+            if (Display.isCloseRequested()) {
+                exit();
+            }
             updateFPS();
         }
 
@@ -163,7 +167,7 @@ public class Engine {
     private void renderDebug() {
         GL11.glColor3f(1f, 0f, 0f);
         debugFont.drawString(10f, 10f, "fps: " + realFPS, Color.yellow);
-        debugFont.drawString(10f, 30f, "dX,dY: " + world.getPlayer().getDeltaX() + "," + world.getPlayer().getDeltaY(), Color.yellow);
+        debugFont.drawString(10f, 30f, "dX,dY: " + ((Movement) world.getPlayer()).getDeltaX() + "," + ((Movement) world.getPlayer()).getDeltaY(), Color.yellow);
         debugFont.drawString(10f, 50f, "posX,posY: " + world.getPlayer().getCoordX() + "," + world.getPlayer().getCoordY(), Color.yellow);
 
         for (Entity entity : world.getEntities()) {
@@ -193,7 +197,7 @@ public class Engine {
         for (Tile[] tiles : world.getWorldArray()) {
             for (Tile tile : tiles) {
                 if (tile instanceof HasHitbox) {
-                    if (!(tile instanceof Tile_Door) || (tile instanceof Tile_Door && !((Tile_Door) tile).isOpen())) {
+                    if (!(tile instanceof Tile_Door) || (!((Tile_Door) tile).isOpen())) {
                         HasHitbox hasHitbox = ((HasHitbox) tile);
                         Renderable hitbox = new Renderable() {
                             @Override
@@ -295,8 +299,10 @@ public class Engine {
 
         //Move entity according to deltaX / deltaY
         for (Entity entity : entities) {
-            entity.setCoordX((entity.getCoordX() - offsetX) + entity.getDeltaX());
-            entity.setCoordY((entity.getCoordY() - offsetY) + entity.getDeltaY());
+            if (entity instanceof Movement) {
+                entity.setCoordX((entity.getCoordX() - offsetX) + ((Movement) entity).getDeltaX());
+                entity.setCoordY((entity.getCoordY() - offsetY) + ((Movement) entity).getDeltaY());
+            }
         }
 
         CollisionDetector collisionDetector = new CollisionDetector(entities, tileHitboxes);
@@ -304,11 +310,7 @@ public class Engine {
 
         //Apply Gravity only after Collision Detection!!!
         //this way collisionDetection can use the deltas to restore the position before moving
-        for(Entity entity : entities){
-            entity.applyGravity(gravity);
-        }
-
-
+        entities.stream().filter(e -> e instanceof Movement).forEach(e -> ((Movement) e).applyGravity(gravity));
     }
 
     private void initGL() {
@@ -319,7 +321,7 @@ public class Engine {
             Display.setVSyncEnabled(true);
         } catch (LWJGLException e) {
             e.printStackTrace();
-            System.exit(0);
+            Engine.exit();
         }
 
         GL11.glEnable(GL11.GL_TEXTURE_2D);
@@ -342,6 +344,13 @@ public class Engine {
         GL11.glMatrixMode(GL11.GL_MODELVIEW);
 
         this.debugFont = ResourceManager.getInstance().getFont("plasmati");
+    }
+
+    public static void exit() {
+        for (HasScript hasScript : getInstance().scriptThreadMap.keySet()) {
+            getInstance().stopScript(hasScript);
+        }
+        System.exit(0);
     }
 
     private void scrollWorld() {

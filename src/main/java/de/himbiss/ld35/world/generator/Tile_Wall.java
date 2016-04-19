@@ -1,7 +1,9 @@
-package de.himbiss.ld35.world;
+package de.himbiss.ld35.world.generator;
 
 import de.himbiss.ld35.engine.Engine;
 import de.himbiss.ld35.engine.HasHitbox;
+import de.himbiss.ld35.engine.Movement;
+import de.himbiss.ld35.world.entity.Entity;
 
 /**
  * Created by Oneidavar on 16/04/2016.
@@ -37,10 +39,12 @@ public class Tile_Wall extends Tile implements HasHitbox {
     public void collideWith(HasHitbox object, float deltaX, float deltaY) {
         if (object instanceof Entity) {
             Entity entity = (Entity) object;
-
-
-                entity.setCoordX((entity.getCoordX() - Engine.getInstance().getOffsetX()) - entity.getDeltaX());
-                entity.setCoordY((entity.getCoordY() - Engine.getInstance().getOffsetY()) - entity.getDeltaY());
+            if (object instanceof Movement) {
+                Movement hasMovement = ((Movement) object);
+                entity.setCoordX((entity.getCoordX() - Engine.getInstance().getOffsetX()) - hasMovement.getDeltaX());
+                entity.setCoordY((entity.getCoordY() - Engine.getInstance().getOffsetY()) - hasMovement.getDeltaY());
+                hasMovement.setDeltas(0f, 0f);
+            }
 
 /*
             float hitboxOffsetX = Math.abs(entity.getHitBoxCoordX() - entity.getCoordX());
@@ -60,7 +64,6 @@ public class Tile_Wall extends Tile implements HasHitbox {
             }
             */
 
-            entity.setDeltas(0f, 0f);
 
 //            float gravity = Engine.getInstance().getGravity();
 //            entity.setDeltas(0f, 0f);

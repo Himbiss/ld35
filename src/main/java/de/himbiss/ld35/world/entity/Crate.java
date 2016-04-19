@@ -1,4 +1,4 @@
-package de.himbiss.ld35.world;
+package de.himbiss.ld35.world.entity;
 
 import de.himbiss.ld35.engine.Engine;
 import de.himbiss.ld35.engine.HasHitbox;
@@ -29,21 +29,21 @@ public class Crate extends Entity implements HasHealth {
     @Override
     public void collideWith(HasHitbox object, float deltaX, float deltaY) {
         if (object instanceof Entity) {
-            this.deltaX += deltaX;
-            this.deltaY += deltaY;
+            //this.deltaX += deltaX;
+            //this.deltaY += deltaY;
             ((Entity) object).setCoordX(((Entity) object).getPrevCoordX() - Engine.getInstance().getOffsetX());
             ((Entity) object).setCoordY(((Entity) object).getPrevCoordY() - Engine.getInstance().getOffsetY());
         }
         else {
-            this.deltaX = 0f;
-            this.deltaY = 0f;
+            //this.deltaX = 0f;
+            //this.deltaY = 0f;
         }
     }
 
-    @Override
-    public void applyGravity(float gravity) {
-        super.applyGravity(gravity/2);
-    }
+//    @Override
+//    public void applyGravity(float gravity) {
+//        super.applyGravity(gravity/2);
+//    }
 
     @Override
     public Texture getTexture() {

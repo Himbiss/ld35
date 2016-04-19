@@ -1,4 +1,4 @@
-package de.himbiss.ld35.world;
+package de.himbiss.ld35.world.entity;
 
 import de.himbiss.ld35.engine.Engine;
 import de.himbiss.ld35.engine.HasHitbox;
@@ -68,8 +68,6 @@ public class Enemy extends Entity implements Renderable, HasHealth {
 
     @Override
     public void applyDamage(DoesDamage damageObject, float dX, float dY) {
-        this.deltaX += deltaX;
-        this.deltaY += deltaY;
         health -= damageObject.getBaseDamage();
         if (health <= 0) {
             System.out.println("Killed enemy: " + this.toString());

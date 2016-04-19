@@ -1,12 +1,19 @@
-package de.himbiss.ld35.world;
+package de.himbiss.ld35.world.entity;
 
 import de.himbiss.ld35.engine.*;
+import de.himbiss.ld35.world.World;
+import de.himbiss.ld35.world.fightsystem.MovingStrategy;
+import org.newdawn.slick.Animation;
+import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.opengl.Texture;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Oneidavar on 17/04/2016.
  */
-public class Enemy_Spider extends Enemy implements HasScript {
+public class Guard extends Enemy implements HasScript, IsAnimated, MovingStrategy {
     public float speed = .1f;
     public static final float DELTA_MAX = 3f;
     public long lastShot;
@@ -15,8 +22,9 @@ public class Enemy_Spider extends Enemy implements HasScript {
     public int dist_attack;
     public int dist_ignore;
     public String script;
+    private String animationKey = "freeze";
 
-    public Enemy_Spider(float posX, float posY) {
+    public Guard(float posX, float posY) {
         super(posX, posY);
         textureKey="crate";
         width = 50;
@@ -90,7 +98,7 @@ public class Enemy_Spider extends Enemy implements HasScript {
 
     @Override
     public String toString() {
-        return "Spider";
+        return "Guard";
     }
 
     @Override
@@ -104,4 +112,62 @@ public class Enemy_Spider extends Enemy implements HasScript {
     }
 
 
+    @Override
+    public Map<String, Animation> getAnimationMap() {
+        Map<String, Animation> animationMap = new HashMap<>();
+        SpriteSheet spriteSheet = ResourceManager.getInstance().getSpriteSheet("Guard", 16, 16);
+        animationMap.put("walk_up", new Animation(spriteSheet, new int[] {0,0, 0,1, 1,1}, new int[] {100, 100, 100}));
+        animationMap.put("walk_down", new Animation(spriteSheet, new int[] {2,0, 0,3, 1,3}, new int[] {100, 100, 100}));
+        animationMap.put("walk_right", new Animation(spriteSheet, new int[] {1,0, 0,2, 1,2}, new int[] {100, 100, 100}));
+        animationMap.put("walk_left", new Animation(spriteSheet, new int[] {3,0, 0,4, 1,4}, new int[] {100, 100, 100}));
+        return animationMap;
+    }
+
+    @Override
+    public Vector2D calcDirection(float deltaX, float deltaY, int deltaT) {
+        World w = Engine.getInstance().getWorld();
+
+        float tX = getCoordX()-Engine.getInstance().getOffsetX();
+        float tY = getCoordY()-Engine.getInstance().getOffsetY();
+        float pX = w.getPlayer().getCoordX()-Engine.getInstance().getOffsetX();
+        float pY = w.getPlayer().getCoordY()-Engine.getInstance().getOffsetY();
+
+        float dx = Math.abs(tX-pX);
+        float dy = Math.abs(tY-pY);
+
+
+        if(Math.sqrt(dx*dx+dy*dy)>dist_move*50 && Math.sqrt(dx*dx+dy*dy)<dist_ignore*50 ) {
+            float grade = (dx / (dx + dy));
+
+            if (tX < pX ) {
+                animationKey = "walk_left";
+                deltaX += speed * deltaT * grade;
+            } else if (tX > pX ) {
+                animationKey = "walk_right";
+                deltaX -= speed * deltaT * grade;
+            }
+
+            if (tY < pY) {
+                animationKey = "walk_down";
+                deltaY += speed * deltaT * (1-grade);
+            } else if (tY > pY) {
+                animationKey = "walk_up";
+                deltaY -= speed * deltaT * (1-grade);
+            }
+        }
+        else {
+            animationKey = "freeze";
+        }
+        return new Vector2D(deltaX, deltaY);
+    }
+
+    @Override
+    public String getAnimation() {
+        return animationKey;
+    }
+
+    @Override
+    public float getDeltaMax() {
+        return 3f;
+    }
 }

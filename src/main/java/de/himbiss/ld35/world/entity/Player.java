@@ -1,8 +1,10 @@
-package de.himbiss.ld35.world;
+package de.himbiss.ld35.world.entity;
 
 import de.himbiss.ld35.engine.*;
 import de.himbiss.ld35.world.fightsystem.*;
+import de.himbiss.ld35.world.World;
 import org.lwjgl.input.Keyboard;
+import org.lwjgl.input.Mouse;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.SpriteSheet;
 
@@ -12,7 +14,7 @@ import java.util.Map;
 /**
  * Created by Vincent on 16.04.2016.
  */
-public class Player extends Entity implements HasHealth, HasScript {
+public class Player extends Entity implements HasHealth, HasScript, MovingStrategy, ShootingStrategy, IsAnimated {
 
     private int health = 10;
     private String script;
@@ -20,6 +22,7 @@ public class Player extends Entity implements HasHealth, HasScript {
     protected EntityDecorator[] slots;
     public int currentslot;
     private long lastKey;
+    private float acceleration = 1f;
 
     public Player() {
         width = 50;
@@ -35,16 +38,6 @@ public class Player extends Entity implements HasHealth, HasScript {
         slot_unlocked[1] = false;
         slot_unlocked[2] = false;
 
-    }
-
-    public Map<String, Animation> buildAnimationMap() {
-        Map<String, Animation> animationMap = new HashMap<>();
-        SpriteSheet spriteSheet = ResourceManager.getInstance().getSpriteSheet("Albert", 16, 16);
-        animationMap.put("walk_up", new Animation(spriteSheet, new int[] {0,0, 0,1, 1,1}, new int[] {100, 100, 100}));
-        animationMap.put("walk_down", new Animation(spriteSheet, new int[] {2,0, 0,3, 1,3}, new int[] {100, 100, 100}));
-        animationMap.put("walk_right", new Animation(spriteSheet, new int[] {1,0, 0,2, 1,2}, new int[] {100, 100, 100}));
-        animationMap.put("walk_left", new Animation(spriteSheet, new int[] {3,0, 0,4, 1,4}, new int[] {100, 100, 100}));
-        return animationMap;
     }
 
     @Override
@@ -76,6 +69,8 @@ public class Player extends Entity implements HasHealth, HasScript {
             index_dec();
             lastKey = System.currentTimeMillis();
         }
+
+
     }
 
     @Override
@@ -94,8 +89,6 @@ public class Player extends Entity implements HasHealth, HasScript {
 
     @Override
     public void applyDamage(DoesDamage damageObject, float dX, float dY) {
-        this.deltaX += deltaX;
-        this.deltaY += deltaY;
         this.health -= damageObject.getBaseDamage();
         if (this.health < 0) {
             System.out.println("Game Over");
@@ -203,10 +196,86 @@ public class Player extends Entity implements HasHealth, HasScript {
     }
 
 
+    @Override
+    public String getAnimation() {
+        if (Keyboard.isKeyDown(Keyboard.KEY_A)) {
+            return  "walk_left";
+        }
+        else if (Keyboard.isKeyDown(Keyboard.KEY_D)) {
+            return "walk_right";
+        }
+        else if (Keyboard.isKeyDown(Keyboard.KEY_S)) {
+            return "walk_down";
+        }
+        else if (Keyboard.isKeyDown(Keyboard.KEY_W)) {
+            return "walk_up";
+        }
+        else {
+            return "freeze";
+        }
+    }
 
+    @Override
+    public Vector2D calcDirection(float deltaX, float deltaY, int deltaT) {
+        if (Keyboard.isKeyDown(Keyboard.KEY_A)) {
+            deltaX -= acceleration * deltaT;
+        }
+        else if (Keyboard.isKeyDown(Keyboard.KEY_D)) {
+            deltaX += acceleration * deltaT;
+        }
 
+        if (Keyboard.isKeyDown(Keyboard.KEY_S)) {
+            deltaY += acceleration * deltaT;
+        }
+        else if (Keyboard.isKeyDown(Keyboard.KEY_W)) {
+            deltaY -= acceleration * deltaT;
+        }
 
+        return new Vector2D(deltaX, deltaY);
+    }
 
+    @Override
+    public float getDeltaMax() {
+        return 5f;
+    }
 
+    @Override
+    public int getShotDelayInMillis() {
+        return 1000;
+    }
 
+    @Override
+    public float getMaxBulletSpeed() {
+        return 4f;
+    }
+
+    @Override
+    public Vector2D calcDirectionOfShot() {
+        if (Mouse.isButtonDown(0)) {
+            int x = Mouse.getX();
+            int y = Engine.getInstance().getDisplayMode().getHeight() - Mouse.getY();
+            float pX = x - getCoordX();
+            float pY = y - getCoordY();
+            return new Vector2D(pX, pY);
+        }
+        else {
+            throw new IllegalStateException("not shooting!");
+        }
+    }
+
+    @Override
+    public boolean isShooting() {
+        return Mouse.isButtonDown(0);
+    }
+
+    @Override
+    public Map<String, Animation> getAnimationMap() {
+        Map<String, Animation> animationMap = new HashMap<>();
+        SpriteSheet spriteSheet = ResourceManager.getInstance().getSpriteSheet("Albert", 16, 16);
+        animationMap.put("walk_up", new Animation(spriteSheet, new int[] {0,0, 0,1, 1,1}, new int[] {100, 100, 100}));
+        animationMap.put("walk_down", new Animation(spriteSheet, new int[] {2,0, 0,3, 1,3}, new int[] {100, 100, 100}));
+        animationMap.put("walk_right", new Animation(spriteSheet, new int[] {1,0, 0,2, 1,2}, new int[] {100, 100, 100}));
+        animationMap.put("walk_left", new Animation(spriteSheet, new int[] {3,0, 0,4, 1,4}, new int[] {100, 100, 100}));
+        return animationMap;
+    }
 }

@@ -1,6 +1,4 @@
-package de.himbiss.ld35.world;
-
-import com.sun.corba.se.impl.orbutil.graph.Graph;
+package de.himbiss.ld35.world.generator;
 
 import java.awt.*;
 import java.awt.geom.Line2D;

@@ -2,13 +2,12 @@ package de.himbiss.ld35.editor;
 
 import de.himbiss.ld35.engine.Engine;
 import de.himbiss.ld35.engine.HasScript;
-import de.himbiss.ld35.world.Entity;
+import de.himbiss.ld35.world.entity.Entity;
 import de.himbiss.ld35.world.fightsystem.EntityDecorator;
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 import org.fife.ui.rsyntaxtextarea.SyntaxConstants;
 import org.fife.ui.rtextarea.RTextScrollPane;
 
-import javax.script.ScriptException;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;

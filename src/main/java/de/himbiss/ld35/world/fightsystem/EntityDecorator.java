@@ -2,13 +2,14 @@ package de.himbiss.ld35.world.fightsystem;
 
 import de.himbiss.ld35.engine.Engine;
 import de.himbiss.ld35.engine.HasHitbox;
-import de.himbiss.ld35.world.Entity;
+import de.himbiss.ld35.engine.Movement;
+import de.himbiss.ld35.world.entity.Entity;
 import org.newdawn.slick.opengl.Texture;
 
 /**
  * Created by Vincent on 17.04.2016.
  */
-public abstract class EntityDecorator extends Entity implements HasHealth {
+public abstract class EntityDecorator extends Entity implements HasHealth, Movement {
     protected Entity entity;
 
     protected EntityDecorator(Entity entity) {
@@ -42,7 +43,9 @@ public abstract class EntityDecorator extends Entity implements HasHealth {
 
     @Override
     public void setDeltas(float dX, float dY) {
-        entity.setDeltas(dX, dY);
+        if (entity instanceof Movement) {
+            ((Movement) entity).setDeltas(dX, dY);
+        }
     }
 
     @Override
@@ -87,12 +90,18 @@ public abstract class EntityDecorator extends Entity implements HasHealth {
 
     @Override
     public float getDeltaX() {
-        return entity.getDeltaX();
+        if (entity instanceof Movement) {
+            return ((Movement) entity).getDeltaX();
+        }
+        return 0f;
     }
 
     @Override
     public float getDeltaY() {
-        return entity.getDeltaY();
+        if (entity instanceof Movement) {
+            return ((Movement) entity).getDeltaY();
+        }
+        return 0f;
     }
 
     @Override
@@ -169,7 +178,9 @@ public abstract class EntityDecorator extends Entity implements HasHealth {
 
     @Override
     public void applyGravity(float gravity) {
-        entity.applyGravity(gravity);
+        if (entity instanceof Movement) {
+            ((Movement) entity).applyGravity(gravity);
+        }
     }
 
     @Override
