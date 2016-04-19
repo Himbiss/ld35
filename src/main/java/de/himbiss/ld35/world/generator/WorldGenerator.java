@@ -4,6 +4,7 @@ package de.himbiss.ld35.world.generator;
  * Created by Oneidavar on 16/04/2016.
  */
 
+import de.himbiss.ld35.world.Tile_SpawnButton;
 import de.himbiss.ld35.world.World;
 
 import java.util.ArrayList;

@@ -1,6 +1,8 @@
 package de.himbiss.ld35.world;
 
 import de.himbiss.ld35.engine.ResourceManager;
+import de.himbiss.ld35.world.generator.RoomStrukt;
+import de.himbiss.ld35.world.generator.Tile;
 import org.newdawn.slick.opengl.Texture;
 
 /**

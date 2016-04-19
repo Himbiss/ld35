@@ -1,11 +1,10 @@
 package de.himbiss.ld35.engine;
 
 import de.himbiss.ld35.editor.Editor;
+import de.himbiss.ld35.world.Tile_SpawnButton;
 import de.himbiss.ld35.world.entity.Entity;
 import de.himbiss.ld35.world.fightsystem.HasHealth;
-import de.himbiss.ld35.world.generator.RoomStrukt;
-import de.himbiss.ld35.world.generator.Tile;
-import de.himbiss.ld35.world.generator.Tile_Door;
+import de.himbiss.ld35.world.generator.*;
 import de.himbiss.ld35.world.World;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.Sys;
@@ -296,7 +295,7 @@ public class Engine {
             for(int j = 0; j<world.getSizeY();j++){
                 Tile t = world.getWorldArray()[i][j];
                 Texture texture = null;
-                if(t instanceof Tile_Floor || t instanceof  Tile_SpawnButton){
+                if(t instanceof Tile_Floor || t instanceof Tile_SpawnButton){
                     texture = ResourceManager.getInstance().getTexture("gray");
                 }else if(t instanceof Tile_Corridor || t instanceof  Tile_Button || (t instanceof  Tile_Door && ((Tile_Door)t).isOpen())){
                     texture = ResourceManager.getInstance().getTexture("gray2");

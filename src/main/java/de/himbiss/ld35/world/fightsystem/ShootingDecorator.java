@@ -9,12 +9,12 @@ import de.himbiss.ld35.world.entity.Entity;
  */
 public class ShootingDecorator extends EntityDecorator {
 
-    private final Bullet bullet;
+    private final BulletFactory.BulletType bulletType;
     private long lastShot;
 
-    public ShootingDecorator(Entity entity, Bullet bullet) {
+    public ShootingDecorator(Entity entity, BulletFactory.BulletType bulletType) {
         super(entity);
-        this.bullet = bullet;
+        this.bulletType = bulletType;
         this.lastShot = 0;
     }
 
@@ -32,7 +32,7 @@ public class ShootingDecorator extends EntityDecorator {
                 float dY = shotDirection.getY() * mult;
                 float coordX = getCoordX() - Engine.getInstance().getOffsetX();
                 float coordY = getCoordY() - Engine.getInstance().getOffsetY();
-                Entity bullet = BulletFactory.createBullet(BulletFactory.BulletType.TEAR, this, coordX + (getWidth() / 2), coordY + (getHeight() / 2), dX, dY);
+                Entity bullet = BulletFactory.createBullet(bulletType, this, coordX + (getWidth() / 2), coordY + (getHeight() / 2), dX, dY);
                 Engine.getInstance().getWorld().getEntities().add(bullet);
             }
         }
