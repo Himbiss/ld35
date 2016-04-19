@@ -38,7 +38,7 @@ public class Crystal extends Entity implements HasHitbox {
             World world = Engine.getInstance().getWorld();
             world.getEntities().remove(this);
             Player player = (Player) ((EntityDecorator) world.getPlayer()).getEntity();
-            player.swap_to_slot(emptyDecorator, player.get_current_index() + 1);
+            player.swap_to_slot(emptyDecorator, 1);
         }
     }
 

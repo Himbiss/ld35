@@ -9,10 +9,7 @@ import de.himbiss.ld35.world.fightsystem.BulletFactory;
 import de.himbiss.ld35.world.fightsystem.EntityDecorator;
 import de.himbiss.ld35.world.fightsystem.MovingDecorator;
 import de.himbiss.ld35.world.fightsystem.ShootingDecorator;
-import de.himbiss.ld35.world.generator.RoomStrukt;
-import de.himbiss.ld35.world.generator.Tile;
-import de.himbiss.ld35.world.generator.Tile_Button;
-import de.himbiss.ld35.world.generator.Tile_Void;
+import de.himbiss.ld35.world.generator.*;
 import javafx.collections.ObservableList;
 import org.lwjgl.input.Keyboard;
 
@@ -64,10 +61,10 @@ public class World implements Updatable {
         player.setCoordY(getStartY());
 
         Guard guard = new Guard(player.getCoordX(), player.getCoordY() - 200);
-        EntityDecorator spiderDecorator = new MovingDecorator(new ShootingDecorator(guard, BulletFactory.BulletType.TEAR));
+        EntityDecorator guardDecorator = new MovingDecorator(new ShootingDecorator(guard, BulletFactory.BulletType.TEAR));
+        guard.setDecorator(guardDecorator);
 
-
-        entities.add(spiderDecorator);
+        entities.add(guardDecorator);
         entities.add(new Crate(player.getCoordX() + 100 , player.getCoordY()));
         entities.add(new Enemy(player.getCoordX() - 100 , player.getCoordY()));
         AudioManager.getInstance().getAudio("dummy").playAsMusic(1.0f,1.0f,true);
