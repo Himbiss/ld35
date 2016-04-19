@@ -393,8 +393,8 @@ public class Engine {
     private void scrollWorld() {
         Entity player = world.getPlayer();
 
-        float scrollingDistVertical = 100f;
-        float scrollingDistHorizontal = 150f;
+        float scrollingDistVertical = displayMode.getWidth() / 4;
+        float scrollingDistHorizontal = displayMode.getHeight() / 4;
 
         float distanceLeft = scrollingDistHorizontal;
         float distanceRight = (displayMode.getWidth() - scrollingDistHorizontal) - player.getWidth();

@@ -3,6 +3,8 @@ package de.himbiss.ld35.world.entity;
 import de.himbiss.ld35.engine.*;
 import de.himbiss.ld35.world.World;
 import de.himbiss.ld35.world.fightsystem.MovingStrategy;
+import de.himbiss.ld35.world.fightsystem.ShootingStrategy;
+import org.lwjgl.input.Mouse;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.opengl.Texture;
@@ -13,7 +15,7 @@ import java.util.Map;
 /**
  * Created by Oneidavar on 17/04/2016.
  */
-public class Guard extends Enemy implements HasScript, IsAnimated, MovingStrategy {
+public class Guard extends Enemy implements HasScript, IsAnimated, MovingStrategy, ShootingStrategy {
     public float speed = .1f;
     public static final float DELTA_MAX = 3f;
     public long lastShot;
@@ -92,7 +94,6 @@ public class Guard extends Enemy implements HasScript, IsAnimated, MovingStrateg
     }
 
     public Texture getTexture() {
-        //TODO Animations
         return ResourceManager.getInstance().getTexture(textureKey);
     }
 
@@ -169,5 +170,40 @@ public class Guard extends Enemy implements HasScript, IsAnimated, MovingStrateg
     @Override
     public float getDeltaMax() {
         return 3f;
+    }
+
+    @Override
+    public int getShotDelayInMillis() {
+        return 500;
+    }
+
+    @Override
+    public float getMaxBulletSpeed() {
+        return 4f;
+    }
+
+    @Override
+    public Vector2D calcDirectionOfShot() {
+        World w = Engine.getInstance().getWorld();
+        float x = w.getPlayer().getCoordX()-Engine.getInstance().getOffsetX();
+        float y = w.getPlayer().getCoordY()-Engine.getInstance().getOffsetY();
+        float pX = x - coordX;
+        float pY = y - coordY;
+        return new Vector2D(pX, pY);
+    }
+
+    @Override
+    public boolean isShooting() {
+        World w = Engine.getInstance().getWorld();
+
+        float tX = getCoordX()-Engine.getInstance().getOffsetX();
+        float tY = getCoordY()-Engine.getInstance().getOffsetY();
+        float pX = w.getPlayer().getCoordX()-Engine.getInstance().getOffsetX();
+        float pY = w.getPlayer().getCoordY()-Engine.getInstance().getOffsetY();
+
+        float dx = Math.abs(tX-pX);
+        float dy = Math.abs(tY-pY);
+
+        return Math.sqrt(dx*dx+dy*dy)<dist_attack*50;
     }
 }

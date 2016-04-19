@@ -39,8 +39,8 @@ public final class Vector2D {
         return result;
     }
 
-    public Vector2D mult(int delta) {
-        return new Vector2D(x * delta, y * delta);
+    public Vector2D mult(float mult) {
+        return new Vector2D(x * mult, y * mult);
     }
 
     public float max() {
