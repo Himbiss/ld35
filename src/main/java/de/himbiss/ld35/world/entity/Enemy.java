@@ -52,7 +52,6 @@ public class Enemy extends Entity implements Renderable, HasHealth {
     }
 
     public Texture getTexture() {
-        //TODO Animations
         return ResourceManager.getInstance().getTexture(textureKey);
     }
 
@@ -72,7 +71,7 @@ public class Enemy extends Entity implements Renderable, HasHealth {
         if (health <= 0) {
             System.out.println("Killed enemy: " + this.toString());
             Engine.getInstance().getWorld().getEntities().remove(this);
-
+            Engine.getInstance().getWorld().getEntities().add(new Crystal(getDecorator(), coordX + (getWidth()/2), coordY + (getHeight()/2)));
         }
     }
 

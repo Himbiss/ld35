@@ -1,7 +1,7 @@
 package de.himbiss.ld35.engine;
 
 import de.himbiss.ld35.editor.Editor;
-import de.himbiss.ld35.world.Tile_SpawnButton;
+import de.himbiss.ld35.world.generator.Tile_SpawnButton;
 import de.himbiss.ld35.world.entity.Entity;
 import de.himbiss.ld35.world.fightsystem.HasHealth;
 import de.himbiss.ld35.world.generator.*;
@@ -48,6 +48,8 @@ public class Engine {
     private boolean minimap;
     private float gravity = 1f;
     private ScriptEngine scriptEngine;
+    private String infoMessage;
+    private long infoDelay;
 
     private Engine() {
         this.displayMode = new DisplayMode(800, 600);
@@ -231,6 +233,10 @@ public class Engine {
 
     private void renderUI(){
 
+        if (infoDelay > 0) {
+            debugFont.drawString(20f, 20f, infoMessage, Color.gray);
+            infoDelay--;
+        }
 
         Texture texture = ResourceManager.getInstance().getTexture("dummy");
         texture.bind();
@@ -511,5 +517,10 @@ public class Engine {
 
     public World getWorld() {
         return world;
+    }
+
+    public void showMessage(String s) {
+        this.infoMessage = s;
+        this.infoDelay = 30;
     }
 }

@@ -21,7 +21,17 @@ public abstract class Entity implements Renderable, Updatable, HasHitbox {
     protected int height;
     protected int width;
 
+    private EntityDecorator decorator;
+
     public Entity() {
+    }
+
+    protected EntityDecorator getDecorator() {
+        return decorator;
+    }
+
+    public void setDecorator(EntityDecorator decorator) {
+        this.decorator = decorator;
     }
 
     public float getHitBoxCoordX() {

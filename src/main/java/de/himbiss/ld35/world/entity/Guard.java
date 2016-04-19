@@ -174,7 +174,7 @@ public class Guard extends Enemy implements HasScript, IsAnimated, MovingStrateg
 
     @Override
     public int getShotDelayInMillis() {
-        return 500;
+        return 1500;
     }
 
     @Override

@@ -1,4 +1,4 @@
-package de.himbiss.ld35.world;
+package de.himbiss.ld35.world.generator;
 
 import de.himbiss.ld35.engine.ResourceManager;
 import de.himbiss.ld35.world.generator.RoomStrukt;
