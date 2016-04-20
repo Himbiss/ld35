@@ -42,7 +42,7 @@ public class CollisionDetector {
 
             for (int x = 0; x < returnObjects.size(); x++) {
                 HasHitbox hasHitbox = returnObjects.get(x);
-                if (! entity1.equals(hasHitbox)) {
+                if (!entity1.equals(hasHitbox)) {
                     calculateCollision(entity1, hasHitbox);
                 }
             }
@@ -61,9 +61,9 @@ public class CollisionDetector {
         float hb2_H = hb2.getHitboxHeight();
 
         if (hb1_X < hb2_X + hb2_W &&
-            hb1_X + hb1_W > hb2_X &&
-            hb1_Y < hb2_Y + hb2_H &&
-            hb1_Y + hb1_H > hb2_Y) {
+                hb1_X + hb1_W > hb2_X &&
+                hb1_Y < hb2_Y + hb2_H &&
+                hb1_Y + hb1_H > hb2_Y) {
             // collision detected!
 
             float hb1_dX = 0f, hb1_dY = 0f;
@@ -81,5 +81,26 @@ public class CollisionDetector {
             hb1.collideWith(hb2, hb2_dX, hb2_dY);
             hb2.collideWith(hb1, hb1_dX, hb1_dY);
         }
+    }
+
+    public static boolean doesCollide(HasHitbox hb1, HasHitbox hb2) {
+        float hb1_X = hb1.getHitBoxCoordX();
+        float hb1_Y = hb1.getHitBoxCoordY();
+        float hb1_W = hb1.getHitboxWidth();
+        float hb1_H = hb1.getHitboxHeight();
+
+        float hb2_X = hb2.getHitBoxCoordX();
+        float hb2_Y = hb2.getHitBoxCoordY();
+        float hb2_W = hb2.getHitboxWidth();
+        float hb2_H = hb2.getHitboxHeight();
+
+        if (hb1_X < hb2_X + hb2_W &&
+                hb1_X + hb1_W > hb2_X &&
+                hb1_Y < hb2_Y + hb2_H &&
+                hb1_Y + hb1_H > hb2_Y) {
+            // collision detected!
+            return true;
+        }
+        return false;
     }
 }

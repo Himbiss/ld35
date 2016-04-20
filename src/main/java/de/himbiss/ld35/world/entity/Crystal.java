@@ -34,7 +34,7 @@ public class Crystal extends Entity implements HasHitbox {
 
     @Override
     public void update(int delta) {
-        if (Keyboard.isKeyDown(Keyboard.KEY_SPACE)) {
+        if (Keyboard.isKeyDown(Keyboard.KEY_SPACE) && CollisionDetector.doesCollide(Engine.getInstance().getWorld().getPlayer(), this)) {
             World world = Engine.getInstance().getWorld();
             world.getEntities().remove(this);
             Player player = (Player) ((EntityDecorator) world.getPlayer()).getEntity();
