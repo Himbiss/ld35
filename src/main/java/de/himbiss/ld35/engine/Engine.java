@@ -50,6 +50,7 @@ public class Engine {
     private ScriptEngine scriptEngine;
     private String infoMessage;
     private long infoDelay;
+    private CollisionDetector collisionDetector;
 
     private Engine() {
         this.displayMode = new DisplayMode(800, 600);
@@ -98,6 +99,7 @@ public class Engine {
 
     public void setWorld(World world) {
         this.world = world;
+        this.collisionDetector = new CollisionDetector(world);
     }
 
     public void start() {
@@ -350,7 +352,7 @@ public class Engine {
             }
         }
 
-        CollisionDetector collisionDetector = new CollisionDetector(entities, tileHitboxes);
+
         collisionDetector.doCollision();
 
         //Apply Gravity only after Collision Detection!!!

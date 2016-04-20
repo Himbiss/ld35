@@ -1,31 +1,50 @@
 package de.himbiss.ld35.engine;
 
+import de.himbiss.ld35.world.World;
 import de.himbiss.ld35.world.entity.Entity;
+import de.himbiss.ld35.world.generator.Tile;
+import javafx.collections.ObservableList;
+import org.newdawn.slick.geom.Rectangle;
 
 import java.util.*;
+import java.util.List;
 
 /**
  * Created by Vincent on 16.04.2016.
  */
 public class CollisionDetector {
 
-    private final List<Entity> entities;
-    private final Set<HasHitbox> tileHitboxes;
+    private final World world;
+    private final QuadTree quadTree;
 
-    public CollisionDetector(List<Entity> entities, Set<HasHitbox> tileHitboxes) {
-        this.entities = new ArrayList<>(entities);
-        this.tileHitboxes = new HashSet<>(tileHitboxes);
+    public CollisionDetector(World world) {
+        this.world = world;
+        this.quadTree = new QuadTree(0, new Rectangle(0, 0, Tile.TILE_SIZE * world.getSizeX(), Tile.TILE_SIZE * world.getSizeY()));
     }
 
     public void doCollision() {
-        for (Entity entity1 : entities) {
-            for (Entity entity2 : entities) {
-                if (entity1 != entity2) {
-                    calculateCollision(entity1, entity2);
+        quadTree.clear();
+        ObservableList<Entity> entities = world.getEntities();
+        for (int i = 0; i < entities.size(); i++) {
+            quadTree.insert(entities.get(i));
+        }
+
+        List<HasHitbox> tilesWithHitbox = world.getTilesWithHitbox();
+        for (int i = 0; i < tilesWithHitbox.size(); i++) {
+            quadTree.insert(tilesWithHitbox.get(i));
+        }
+
+        List<HasHitbox> returnObjects = new ArrayList<>();
+        for (int i = 0; i < entities.size(); i++) {
+            returnObjects.clear();
+            Entity entity1 = entities.get(i);
+            quadTree.retrieve(returnObjects, entity1);
+
+            for (int x = 0; x < returnObjects.size(); x++) {
+                HasHitbox hasHitbox = returnObjects.get(x);
+                if (! entity1.equals(hasHitbox)) {
+                    calculateCollision(entity1, hasHitbox);
                 }
-            }
-            for (HasHitbox tileHitbox : tileHitboxes) {
-                calculateCollision(entity1, tileHitbox);
             }
         }
     }

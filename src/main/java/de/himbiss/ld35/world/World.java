@@ -4,6 +4,7 @@ import com.sun.javafx.collections.ObservableListWrapper;
 import de.himbiss.ld35.editor.Editor;
 import de.himbiss.ld35.engine.AudioManager;
 import de.himbiss.ld35.engine.Engine;
+import de.himbiss.ld35.engine.HasHitbox;
 import de.himbiss.ld35.world.entity.*;
 import de.himbiss.ld35.world.fightsystem.BulletFactory;
 import de.himbiss.ld35.world.fightsystem.EntityDecorator;
@@ -34,12 +35,14 @@ public class World implements Updatable {
     private int bossY;
     private List<RoomStrukt> roomlist;
     private List<RoomStrukt> roomlist_end;
+    private List<HasHitbox> tilesWithHitboxes;
 
     public World(int sizeX, int sizeY) {
         this.sizeX = sizeX;
         this.sizeY = sizeY;
         this.worldArray = new Tile[sizeX][sizeY];
         this.entities = new ObservableListWrapper<Entity>(new ArrayList<>());
+        this.tilesWithHitboxes = new ArrayList<>();
         this.roomlist = new ArrayList<>();
         this.roomlist_end = new ArrayList<>();
         this.startX = 0;
@@ -115,6 +118,9 @@ public class World implements Updatable {
     public void setTile(int x, int y, Tile tile){
         if(x<0 || y < 0 || x>=this.getSizeX() || y>= this.getSizeY()) return;
         worldArray[x][y] = tile;
+        if (tile instanceof HasHitbox) {
+            tilesWithHitboxes.add(((HasHitbox) tile));
+        }
     }
 
     private void initArray() {
@@ -172,5 +178,9 @@ public class World implements Updatable {
             }
         }
         return null;
+    }
+
+    public List<HasHitbox> getTilesWithHitbox() {
+        return tilesWithHitboxes;
     }
 }
