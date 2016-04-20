@@ -12,6 +12,7 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL12;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.opengl.Texture;
@@ -382,6 +383,15 @@ public class Engine {
         GL11.glEnable(GL11.GL_BLEND);
         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 
+        //Setup filtering, i.e. how OpenGL will interpolate the pixels when scaling up or down
+        GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, GL11.GL_NEAREST);
+        GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, GL11.GL_NEAREST);
+
+        //Setup wrap mode, i.e. how OpenGL will handle pixels outside of the expected range
+        //Note: GL_CLAMP_TO_EDGE is part of GL12
+        GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_S, GL12.GL_CLAMP_TO_EDGE);
+        GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_T, GL12.GL_CLAMP_TO_EDGE);
+
         GL11.glViewport(0,0,displayMode.getWidth(),displayMode.getHeight());
         GL11.glMatrixMode(GL11.GL_MODELVIEW);
 
@@ -441,8 +451,18 @@ public class Engine {
     }
 
     private void renderWorld() {
-        for (int i = 0; i < world.getSizeX(); i++) {
-            for (int j = 0; j < world.getSizeY(); j++) {
+        int iStart = (int) Math.abs(offsetX / Tile.TILE_SIZE);
+        int jStart = (int) Math.abs(offsetY / Tile.TILE_SIZE);
+        int tilesHorizontal = displayMode.getWidth() / Tile.TILE_SIZE;
+        int tilesVertical = displayMode.getHeight() / Tile.TILE_SIZE;
+        int iMax = iStart + tilesHorizontal + 1;
+        int jMax = jStart + tilesVertical + 1;
+
+        iMax = iMax > world.getSizeX() ? world.getSizeX() : iMax;
+        jMax = jMax > world.getSizeY() ? world.getSizeY() : jMax;
+
+        for (int i = iStart ; i < iMax; i++) {
+            for (int j = jStart; j < jMax; j++) {
                 Tile tile = world.getWorldArray()[i][j];
                 float posX = offsetX + (i * tile.getWidth());
                 float posY = offsetY + (j * tile.getHeight());
