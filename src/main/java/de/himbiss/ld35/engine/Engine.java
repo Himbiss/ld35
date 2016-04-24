@@ -306,14 +306,18 @@ public class Engine {
             for(int j = 0; j<world.getSizeY();j++){
                 Tile t = world.getWorldArray()[i][j];
                 Texture texture = null;
-                if(t instanceof Tile_Floor || t instanceof Tile_SpawnButton){
-                    texture = ResourceManager.getInstance().getTexture("gray");
-                }else if(t instanceof Tile_Corridor || t instanceof  Tile_Button || (t instanceof  Tile_Door && ((Tile_Door)t).isOpen())){
-                    texture = ResourceManager.getInstance().getTexture("gray2");
-                }else if(t instanceof Tile_Wall ||(t instanceof  Tile_Door && !((Tile_Door)t).isOpen()) || (i == cx && j == cy)){
-                    texture = ResourceManager.getInstance().getTexture("blue");
-                } else {
-                    texture = ResourceManager.getInstance().getTexture("alpha");
+
+                texture = ResourceManager.getInstance().getTexture("alpha");
+                if(t.isRendered()) {
+                    if ((i == cx && j == cy)) {
+                        texture = ResourceManager.getInstance().getTexture("red");
+                    } else if (t instanceof Tile_Floor || t instanceof Tile_SpawnButton) {
+                        texture = ResourceManager.getInstance().getTexture("gray");
+                    } else if (t instanceof Tile_Corridor || t instanceof Tile_Button || (t instanceof Tile_Door && ((Tile_Door) t).isOpen())) {
+                        texture = ResourceManager.getInstance().getTexture("gray2");
+                    } else if (t instanceof Tile_Wall || (t instanceof Tile_Door && !((Tile_Door) t).isOpen())) {
+                        texture = ResourceManager.getInstance().getTexture("blue");
+                    }
                 }
                 if(texture!=null) texture.bind();
 
@@ -467,6 +471,7 @@ public class Engine {
                 float posX = offsetX + (i * tile.getWidth());
                 float posY = offsetY + (j * tile.getHeight());
                 renderObject(tile, posX, posY);
+                tile.setRendered();
             }
         }
         for (Entity entity : world.getEntities()) {

@@ -11,6 +11,7 @@ public abstract class Tile implements Renderable {
     public static int TILE_SIZE = 50;
     public float coordx;
     public float coordy;
+    boolean rendered = false;
 
     protected String textureKey;
 
@@ -37,7 +38,16 @@ public abstract class Tile implements Renderable {
     }
 
     public Texture getTexture() {
+
         return ResourceManager.getInstance().getTexture(textureKey);
+    }
+
+    public void setRendered() {
+        this.rendered = true;
+    }
+
+    public boolean isRendered() {
+        return rendered;
     }
 }
 

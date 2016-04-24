@@ -61,11 +61,11 @@ public class Player extends Entity implements HasHealth, HasScript, MovingStrate
     }
 
     public void update(int delta) {
-        if (Keyboard.isKeyDown(Keyboard.KEY_ADD) && (System.currentTimeMillis() - lastKey) > 100) {
+        if (Keyboard.isKeyDown(Keyboard.KEY_ADD) && (System.currentTimeMillis() - lastKey) > 200) {
             index_inc();
             lastKey = System.currentTimeMillis();
         }
-        else if (Keyboard.isKeyDown(Keyboard.KEY_SUBTRACT) && (System.currentTimeMillis() - lastKey) > 100) {
+        else if (Keyboard.isKeyDown(Keyboard.KEY_SUBTRACT) && (System.currentTimeMillis() - lastKey) > 200) {
             index_dec();
             lastKey = System.currentTimeMillis();
         }
