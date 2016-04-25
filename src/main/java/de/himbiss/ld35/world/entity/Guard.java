@@ -8,6 +8,7 @@ import de.himbiss.ld35.world.generator.Tile;
 import de.himbiss.ld35.world.generator.Tile_Door;
 import de.himbiss.ld35.world.generator.Tile_Floor;
 import de.himbiss.ld35.world.generator.Tile_Wall;
+import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.SpriteSheet;
@@ -145,7 +146,7 @@ public class Guard extends Enemy implements HasScript, IsAnimated, MovingStrateg
 
         if(Math.sqrt(dx*dx+dy*dy)>dist_move*50 && Math.sqrt(dx*dx+dy*dy)<dist_ignore*50 ) {
             Tile ta = w.getWorldArray()[(int)(tX+25)/50+aX][(int)(tY+25)/50+aY];
-            if(ta instanceof Tile_Wall || (ta instanceof Tile_Door && !((Tile_Door) ta).isOpen())) {
+            if(true){//ta instanceof Tile_Wall || (ta instanceof Tile_Door && !((Tile_Door) ta).isOpen())) {
 
                 //TODO smart pathfinding
                 int sx = w.getSizeX();
@@ -162,10 +163,12 @@ public class Guard extends Enemy implements HasScript, IsAnimated, MovingStrateg
                 for(int i = 0; i< sx;i++){
                     for(int j = 0; j<sy;j++){
                         value[i][j] = 9999999;
+                        visited[i][j] = false;
+                        direction[i][j] = 0;
                     }
                 }
-                value[cX][cY] = 0;
-                direction[cX][cY] = 0;
+                value[TX][TY] = 0;
+                direction[TX][TY] = 0;
                 //Directions
                 //      1
                 //      |
@@ -173,46 +176,53 @@ public class Guard extends Enemy implements HasScript, IsAnimated, MovingStrateg
                 //      |
                 //      3
 
-                while(cX != PX && cY != PY){
+                while(cX != PX || cY != PY){
                     visited[cX][cY] = true;
-                    System.out.println(cX + " | " + cY);
                     if(cX >0){
                         Tile t = w.getWorldArray()[cX-1][cY];
                         if(t instanceof Tile_Floor || (t instanceof Tile_Door && ((Tile_Door) t).isOpen())){
-                            int v = value[cX][cY] + 10 + Math.abs(cX-1-PX) + Math.abs(cY-PY);
-                            if(v< value[cX-1][cY]){
-                                value[cX-1][cY] = v;
-                                direction[cX-1][cY] = 2;
+                            if(!visited[cX-1][cY]) {
+                                int v = value[cX][cY] + 10 + Math.abs(cX - 1 - PX) + Math.abs(cY - PY);
+                                if (v < value[cX - 1][cY]) {
+                                    value[cX - 1][cY] = v;
+                                    direction[cX - 1][cY] = 2;
+                                }
                             }
                         }
                     }
                     if(cY >0){
                         Tile t = w.getWorldArray()[cX][cY-1];
                         if(t instanceof Tile_Floor || (t instanceof Tile_Door && ((Tile_Door) t).isOpen())){
-                            int v = value[cX][cY] + 10 + Math.abs(cX-PX) + Math.abs(cY-1-PY);
-                            if(v< value[cX][cY-1]){
-                                value[cX][cY-1] = v;
-                                direction[cX][cY-1] = 3;
+                            if(!visited[cX][cY-1]) {
+                                int v = value[cX][cY] + 10 + Math.abs(cX - PX) + Math.abs(cY - 1 - PY);
+                                if (v < value[cX][cY - 1]) {
+                                    value[cX][cY - 1] = v;
+                                    direction[cX][cY - 1] = 3;
+                                }
                             }
                         }
                     }
                     if(cX <sx-1){
                         Tile t = w.getWorldArray()[cX+1][cY];
                         if(t instanceof Tile_Floor || (t instanceof Tile_Door && ((Tile_Door) t).isOpen())){
-                            int v = value[cX][cY] + 10 + Math.abs(cX+1-PX) + Math.abs(cY-PY);
-                            if(v< value[cX+1][cY]){
-                                value[cX+1][cY] = v;
-                                direction[cX+1][cY] = 4;
+                            if(!visited[cX+1][cY]) {
+                                int v = value[cX][cY] + 10 + Math.abs(cX + 1 - PX) + Math.abs(cY - PY);
+                                if (v < value[cX + 1][cY]) {
+                                    value[cX + 1][cY] = v;
+                                    direction[cX + 1][cY] = 4;
+                                }
                             }
                         }
                     }
                     if(cY < sy-1){
                         Tile t = w.getWorldArray()[cX][cY+1];
                         if(t instanceof Tile_Floor || (t instanceof Tile_Door && ((Tile_Door) t).isOpen())){
-                            int v = value[cX][cY] + 10 + Math.abs(cX-PX) + Math.abs(cY+1-PY);
-                            if(v< value[cX][cY+1]){
-                                value[cX][cY+1] = v;
-                                direction[cX][cY+1] = 1;
+                            if(!visited[cX][cY+1]) {
+                                int v = value[cX][cY] + 10 + Math.abs(cX - PX) + Math.abs(cY + 1 - PY);
+                                if (v < value[cX][cY + 1]) {
+                                    value[cX][cY + 1] = v;
+                                    direction[cX][cY + 1] = 1;
+                                }
                             }
                         }
                     }
@@ -223,7 +233,7 @@ public class Guard extends Enemy implements HasScript, IsAnimated, MovingStrateg
                     int ny = -1;
                     for(int i = 0; i< sx;i++){
                         for(int j = 0; j<sy;j++){
-                            if(!visited[i][j]){
+                            if((!visited[i][j]) && (i!=TX || j!=TY)){
                                 if(value[i][j] < nv){
                                     nx = i;
                                     ny = j;
@@ -235,39 +245,43 @@ public class Guard extends Enemy implements HasScript, IsAnimated, MovingStrateg
                         cX = nx;
                         cY = ny;
                     } else {
-                        System.out.println("no better");
                         break;
                     }
 
                 }
-
                 int lastdirection = 0;
-                //cX = PX;
-                //cY = PY;
-                while(cX != TX && cY != TY) {
-                    System.out.println(cX + " x " + cY);
+                cX = PX;
+                cY = PY;
+                while(cX != TX || cY != TY) {
                     int cd = direction[cX][cY];
+                    if (Keyboard.isKeyDown(Keyboard.KEY_F5)){
+                        w.getWorldArray()[cX][cY] = new Tile_Wall(cX,cY);
+
+                    }
                     if(cd == 1){
-                        cX --;
-                    }
-                    if(cd == 3){
-                        cX ++;
-                    }
-                    if(cd == 2){
-                        cY ++;
-                    }
-                    if(cd == 4){
                         cY --;
                     }
-                    lastdirection = cd;
-                    if(lastdirection == 0){
+                    if(cd == 3){
+                        cY ++;
+                    }
+                    if(cd == 2){
+                        cX ++;
+                    }
+                    if(cd == 4){
+                        cX --;
+                    }
+                    if(cd == 0){
                         System.out.println("Direction Zero");
+                        //cd = (lastdirection +2)%4;
+                        //cd ++;
                         break;
                     }
+
+                    lastdirection = cd;
                 }
 
                 switch(lastdirection){
-                    case 1:
+                    case 3:
                         animationKey = "walk_up";
                         deltaY -= speed * deltaT;
                         break;
@@ -275,7 +289,7 @@ public class Guard extends Enemy implements HasScript, IsAnimated, MovingStrateg
                         animationKey = "walk_right";
                         deltaX += speed * deltaT;
                         break;
-                    case 3:
+                    case 1:
                         animationKey = "walk_down";
                         deltaY += speed * deltaT;
                         break;

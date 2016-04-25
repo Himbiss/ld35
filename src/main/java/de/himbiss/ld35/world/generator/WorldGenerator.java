@@ -72,7 +72,7 @@ public class WorldGenerator {
 
 
         while(hasCollision(roomStruktList,rnd.nextInt()));
-        System.out.println("done shifting");
+        //System.out.println("done shifting");
 
         int minx = 0;
         int miny = 0;
@@ -92,9 +92,9 @@ public class WorldGenerator {
         }
 
 
-        for(RoomStrukt r: roomStruktList){
-            System.out.println(toText(r));
-        }
+        //for(RoomStrukt r: roomStruktList){
+        //    System.out.println(toText(r));
+        //}
 
 
 
@@ -111,7 +111,7 @@ public class WorldGenerator {
                 singlerooms.add(roomStruktList.get(i));
             }
         }
-        System.out.println("Einzelräume: " + singlerooms.size());
+        //System.out.println("Einzelräume: " + singlerooms.size());
         Graph_Edge longest = new Graph_Edge(0,1);
         for(int i = 0; i< singlerooms.size();i++){
             for(int j = i+1;j<singlerooms.size();j++){
@@ -324,9 +324,9 @@ public class WorldGenerator {
             }
             r.setDoors(tmp);
             if(r.type!=2) {
-                System.out.println("doors: " + doors.size() + " - tmp: " + tmp.length + " p: " + p.size() + " q: " + q.size());
+                //System.out.println("doors: " + doors.size() + " - tmp: " + tmp.length + " p: " + p.size() + " q: " + q.size());
                 for (int j = 0; j < doors.size(); j += 3) {
-                    System.out.println(j + " " + (j + 1) + " " + (j + 2));
+                    //System.out.println(j + " " + (j + 1) + " " + (j + 2));
                     Tile_Door[] tmp2 = new Tile_Door[]{tmp[j], tmp[j + 1], tmp[j + 2]};
                     int[] p2 = new int[]{p.get(j), p.get(j + 1), p.get(j + 2)};
                     int[] q2 = new int[]{q.get(j), q.get(j + 1), q.get(j + 2)};
