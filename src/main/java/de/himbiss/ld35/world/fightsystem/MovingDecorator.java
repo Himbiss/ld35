@@ -41,7 +41,7 @@ public class MovingDecorator extends EntityDecorator {
             MovingStrategy strategy = ((MovingStrategy) entity);
 
             // handle animation
-            if (renderMyself()) {
+            if (renderMyself() && animationMap != null) {
                 String animation = strategy.getAnimation();
                 if (animation.equals("freeze")) {
                     if (!currentAnimation.isStopped()) {
@@ -76,13 +76,15 @@ public class MovingDecorator extends EntityDecorator {
 
     @Override
     public boolean renderMyself() {
-        return animationMap != null;
+        return super.renderMyself() || animationMap != null;
     }
 
     @Override
     public void render(Engine engine) {
         super.render(engine);
-        currentAnimation.draw(entity.getCoordX(), entity.getCoordY(), entity.getWidth(), entity.getHeight());
+        if (currentAnimation != null) {
+            currentAnimation.draw(entity.getCoordX(), entity.getCoordY(), entity.getWidth(), entity.getHeight());
+        }
     }
 
     @Override

@@ -116,7 +116,7 @@ public class Engine {
 
             int delta = getDelta();
             // Clear the screen and depth buffer
-            GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
+            //GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
 
             world.update(delta);
             calculatePhysics();
@@ -236,6 +236,7 @@ public class Engine {
 
     private void renderUI(){
 
+        GL11.glColor3f(1f, 1f, 1f);
         if (infoDelay > 0) {
             debugFont.drawString(20f, 20f, infoMessage, Color.gray);
             infoDelay--;
@@ -506,6 +507,7 @@ public class Engine {
             object.render(this);
         }
         else {
+            GL11.glColor3f(1f, 1f, 1f);
             Texture texture = object.getTexture();
             
             texture.bind();

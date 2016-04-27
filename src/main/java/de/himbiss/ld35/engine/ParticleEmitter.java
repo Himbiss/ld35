@@ -5,6 +5,7 @@ import de.himbiss.ld35.world.fightsystem.Bullet;
 import de.himbiss.ld35.world.fightsystem.EntityDecorator;
 import de.himbiss.ld35.world.fightsystem.MovingDecorator;
 import de.himbiss.ld35.world.fightsystem.MovingStrategy;
+import javafx.collections.ObservableList;
 import org.lwjgl.opengl.GL11;
 
 /**
@@ -38,7 +39,9 @@ public class ParticleEmitter extends Entity {
                 float multiplicator = 2f / direction.abs().max();
                 direction = direction.mult(multiplicator);
 
-                Engine.getInstance().getWorld().getEntities().add(new MovingDecorator(new Particle(this, 1000, 1f, direction, coordX, coordY, 1f, 0f, 0f)));
+                MovingDecorator movingParticle = new MovingDecorator(new Particle(this, 1000, 1f, direction, coordX, coordY, 1f, .3f, 1f));
+                ObservableList<Entity> entities = Engine.getInstance().getWorld().getEntities();
+                entities.add(entities.size()-1, movingParticle);
             }
         }
     }
@@ -95,15 +98,12 @@ public class ParticleEmitter extends Entity {
             float posY = getCoordY();
             float alpha = 1f;
 
-            // Clear the screen and depth buffer
-            GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
-
-            // set the color of the quad (R,G,B,A)
-            GL11.glClearDepth(1);
-            GL11.glColor4f(0.0f,1.0f,0.0f, 1.0f);
 
             // draw quad
             GL11.glBegin(GL11.GL_QUADS);
+
+            // set the color of the quad (R,G,B,A)
+            GL11.glColor3f(colR, colG, colB);
 
             // upper left
             GL11.glVertex2f(posX-1, posY-1);
