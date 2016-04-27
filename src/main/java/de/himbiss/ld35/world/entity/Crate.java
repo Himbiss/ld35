@@ -15,10 +15,7 @@ public class Crate extends Entity implements HasHealth {
     private int health = 3;
 
     public Crate(float posX, float posY) {
-        this.coordX = posX;
-        this.coordY = posY;
-        this.width = 60;
-        this.height = 60;
+        super(posX, posY, 60, 60);
     }
 
     @Override

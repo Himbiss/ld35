@@ -25,12 +25,11 @@ public class Player extends Entity implements HasHealth, HasScript, MovingStrate
     private float acceleration = 1f;
 
     public Player() {
-        width = 50;
-        height = 50;
-        coordX =  (Engine.getInstance().getDisplayMode().getWidth() / 2) - (width / 2);
-        coordY =  (Engine.getInstance().getDisplayMode().getHeight() / 2) - (height / 2);
+        super((Engine.getInstance().getDisplayMode().getWidth() / 2) - (25),
+              (Engine.getInstance().getDisplayMode().getHeight() / 2) - (25),
+              50,
+              50);
         script = ResourceManager.getInstance().getScript("player");
-
         currentslot = 0;
         slot_unlocked = new boolean[3];
         slots = new EntityDecorator[3];

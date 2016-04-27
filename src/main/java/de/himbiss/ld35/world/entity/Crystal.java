@@ -14,11 +14,8 @@ public class Crystal extends Entity implements HasHitbox {
     private EntityDecorator emptyDecorator;
 
     public Crystal(EntityDecorator decorator, float posX, float posY) {
+        super(posX, posY, 32, 16);
         emptyDecorator = decorator;
-        coordX = posX;
-        coordY = posY;
-        width = 16;
-        height = 32;
     }
 
     @Override

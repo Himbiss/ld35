@@ -301,7 +301,7 @@ public class Guard extends Enemy implements HasScript, IsAnimated, MovingStrateg
                         animationKey = "freeze";
                         break;
                 }
-                System.out.println(lastdirection);
+                //System.out.println(lastdirection);
                 return new Vector2D(deltaX, deltaY);
 
             } else {

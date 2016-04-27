@@ -12,7 +12,7 @@ public class Tile_SpawnButton extends Tile {
     private RoomStrukt myroom;
     private boolean isUsed;
     public Tile_SpawnButton(int x, int y, RoomStrukt room) {
-        textureKey = "spawnbutton";
+        textureKey = "sspawnbutton";
         coordx = x;
         coordy = y;
         myroom = room;

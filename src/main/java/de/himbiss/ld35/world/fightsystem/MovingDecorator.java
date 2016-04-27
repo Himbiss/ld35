@@ -15,16 +15,21 @@ public class MovingDecorator extends EntityDecorator {
 
     protected float deltaX = 0;
     protected float deltaY = 0;
+    protected float deltaMax = 2f;
     private Map<String,Animation> animationMap;
     private Animation currentAnimation;
 
     public MovingDecorator(Entity entity) {
         super(entity);
+        if (! (getEntity() instanceof MovingStrategy)) {
+            throw new IllegalArgumentException("entity has to implement MovingStrategy");
+        }
         if (getEntity() instanceof IsAnimated) {
             this.animationMap = ((IsAnimated) getEntity()).getAnimationMap();
             this.currentAnimation = animationMap.get("walk_down");
             this.currentAnimation.stop();
         }
+        this.deltaMax = ((MovingStrategy) getEntity()).getDeltaMax();
     }
 
     @Override
@@ -48,8 +53,6 @@ public class MovingDecorator extends EntityDecorator {
             }
 
             // handle deltas
-            float deltaMax = strategy.getDeltaMax();
-
             Vector2D direction = strategy.calcDirection(deltaX, deltaY, delta);
             float deltaX = direction.getX();
             float deltaY = direction.getY();

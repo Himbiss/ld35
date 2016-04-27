@@ -5,6 +5,7 @@ import de.himbiss.ld35.editor.Editor;
 import de.himbiss.ld35.engine.AudioManager;
 import de.himbiss.ld35.engine.Engine;
 import de.himbiss.ld35.engine.HasHitbox;
+import de.himbiss.ld35.engine.ParticleEmitter;
 import de.himbiss.ld35.world.entity.*;
 import de.himbiss.ld35.world.fightsystem.BulletFactory;
 import de.himbiss.ld35.world.fightsystem.EntityDecorator;
@@ -70,6 +71,7 @@ public class World implements Updatable {
         entities.add(guardDecorator);
         entities.add(new Crate(player.getCoordX() + 100 , player.getCoordY()));
         entities.add(new Enemy(player.getCoordX() - 100 , player.getCoordY()));
+        entities.add(new ParticleEmitter(player.getCoordX() - 50, player.getCoordY() - 40, 12, 100));
         AudioManager.getInstance().getAudio("dummy").playAsMusic(1.0f,1.0f,true);
     }
 

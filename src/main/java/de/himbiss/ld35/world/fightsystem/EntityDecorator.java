@@ -13,6 +13,7 @@ public abstract class EntityDecorator extends Entity implements HasHealth, Movem
     protected Entity entity;
 
     protected EntityDecorator(Entity entity) {
+        super(entity.getCoordX(), entity.getCoordY(), entity.getHeight(), entity.getWidth());
         this.entity = entity;
         this.entity.setDecorator(this);
     }

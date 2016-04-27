@@ -500,9 +500,8 @@ public class Engine {
         fps++;
     }
 
-    private void renderObject(Renderable object,float posX, float posY) {
+    private void renderObject(Renderable object, float posX, float posY) {
 
-        GL11.glColor3f(1f, 1f, 1f);
         if (object.renderMyself()) {
             object.render(this);
         }

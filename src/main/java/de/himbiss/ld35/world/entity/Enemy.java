@@ -18,13 +18,8 @@ public class Enemy extends Entity implements Renderable, HasHealth {
 
 
     public Enemy(float posX, float posY) {
+        super(posX, posY, 50, 50);
         textureKey = "crate";
-        width = 50;
-        height = 50;
-        coordX = posX;
-        coordY = posY;
-
-
     }
 
     public void update(int delta) {

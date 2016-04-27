@@ -23,7 +23,11 @@ public abstract class Entity implements Renderable, Updatable, HasHitbox {
 
     private EntityDecorator decorator;
 
-    public Entity() {
+    public Entity(float coordX, float coordY, int height, int width) {
+        this.coordX = coordX;
+        this.coordY = coordY;
+        this.height = height;
+        this.width = width;
     }
 
     protected EntityDecorator getDecorator() {

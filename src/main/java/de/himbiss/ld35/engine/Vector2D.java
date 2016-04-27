@@ -5,6 +5,10 @@ package de.himbiss.ld35.engine;
  */
 public final class Vector2D {
 
+    public static Vector2D randomVector() {
+        return new Vector2D((float) Math.random() - .5f, (float) Math.random() - .5f);
+    }
+
     private final float x;
     private final float y;
 
